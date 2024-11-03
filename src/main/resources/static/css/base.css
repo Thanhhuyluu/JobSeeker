@@ -1,0 +1,63 @@
+:root {
+    --white-color: #fff;
+    --black-color: #000;
+    --text-color: #333;
+    --button-color: #007150;
+
+    --search-bar--main-height: 60px;
+
+    --active-color: #f4f5f5;
+}
+
+* {
+    box-sizing: inherit;
+
+}
+
+html {
+    font-size: 62.5%;
+    line-height: 1.6rem;
+    font-family: 'Roboto', sans-serif;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+}
+
+
+.app-button{
+    font-size: 1.6rem;
+    padding:  16px 26px;
+    border-radius: 24px;
+    background-color: #007150;
+    color: var(--white-color);
+    transition: all linear 0.1s;
+}
+
+.app-button:hover{
+    background-color: #079b6e;
+    cursor: pointer;
+}
+
+/* Đối với Chrome, Safari và Edge */
+::-webkit-scrollbar {
+    width: 6px; 
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Màu nền của track */
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888; /* Màu của scrollbar */
+    border-radius: 4px; /* Bo tròn các góc */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #8a8a8a; /* Màu khi hover */
+}
+
+.hide {
+    display: none !important;
+}
