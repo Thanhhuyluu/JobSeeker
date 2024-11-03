@@ -1,14 +1,14 @@
 package com.luv2code.pbl4.jobseekerapplication.utils;
-public enum JobTypeEnum {
+public enum CareerLevelEnum {
 
-    FULLTIME("fulltime", "toàn thời gian"),
-    PARTTIME("parttime", "bán thời gian"),
-    INTERN("intern", "thực tập sinh");
+    STAFF("staff", "Nhân viên"),
+    MANAGER("manager", "Quản lý / Giám sát"),
+    INTERN("intern", "Thực tập sinh");
 
     private final String displayName;
     private final String databaseName;
 
-    JobTypeEnum(String displayName, String databaseName) {
+    CareerLevelEnum(String displayName, String databaseName) {
         this.displayName = displayName;
         this.databaseName = databaseName;
     }
@@ -23,7 +23,7 @@ public enum JobTypeEnum {
 
 
     public static String getDatabaseNameByDisplayName(String displayName) {
-        for (JobTypeEnum type : values()) {
+        for (CareerLevelEnum type : values()) {
             if (type.getDisplayName().equalsIgnoreCase(displayName)) {
                 return type.getDatabaseName();
             }
@@ -31,7 +31,7 @@ public enum JobTypeEnum {
         return null;
     }
     public static String getDisplayNameByDatabaseName(String databaseName) {
-        for (JobTypeEnum type : values()) {
+        for (CareerLevelEnum type : values()) {
             if (type.getDatabaseName().equalsIgnoreCase(databaseName)) {
                 return type.getDisplayName();
             }

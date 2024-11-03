@@ -2,6 +2,9 @@ package com.luv2code.pbl4.jobseekerapplication.entity;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "companies")
 public class Company {
@@ -25,15 +28,24 @@ public class Company {
     @Column(name="company_website")
     private String companyWebsite;
 
+    @Column(name = "company_logo")
+    private String companyLogo;
+
+    @OneToMany(mappedBy = "company",
+            fetch = FetchType.LAZY,
+            cascade = {CascadeType.DETACH, CascadeType.MERGE,
+                    CascadeType.REFRESH, CascadeType.PERSIST})
+    List<Job> jobs;
     public Company() {
     }
 
-    public Company(String companyName, String companyUrl, String companyLocation, String companyDescription, String companyWebsite) {
+    public Company(String companyName, String companyUrl, String companyLocation, String companyDescription, String companyWebsite, String companyLogo) {
         this.companyName = companyName;
         this.companyUrl = companyUrl;
         this.companyLocation = companyLocation;
         this.companyDescription = companyDescription;
         this.companyWebsite = companyWebsite;
+        this.companyLogo = companyLogo;
     }
 
     public int getCompanyId() {
@@ -82,5 +94,31 @@ public class Company {
 
     public void setCompanyWebsite(String companyWebsite) {
         this.companyWebsite = companyWebsite;
+    }
+
+    public String getCompanyLogo() {
+        return companyLogo;
+    }
+
+    public void setCompanyLogo(String companyLogo) {
+        this.companyLogo = companyLogo;
+    }
+
+    public List<Job> getJobs() {
+        return jobs;
+    }
+
+    public void setJobs(List<Job> jobs) {
+        this.jobs = jobs;
+    }
+
+    public void add(Job job) {
+
+        if(jobs == null) {
+            jobs = new ArrayList<>();
+        }
+
+        jobs.add(job);
+        job.setCompany(this);
     }
 }

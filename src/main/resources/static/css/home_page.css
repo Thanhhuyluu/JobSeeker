@@ -39,7 +39,7 @@
 
 .header__navbar-item-text:last-child {
     padding-left: 12px;
-    padding-right: 0px;
+    padding-right: 0;
 
 }
 
@@ -161,7 +161,7 @@
     position: absolute;
     top: calc(100% + 15px);
     left: 0;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0 1px 4px;
     padding: 0;
     width: 200px;
     z-index: 100;
@@ -232,7 +232,7 @@
     padding:0  10px;
     border-radius: 30px;
     height: var(--search-bar--main-height);
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;;
+    box-shadow: rgba(0, 0, 0, 0.16) 0 1px 4px;;
 }
 
 .search-bar--main-section{
@@ -286,7 +286,7 @@
 
 .search-bar--main-section-action-clear {
     font-size: 1.6rem;
-    margin: 14px;
+    margin: 5px;
 }
 .search-bar--main-section-action-clear:hover{
     cursor: pointer;
@@ -336,7 +336,7 @@
     left: 0;
     background-color: var(--white-color);
     padding: 0;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0 1px 4px;
     height: 200px;
     overflow-y: scroll;
     display: none;
@@ -397,12 +397,27 @@
 
 
 
-
-.filter-heading{
-    margin: 0;
+.filter-heading {
     color: var(--text-color);
-    margin-top: 80px;
+    margin: 80px 0 0;
+    display: flex;
+
 }
+.filter-heading-text {
+    margin: 0;
+}
+
+.filter-icon {
+    color: var(--text-color);
+    transition: color linear 0.2s;
+    margin-left: 10px;
+}
+.filter-heading:hover .filter-icon,
+.filter-heading:hover {
+    color: #676767;
+    cursor: pointer;
+}
+
 .result-overview,
 .filter-heading {
     margin-bottom: 30px;
@@ -434,7 +449,6 @@
 .result-overview-sort-principle-list {
     position: absolute; 
     top: calc(100% + 12px);
-    left: 0;
     right: 0;
     padding: 0;
     margin: 0;
@@ -444,6 +458,7 @@
     height: 100px;
     overflow-y: scroll;
     display: none;
+    min-width: 170px;
 }
 
 
@@ -519,7 +534,7 @@
     font-size: 1.6rem;
     text-transform: uppercase;
     margin: 0;
-f
+
 }
 
 .app-main-filter-section-list {
@@ -560,7 +575,7 @@ f
 
 .app-main-filter-section-select {
     height: 30px;
-    font: 1.6rem;
+    font-size: 1.6rem;
     width: 200px;
     outline: none;
     display: flex;
@@ -635,7 +650,7 @@ f
 }
 
 .app-main-filter-section-option:hover {
-    background-color: green;
+    background-color: #474747;
     color: white;
 }
 
@@ -666,8 +681,15 @@ f
     margin: 0;
 }
 
-.app-main-job-item {
 
+.app-main-job-item-link:hover{
+    background-color: rgba(255, 255, 255, 0.2);
+
+    border: 1px solid #8d8d8d;
+}
+
+.app-main-job-item-link{
+    text-decoration: none;
     background-color: var(--white-color);
     border-radius: 10px;
     display: flex;
@@ -679,12 +701,6 @@ f
     border: 1px solid #ccc;
     transition: all ease-in 0.1s;
 }
-.app-main-job-item:hover{
-    background-color: rgba(255, 255, 255, 0.2);
-    
-    border: 1px solid #8d8d8d;
-}
-
 
 .app-main-job-item-description{
     display: flex;
@@ -705,7 +721,7 @@ f
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
-    border: 1px solid var(--text-color);
+    border: 1px solid #dfdbdb;
     border-radius: 50%;
     margin-right: 10px;
 }
@@ -726,8 +742,9 @@ f
 
 .app-main-job-item-main-infor-tag{
     background-color: #e4e3e3;
-
-    padding: 3px 8px;
+    height: 18px;
+    padding: 3px 11px;
+    line-height: 1.4rem;
     font-size: 1.2rem;
     font-weight: 500;
     border-radius: 9px;
@@ -747,7 +764,7 @@ f
 
 
 .app-main-job-item-main-infor-tag-limit{
-    width: 100px;
+    width: 120px;
     overflow: hidden;
     display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -854,11 +871,30 @@ f
     color: var(--text-color);
 }
 
+.app-main-navigate-item-btn {
+    text-decoration: none;
+    color: var(--text-color);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: transparent;
+    outline: none;
+    border: none;
+}
+
 .app-main-navigate-item.active {
     
     color: var(--white-color);
     
-    background-color: #747474;s
+    background-color: #747474;
+}
+.app-main-navigate-item.active
+.app-main-navigate-item-btn {
+    color: var(--white-color);
+
 }
 
 .app-main-navigate-item p {
@@ -866,6 +902,8 @@ f
     padding: 0;
 }
 
+
+.app-main-navigate-item-btn:hover,
 .app-main-navigate-item:hover{   
     background-color: #747474;
     color: var(--white-color);

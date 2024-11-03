@@ -61,10 +61,7 @@ public class Industry {
 
     @Override
     public String toString() {
-        return "Industry{" +
-                "industryId=" + industryId +
-                ", industryName='" + industryName + '\'' +
-                '}';
+        return industryName;
     }
 
     public void addJob(Job job) {

@@ -33,6 +33,7 @@ body {
     background-color: #007150;
     color: var(--white-color);
     transition: all linear 0.1s;
+    border: none;
 }
 
 .app-button:hover{

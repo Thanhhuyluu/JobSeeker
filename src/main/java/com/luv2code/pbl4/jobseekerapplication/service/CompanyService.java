@@ -15,5 +15,4 @@ public interface CompanyService {
 
     void deleteById(int id);
 
-
 }
