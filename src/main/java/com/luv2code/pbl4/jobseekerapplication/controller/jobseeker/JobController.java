@@ -293,25 +293,14 @@ public class JobController {
 
     }
 
-    @GetMapping("/delete")
-    public String deleteEmployee(@RequestParam("jobId") int theJobId) {
-        //delete the employee
-        jobService.deleteById(theJobId);
-
+    @GetMapping("/{jobId}")
+    public String showJobDetail(@PathVariable("jobId") int jobId, Model model) {
+        Job theJob = jobService.findById(jobId);
+        model.addAttribute("job", theJob);
         //redirect to the /employees/list
-        return "redirect:/viec-lam/list";
+        return "web/job_infor_page";
     }
 
-    @GetMapping("/showFormForUpdate")
-    public String showFormForUpdate(@RequestParam("jobId") int theJobId, Model theModel) {
-
-        //get the employee from the service
-        Job theEmployee = jobService.findById(theJobId);
-        // set employee in the model to prepopulate the form
-        theModel.addAttribute("job", theEmployee);
-        // send over to our form
-        return "jobs/job-form";
-    }
 }
 
 

@@ -6,13 +6,14 @@
     <title>Job Search</title>
     <link rel="icon" type="image/x-icon" th:href="@{/img/logo.ico}">
     <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css.map}">
-    <link rel="stylesheet" th:href="@{/css/base.css}">
-    <link rel="stylesheet" th:href="@{/css/grid.css}">
-    <link rel="stylesheet" th:href="@{/css/home_page.css}">
+    <link rel="stylesheet" th:href="@{/css/web/base.css}">
+    <link rel="stylesheet" th:href="@{/css/web/grid.css}">
+    <link rel="stylesheet" th:href="@{/css/web/home_page.css}">
     <link rel="preconnect" th:href="@{https://fonts.googleapis.com}">
     <link rel="preconnect" th:href="@{https://fonts.gstatic.com}" crossorigin>
     <link th:href="@{https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap}" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/fonts/fontawesome-free-6.6.0-web/css/all.min.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
     <div class="app">
@@ -380,7 +381,7 @@
                             <div class="app-main-job-list-container">
                                 <ul id="app-main-job-list" class="app-main-job-list">
                                     <li th:each="job : ${jobs}" class="app-main-job-item">
-                                        <a href="#" th:title="${job.jobTitle}" class="app-main-job-item-link">
+                                        <a th:href="${job.jobId}" th:title="${job.jobTitle}" class="app-main-job-item-link">
                                             <div class="app-main-job-item-description">
                                                 <div class="app-main-job-item-infor">
                                                     <div class="app-main-job-item-company-img" th:style="|background-image: url(/img${job.company.companyLogo})|"></div>

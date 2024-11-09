@@ -1,0 +1,342 @@
+
+:root {
+    --left-bar-bg-color: #181822;
+    --dark-text-color: #1b1624;
+    --dark-bright-text-color: #4c4c56;
+    --active-color: #aadfd9;
+    --light-dark-color: #22222e;
+}
+
+
+.app {
+    display: flex;
+}
+
+.left-bar-logo {
+    width: 100%;
+    height: 90px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+
+}
+.left-bar {
+    width: 0;
+    opacity: 0.8;
+    background-color: var(--left-bar-bg-color);
+    transition: all linear 0.3s;
+    overflow: hidden;
+    min-height: 100vh;
+
+}
+.left-bar.active {
+    opacity: 1;
+    width: 280px;
+    transform: translateX(0);
+    border-right: 1px solid var(--dark-bright-text-color);
+}
+
+.left-bar-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.left-bar-item {
+    margin: 0;
+    padding: 0;
+    margin: 0 20px;
+    margin-bottom: 10px;
+}
+.left-bar-item.active
+.left-bar-item-link,
+.left-bar-item-link:hover {
+    background-color: var(--active-color);
+
+    color: var(--dark-text-color);
+}
+
+.left-bar-item-link{
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    font-size: 1.6rem;
+    font-weight: 600;
+    padding: 18px;
+    border-radius: 10px;
+    color: var(--dark-bright-text-color);
+    transition: all linear 0.2s;
+}
+
+.left-bar-item-link-icon {
+    padding-right: 10px;
+}
+
+.left-bar-item-link-text {
+    margin: 0;
+    padding: 0;
+}
+
+.main-content {
+    background-color: var(--left-bar-bg-color);
+    width: 100%;
+    padding: 20px;
+
+    min-height: 100vh;
+}
+
+.main-content-header-with-search {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.main-content-header-menu-open-icon {
+    color: var(--active-color);
+    font-size: 2.4rem;
+    margin-right: 20px;
+}
+
+.main-content-header-search-input {
+    flex: 1;
+    padding: 15px;
+    font-size: 1.6rem;
+    background-color: var(--light-dark-color);
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    color: var(--active-color);
+}
+
+
+.main-content-header-nav {
+
+}
+
+
+.main-content-header-nav-list {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+}
+
+.main-content-header-nav-item {
+    display: flex;
+    align-items: center;
+}
+
+.main-content-header-nav-icon.fa-bell{
+    font-size: 2.6rem;
+    margin-right: 20px;
+    position: relative;
+}
+
+
+.main-content-header-nav-icon.fa-bell::after {
+    content:  "";
+    height: 8px;
+    width: 8px;
+    background-color: red;
+    position: absolute;
+    top: 24%;
+    left: 60%;
+    border-radius: 50%;
+    display: none;
+}
+
+.main-content-header-nav-item.active
+.main-content-header-nav-icon.fa-bell::after{
+    display: block;
+
+}
+
+
+.main-content-header-nav-icon {
+    color: var(--active-color);
+    font-size: 2rem;
+    padding: 10px;
+
+}
+
+
+.main-content-header-nav-icon:hover {
+    cursor: pointer;
+}
+
+.main-content-header-user-avartar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.main-content-table {
+    width: 100%;
+    color: var(--active-color);
+    font-size: 1.6rem;
+    font-weight: 500;
+    background-color: var(--light-dark-color);
+    border-radius: 10px;
+
+    margin-top: 20px;
+
+}
+
+.main-content-table th{
+    background-color:#33303a ;
+}
+
+.main-content-table td ,
+.main-content-table th{
+    line-height: 4rem;
+    border-bottom: 1px solid var(--dark-bright-text-color);
+    border-right: 1px solid var(--dark-bright-text-color);
+    padding-left: 10px;
+    user-select: none;
+}
+
+.main-content-table td:last-child ,
+.main-content-table th:last-child {
+    border-right: none;
+
+    padding-left: 0;
+}
+
+
+.table-action-button-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.table-action-button {
+
+    color: var(--active-color);
+    background-color: #4c4c56;
+    flex: 1;
+    text-align: center;
+
+}
+
+.table-action-button:hover {
+    cursor: pointer;
+    opacity: 0.7;
+}
+
+
+.table-action-button--show {
+    background-color:#333333;
+}
+
+.table-action-button--change {
+    background-color:#3c3c3c;
+}
+
+.table-action-button--delete {
+    background-color:#434343;
+}
+
+
+
+
+/* navigate */
+.app-main-navigate{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.app-main-navigate-list {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    list-style: none;
+}
+
+.app-main-navigate-item {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    margin: 40px 10px;
+    font-size: 1.4rem;
+    font-weight: 500;
+    transition: all linear 0.1s;
+    color: var(--active-color);
+    user-select: none;
+}
+
+.app-main-navigate-item.active {
+
+    color: var(--white-color);
+
+    background-color: #747474;
+}
+
+.app-main-navigate-item p {
+    margin: 0;
+    padding: 0;
+}
+
+.app-main-navigate-item:hover{
+    background-color: #747474;
+    color: var(--white-color);
+}
+
+
+
+
+.add-new-record-button-wrapper {
+    width: 100%;
+    display: flex !important;
+    align-items: center;
+    justify-content: right !important;
+    margin-top:30px;
+}
+
+
+.add-new-record-button {
+    border-radius: 5px;
+    border: 1px solid var(--active-color);
+    color: var(--active-color);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.4rem;
+    font-weight: 500;
+    transition: all linear 0.2s;
+
+
+}
+
+.add-new-record-button:hover {
+    background-color: var(--active-color);
+    color: var(--dark-bright-text-color);
+}
+
+
+
+.main-content-table-wrapper {
+    width: 100%;
+}
+
+
+
+/* form */
+
+.main-form {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background-color: var(--light-dark-color);
+    width: 100%;
+    height: 100%;
+}

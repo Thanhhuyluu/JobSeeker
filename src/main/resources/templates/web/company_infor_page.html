@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company</title>
+
+
+    <link rel="icon" type="image/x-icon" th:href="@{/img/logo.ico}">
+    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css.map}">
+    <link rel="stylesheet" th:href="@{/css/web/base.css}">
+    <link rel="stylesheet" th:href="@{/css/web/grid.css}">
+    <link rel="stylesheet" th:href="@{/css/web/home_page.css}">
+    <link rel="stylesheet" th:href="@{/css/web/company_infor_page.css}">
+    <link rel="preconnect" th:href="@{https://fonts.googleapis.com}">
+    <link rel="preconnect" th:href="@{https://fonts.gstatic.com}" crossorigin>
+    <link th:href="@{https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap}" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/fonts/fontawesome-free-6.6.0-web/css/all.min.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+<div class="app">
+    <header class="header">
+        <div class="header-navbar-container">
+            <div class="grid wide">
+                <nav class="header__navbar">
+
+                    <ul class="header__navbar-list">
+                        <li class="header__navbar-item">
+
+                            <p class="header__navbar-item-text">
+                                <i class="header__navbar-item-icon fa-solid fa-circle-info"></i>
+                                Become researchable by top companies in your domain
+                            </p>
+                            <a href="#" class="header__navbar-item-link">Learn more</a>
+                        </li>
+                    </ul>
+
+                    <ul class="header__navbar-list">
+                        <li class="header__navbar-item">
+                            <p class="header__navbar-item-text separator">
+                                <i class="header__navbar-item-icon fa-solid fa-phone"></i>
+                                84.388074177
+                            </p>
+
+                        </li>
+                        <li class="header__navbar-item">
+                            <p class="header__navbar-item-text">
+                                <i class="header__navbar-item-icon fa-solid fa-envelope"></i>
+                                jobsearch@gmail.com
+                            </p>
+                        </li>
+                    </ul>
+                </nav>
+
+
+            </div>
+        </div>
+        <div class="header__navbar--main-container">
+            <div class="grid wide">
+                <nav class="header__navbar--main">
+                    <div class="header__navbar--main-with-logo">
+                        <div class="header__navbar--main-logo" th:style="'background-image: url(' + @{/img/weblogo.png} + ');'"></div>
+
+                        <ul class="header__navbar--main-list">
+                            <li class="header__navbar--main-item">
+                                <a href="#" class="header__navbar--main-item-link">Home</a>
+                                <ul class="header__navbar--main-item-list">
+                                    <li class="header__navbar--main-item-item">
+                                        <a href="#" class="header__navbar--main-item-item-link">
+                                            <i class="header__navbar--main-item-item-icon fa-solid fa-magnifying-glass"></i>
+                                            Tìm việc làm
+                                        </a>
+                                    </li>
+                                    <li class="header__navbar--main-item-item">
+                                        <a href="#" class="header__navbar--main-item-item-link">
+                                            <i class="header__navbar--main-item-item-icon fa-regular fa-heart"></i>
+                                            Việc làm đã lưu
+                                        </a>
+                                    </li>
+                                </ul>
+
+
+                            </li>
+                            <li class="header__navbar--main-item">
+                                <a href="#" class="header__navbar--main-item-link">Jobs</a>
+                                <ul class="header__navbar--main-item-list">
+                                    <li class="header__navbar--main-item-item">
+                                        <a href="#" class="header__navbar--main-item-item-link">
+                                            <i class="header__navbar--main-item-item-icon fa-solid fa-magnifying-glass"></i>
+                                            Tìm việc làm
+                                        </a>
+                                    </li>
+                                    <li class="header__navbar--main-item-item">
+                                        <a href="#" class="header__navbar--main-item-item-link">
+                                            <i class="header__navbar--main-item-item-icon fa-regular fa-heart"></i>
+                                            Việc làm đã lưu
+                                        </a>
+                                    </li>
+                                </ul>
+
+
+                            </li>
+                            <li class="header__navbar--main-item">
+                                <a href="#" class="header__navbar--main-item-link">Companies</a>
+                                <ul class="header__navbar--main-item-list">
+                                    <li class="header__navbar--main-item-item">
+                                        <a href="#" class="header__navbar--main-item-item-link">
+                                            <i class="header__navbar--main-item-item-icon fa-solid fa-magnifying-glass"></i>
+                                            Tìm việc làm
+                                        </a>
+                                    </li>
+                                    <li class="header__navbar--main-item-item">
+                                        <a href="#" class="header__navbar--main-item-item-link">
+                                            <i class="header__navbar--main-item-item-icon fa-regular fa-heart"></i>
+                                            Việc làm đã lưu
+                                        </a>
+                                    </li>
+                                </ul>
+
+
+                            </li>
+                        </ul>
+                    </div>
+
+                    <ul class="header__navbar--main-list">
+                        <li class="header__navbar--main-item">
+                            <div class="header__navbar--main-user-img" th:style="'background-image: url(' + @{/img/user.jpg} + ');'"></div>
+                            <p class="header__navbar--main-user-name">Thanh Huy</p>
+                            <ul class="header__navbar--main-item-list">
+                                <li class="header__navbar--main-item-item">
+                                    <a href="#" class="header__navbar--main-item-item-link">
+                                        <i class="header__navbar--main-item-item-icon fa-solid fa-magnifying-glass"></i>
+                                        Tìm việc làm
+                                    </a>
+                                </li>
+                                <li class="header__navbar--main-item-item">
+                                    <a href="#" class="header__navbar--main-item-item-link">
+                                        <i class="header__navbar--main-item-item-icon fa-regular fa-heart"></i>
+                                        Việc làm đã lưu
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+    </header>
+
+    <div class="container">
+
+        <div class="grid wide">
+            <div class="company-infor-header">
+                <div class="company-infor-header-banner" th:style="'background-image: url(' + @{/img/Opportunity_cropped_dark_landing.jpg} + ');'"></div>
+
+                <div class="company-infor-header-information">
+                    <div class="company-infor-header-information-img" th:style="'background-image: url(/img/' +  ${company.companyLogo} + ');'"></div>
+
+
+                    <div class="company-infor-header-information-text">
+                        <h1 class="company-infor-header-information-heading">Công ty vật liệu xây dựng Thành Phát</h1>
+                        <a href="#" class="company-infor-header-information-heading-link"> <i class="company-infor-header-information-heading-icon fa-solid fa-globe"></i> vatlieuthanhphat.com</a>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="company-infor-body">
+                <div class="company-infor-body-section">
+                    <h1 class="company-infor-body-section-heading">Giới thiệu công ty</h1>
+                    <div class="company-infor-body-section-body" th:utext="${company.companyDescription}">
+
+                    </div>
+                    <div class="show-more-action">
+                        <div class="showmore-blur"></div>
+                        <p class="showmore show-more-action-button">Show more</p>
+                        <p class="seeless show-more-action-button">See less</p>
+                    </div>
+
+                </div>
+
+
+                <div class="company-infor-body-section">
+                    <h1 class="company-infor-body-section-heading">Tuyển dụng</h1>
+                    <div class="company-infor-body-section-body">
+                        <ul class="company-infor-body-section-list">
+                            <li class="company-infor-body-section-item app-main-job-item">
+                                <div class="app-main-job-item-description">
+                                    <div class="app-main-job-item-infor">
+                                        <div class="app-main-job-item-company-img" th:style="'background-image: url(/img/' + ${company.companyLogo} +');'"></div>
+                                        <div class="app-main-job-item-overview-infor">
+                                            <div class="app-main-job-item-job-title-wrapper">
+                                                <h1 class="app-main-job-item-job-title">Project Staff Cum IT Comtor - Định Hướng Team Lead Dự Án  dfasdfasdfffffff</h1>
+                                            </div>
+
+                                            <p class="app-main-job-item-company-name-wrapper">
+                                                by
+                                            <h4 class="app-main-job-item-company-name">INFINIQ Vietnam Co.,ltd</h4>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="app-main-job-item-main-infor">
+                                        <div class="app-main-job-item-main-infor-tag hightlight">
+                                            <p class="app-main-job-item-main-infor-tag-text">Full time</p>
+                                        </div>
+
+                                        <div class="app-main-job-item-main-infor-tag app-main-job-item-main-infor-tag-limit">
+                                            <i class="app-main-job-item-main-infor-tag-icon fa-solid fa-location-dot"></i>
+                                            <span class="app-main-job-item-main-infor-tag-text">Hà Nội, Hồ Chí Minh</span>
+                                        </div>
+                                        <div class="app-main-job-item-main-infor-tag">
+                                            <span class="app-main-job-item-main-infor-tag-text">$400 - $500</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="app-main-job-item-action-and-date-left">
+                                    <div class="app-main-job-item-action liked">
+                                        <i class="app-main-job-item-action-icon app-main-job-item-action-icon--empty fa-regular fa-heart"></i>
+                                        <i class="app-main-job-item-action-icon app-main-job-item-action-icon--filled fa-solid fa-heart"></i>
+                                    </div>
+                                    <div class="app-main-job-item-day-left">
+                                        <p class="app-main-job-item-day-left-text">30 days left to apply</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="company-infor-body-section-item app-main-job-item">
+                                <div class="app-main-job-item-description">
+                                    <div class="app-main-job-item-infor">
+                                        <div class="app-main-job-item-company-img" style="background-image: url(/assets/img/company_img.webp);"></div>
+                                        <div class="app-main-job-item-overview-infor">
+                                            <div class="app-main-job-item-job-title-wrapper">
+                                                <h1 class="app-main-job-item-job-title">Project Staff Cum IT Comtor - Định Hướng Team Lead Dự Án  dfasdfasdfffffff</h1>
+                                            </div>
+
+                                            <p class="app-main-job-item-company-name-wrapper">
+                                                by
+                                            <h4 class="app-main-job-item-company-name">INFINIQ Vietnam Co.,ltd</h4>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="app-main-job-item-main-infor">
+                                        <div class="app-main-job-item-main-infor-tag hightlight">
+                                            <p class="app-main-job-item-main-infor-tag-text">Full time</p>
+                                        </div>
+
+                                        <div class="app-main-job-item-main-infor-tag app-main-job-item-main-infor-tag-limit">
+                                            <i class="app-main-job-item-main-infor-tag-icon fa-solid fa-location-dot"></i>
+                                            <span class="app-main-job-item-main-infor-tag-text">Hà Nội, Hồ Chí Minh</span>
+                                        </div>
+                                        <div class="app-main-job-item-main-infor-tag">
+                                            <span class="app-main-job-item-main-infor-tag-text">$400 - $500</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="app-main-job-item-action-and-date-left">
+                                    <div class="app-main-job-item-action liked">
+                                        <i class="app-main-job-item-action-icon app-main-job-item-action-icon--empty fa-regular fa-heart"></i>
+                                        <i class="app-main-job-item-action-icon app-main-job-item-action-icon--filled fa-solid fa-heart"></i>
+                                    </div>
+                                    <div class="app-main-job-item-day-left">
+                                        <p class="app-main-job-item-day-left-text">30 days left to apply</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="company-infor-body-section-item app-main-job-item">
+                                <div class="app-main-job-item-description">
+                                    <div class="app-main-job-item-infor">
+                                        <div class="app-main-job-item-company-img" style="background-image: url(/assets/img/company_img.webp);"></div>
+                                        <div class="app-main-job-item-overview-infor">
+                                            <div class="app-main-job-item-job-title-wrapper">
+                                                <h1 class="app-main-job-item-job-title">Project Staff Cum IT Comtor - Định Hướng Team Lead Dự Án  dfasdfasdfffffff</h1>
+                                            </div>
+
+                                            <p class="app-main-job-item-company-name-wrapper">
+                                                by
+                                            <h4 class="app-main-job-item-company-name">INFINIQ Vietnam Co.,ltd</h4>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="app-main-job-item-main-infor">
+                                        <div class="app-main-job-item-main-infor-tag hightlight">
+                                            <p class="app-main-job-item-main-infor-tag-text">Full time</p>
+                                        </div>
+
+                                        <div class="app-main-job-item-main-infor-tag app-main-job-item-main-infor-tag-limit">
+                                            <i class="app-main-job-item-main-infor-tag-icon fa-solid fa-location-dot"></i>
+                                            <span class="app-main-job-item-main-infor-tag-text">Hà Nội, Hồ Chí Minh</span>
+                                        </div>
+                                        <div class="app-main-job-item-main-infor-tag">
+                                            <span class="app-main-job-item-main-infor-tag-text">$400 - $500</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="app-main-job-item-action-and-date-left">
+                                    <div class="app-main-job-item-action liked">
+                                        <i class="app-main-job-item-action-icon app-main-job-item-action-icon--empty fa-regular fa-heart"></i>
+                                        <i class="app-main-job-item-action-icon app-main-job-item-action-icon--filled fa-solid fa-heart"></i>
+                                    </div>
+                                    <div class="app-main-job-item-day-left">
+                                        <p class="app-main-job-item-day-left-text">30 days left to apply</p>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+    <footer class="footer">
+        <div class="grid wide">
+            <div class="row">
+                <div class="col l-3">
+                    <div class="footer-section">
+                        <h2 class="footer-section__heading">Company</h2>
+                        <ul class="footer-section__list">
+                            <li class="footer-section__item">
+                                <a href="#" class="footer-section__item-link">About us</a>
+                            </li>
+                            <li class="footer-section__item">
+                                <a href="#" class="footer-section__item-link">Blogs</a>
+                            </li>
+                            <li class="footer-section__item">
+                                <a href="#" class="footer-section__item-link">Contact</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col l-3">
+                    <div class="footer-section">
+                        <h2 class="footer-section__heading">Services</h2>
+                        <ul class="footer-section__list">
+                            <li class="footer-section__item">
+                                <a href="#" class="footer-section__item-link">Home</a>
+                            </li>
+                            <li class="footer-section__item">
+                                <a href="#" class="footer-section__item-link">Jobs</a>
+                            </li>
+                            <li class="footer-section__item">
+                                <a href="#" class="footer-section__item-link">Companies</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+                <div class="col l-3"></div>
+                <div class="col l-3">
+                    <div class="footer-section">
+                        <h2 class="footer-section__heading">Connect</h2>
+                        <ul class="footer-section__list">
+                            <li class="footer-section__item">
+                                <a href="#" class="footer-section__item-link">
+                                    <i class="footer-section__item-icon fa-brands fa-linkedin"></i>
+                                    Linkded In
+                                </a>
+                            </li>
+                            <li class="footer-section__item">
+                                <a href="#" class="footer-section__item-link">
+                                    <i class="footer-section__item-icon fa-brands fa-square-facebook"></i>
+                                    Facebook
+                                </a>
+                            </li>
+                            <li class="footer-section__item">
+                                <a href="#" class="footer-section__item-link">
+                                    <i class="footer-section__item-icon fa-brands fa-square-instagram"></i>
+                                    Instagram
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+</body>
+<script th:src="@{/js/company_infor_page.js}"></script>
+</html>

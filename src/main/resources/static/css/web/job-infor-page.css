@@ -329,7 +329,7 @@
     height: 80px;
     background-repeat: no-repeat;
     background-position: center;
-    background-size: cover;
+    background-size: contain;
     border-radius: 10px;
     text-decoration: none;
 
@@ -338,6 +338,11 @@
     flex: 0 0 80px;
 
 
+}
+
+
+.job-infor-detail-box--right-company-section-heading-text {
+    min-width: 100px;
 }
 
 .job-infor-detail-box--right-company-img,
