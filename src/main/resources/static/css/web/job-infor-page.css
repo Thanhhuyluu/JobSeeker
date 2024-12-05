@@ -84,6 +84,15 @@
     font-size: 3rem;
     color: var(--text-color);
     margin: 16px 0;
+    line-height: 3.2rem;
+    max-height: 3.2rem;
+    overflow: hidden;
+    max-width: 1000px;
+    display: block;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+
 }
 
 .job-infor-overview-company-name{
@@ -344,7 +353,9 @@
 .job-infor-detail-box--right-company-section-heading-text {
     min-width: 100px;
 }
-
+.job-infor-detail-box--right-company-section-heading-icon {
+    margin-right: 5px;
+}
 .job-infor-detail-box--right-company-img,
 .job-infor-detail-box--right-company-section-heading {
 
@@ -383,6 +394,7 @@
 
 .job-infor-detail-box--right-company-section-infor {
     font-weight: 500;
+    line-height: 2rem;
 }
 
 .job-infor-detail-box--right-company-link{

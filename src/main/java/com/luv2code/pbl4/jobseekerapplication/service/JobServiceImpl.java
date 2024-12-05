@@ -1,9 +1,9 @@
 package com.luv2code.pbl4.jobseekerapplication.service;
 
 import com.luv2code.pbl4.jobseekerapplication.dao.JobRepository;
+import com.luv2code.pbl4.jobseekerapplication.dao.SearchRepository;
+import com.luv2code.pbl4.jobseekerapplication.dto.ListResult;
 import com.luv2code.pbl4.jobseekerapplication.entity.Job;
-import com.luv2code.pbl4.jobseekerapplication.utils.CareerLevelEnum;
-import com.luv2code.pbl4.jobseekerapplication.utils.JobTypeEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,10 +17,11 @@ import java.util.Optional;
 public class JobServiceImpl implements JobService {
 
     private JobRepository jobRepository;
-
+    private SearchRepository searchRepository;
     @Autowired
-    public JobServiceImpl(JobRepository theJobRepository) {
+    public JobServiceImpl(JobRepository theJobRepository, SearchRepository searchRepository) {
             this.jobRepository = theJobRepository;
+            this.searchRepository = searchRepository;
     }
 
     @Override
@@ -102,31 +103,45 @@ public class JobServiceImpl implements JobService {
 
     public List<Job> findByFilters(List<Job> rawList, List<String> careerLevel, Integer experienceLevel, Integer minSalary, List<String> jobTypes) {
         List<Job> filteredJobs = new ArrayList<>();
-
-        for (Job job : rawList) {
-            boolean careerMatch = (careerLevel == null || careerLevel.isEmpty() || careerLevel.contains(CareerLevelEnum.getDisplayNameByDatabaseName(job.getCareerLevel())) || careerLevel.isEmpty());
-
-
-            boolean experienceMatch = (experienceLevel == null || experienceLevel.equals(normalizeExperienceLevel(job.getExperienceLevel())));
-
-
-            boolean jobTypeMatch = (jobTypes == null || jobTypes.isEmpty() || jobTypes.contains(JobTypeEnum.getDisplayNameByDatabaseName(job.getJobType())));
-
-
-            boolean salaryMatch = true;
-            if (minSalary != null) {
-                String salaryRange = job.getSalaryRange();
-                int salary = job.getMinSalary();
-                salaryMatch = salary >= minSalary;
-            }
-
-
-            if (careerMatch && experienceMatch && jobTypeMatch && salaryMatch) {
-                filteredJobs.add(job);
-            }
-        }
+//
+//        for (Job job : rawList) {
+//            boolean careerMatch = (careerLevel == null || careerLevel.isEmpty() || careerLevel.contains(CareerLevelEnum.getDisplayNameByDatabaseName(job.getCareerLevel())) || careerLevel.isEmpty());
+//
+//
+//            boolean experienceMatch = (experienceLevel == null || experienceLevel.equals(normalizeExperienceLevel(job.getExperienceLevel())));
+//
+//
+//            boolean jobTypeMatch = (jobTypes == null || jobTypes.isEmpty() || jobTypes.contains(JobTypeEnum.getDisplayNameByDatabaseName(job.getJobType())));
+//
+//
+//            boolean salaryMatch = true;
+//            if (minSalary != null) {
+//                String salaryRange = job.getSalaryRange();
+//                int salary = job.getMinSalary();
+//                salaryMatch = salary >= minSalary;
+//            }
+//
+//
+//            if (careerMatch && experienceMatch && jobTypeMatch && salaryMatch) {
+//                filteredJobs.add(job);
+//            }
+//        }
 
         return filteredJobs;
+    }
+
+    @Override
+    public ListResult<Job> getAllJobsWithSortByColumnAndSearch(int pageNo,
+                                                               int pageSize,
+                                                               String search,
+                                                               String sortBy,
+                                                               int industryId,
+                                                               int locationId,
+                                                               List<String> jobTypes,
+                                                               String jobExperience,
+                                                               List<String> careerLevels,
+                                                               Double salary) {
+        return searchRepository.getAllJobsWithSortByColumnAndSearch(pageNo, pageSize, search, sortBy, industryId, locationId, jobTypes, jobExperience, careerLevels, salary);
     }
 
 

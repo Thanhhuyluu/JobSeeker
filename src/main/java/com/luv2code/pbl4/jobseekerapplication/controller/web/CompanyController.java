@@ -1,4 +1,4 @@
-package com.luv2code.pbl4.jobseekerapplication.controller.jobseeker;
+package com.luv2code.pbl4.jobseekerapplication.controller.web;
 
 import com.luv2code.pbl4.jobseekerapplication.entity.Company;
 import com.luv2code.pbl4.jobseekerapplication.service.CompanyService;

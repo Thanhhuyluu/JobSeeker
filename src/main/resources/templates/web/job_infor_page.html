@@ -174,7 +174,7 @@
                     
                     <div class="job-infor-overview">
                         <div class="job-infor-company-logo" style="background-image: url(/assets/img/image.png);"></div>
-                        <h1 class="job-infor-overview-title" th:text="${job.jobTitle}"></h1>
+                        <h1 class="job-infor-overview-title" th:title="${job.jobTitle}" th:text="${job.jobTitle}"></h1>
                         <a th:href="'/cong-ty/' +${job.company.companyId}" class="job-infor-overview-company-name" th:text="${job.company.companyName}"></a>
                     </div>
 
@@ -191,7 +191,9 @@
                                             <p class="job-infor-detail--section-infor-name">
                                                 Mức lương
                                             </p>
-                                            <h4 class="job-infor-detail--section-infor-text" th:text="${job.salaryRange}"></h4>
+                                            <h4 class="job-infor-detail--section-infor-text" th:if="${job.salary == 0}">Thỏa thuận</h4>
+                                            <h4 class="job-infor-detail--section-infor-text" th:unless="${job.salary == 0}">Lương: [[${#numbers.formatDecimal(job.salary, 0, 1)}]] triệu</h4>
+
                                         </div>
                                     </div>
                                     <div class="job-infor-detail--section">
@@ -202,7 +204,9 @@
                                             <p class="job-infor-detail--section-infor-name">
                                                 Địa điểm
                                             </p>
-                                            <h4 class="job-infor-detail--section-infor-text" th:text="${#strings.listJoin(job.locations, ', ')}"></h4>
+                                            <h4 class="job-infor-detail--section-infor-text" th:if="${job.locations.size() != 0}" th:text="${#strings.listJoin(job.locations, ', ')}"></h4>
+                                            <h4 class="job-infor-detail--section-infor-text" th:if="${job.locations.size() == 0}" >Chưa cập nhật</h4>
+
                                         </div>
                                     </div>
                                     <div class="job-infor-detail--section">
@@ -213,7 +217,8 @@
                                             <p class="job-infor-detail--section-infor-name">
                                                 Kinh nghiệm
                                             </p>
-                                            <h4 class="job-infor-detail--section-infor-text" th:text="${job.experienceLevel}"></h4>
+                                            <h4 class="job-infor-detail--section-infor-text" th:if="${job.experienceLevel} == 0" >Không yêu cầu</h4>
+                                            <h4 class="job-infor-detail--section-infor-text" th:unless="${job.experienceLevel} == 0" th:text="${job.experienceLevel} + ' năm'"></h4>
                                         </div>
                                     </div>
                                 </div>
@@ -269,7 +274,8 @@
                                                 <p class="job-infor-detail--section-infor-name">
                                                     Kinh nghiệm
                                                 </p>
-                                                <h4 class="job-infor-detail--section-infor-text" th:text="${job.experienceLevel}"></h4>
+                                                <h4 class="job-infor-detail--section-infor-text" th:if="${job.experienceLevel} == 0">Không yêu cầu</h4>
+                                                <h4 class="job-infor-detail--section-infor-text" th:unless="${job.experienceLevel} == 0" th:text="${job.experienceLevel} + ' năm'"></h4>
                                             </div>
                                         </div>
                                         <div class="job-infor-detail--section">

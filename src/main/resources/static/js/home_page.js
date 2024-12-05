@@ -77,6 +77,8 @@ const jobContainer = document.querySelector('.app-content-loaded');  // Phần t
 
 jobContainer.addEventListener('click', function (event) {
     if (event.target.classList.contains('app-main-job-item-action-icon')) {
+        event.stopPropagation();
+        event.preventDefault();
         const parent = event.target.parentElement;  // Lấy phần tử cha của event.target
         parent.classList.toggle('liked');           // Toggle class 'liked' cho phần tử cha
         console.log(parent);

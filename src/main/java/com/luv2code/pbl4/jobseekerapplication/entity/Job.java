@@ -22,9 +22,6 @@ public class Job {
     @Column(name="job_description")
     private String jobDescription;
 
-    @Column(name="salary_range")
-    private String salaryRange;
-
     @ManyToOne
     @JoinColumn(name="company_id")
     private Company company;
@@ -33,7 +30,7 @@ public class Job {
     private String jobType;
 
     @Column(name="experience_level")
-    private String experienceLevel;
+    private int experienceLevel;
 
     @Column(name="career_level")
     private String careerLevel;
@@ -47,11 +44,11 @@ public class Job {
     @Column(name="job_url")
     private String jobUrl;
 
-    @Column(name = "min_salary")
-    private int minSalary;
+    @Column(name = "salary")
+    private double salary;
 
-    @Column(name = "max_salary")
-    private int maxSalary;
+    @Column(name = "salary_currency")
+    private String salaryCurrency;
 
     @ManyToMany(fetch = FetchType.LAZY,
                 cascade = {CascadeType.DETACH,CascadeType.MERGE,
@@ -79,24 +76,28 @@ public class Job {
     public Job() {
     }
 
-    public Job(String jobTitle, String jobDescription,
-               String salaryRange, Company company,
-               String jobType, String experienceLevel,
-               String careerLevel, LocalDate postedDate,
-               LocalDate expirationDate, String jobUrl,
-               int minSalary, int maxSalary) {
-        this.jobTitle = jobTitle;
-        this.jobDescription = jobDescription;
-        this.salaryRange = salaryRange;
-        this.company = company;
-        this.jobType = jobType;
-        this.experienceLevel = experienceLevel;
-        this.careerLevel = careerLevel;
-        this.postedDate = postedDate;
-        this.expirationDate = expirationDate;
+    public Job(String salaryCurrency,
+               double salary,
+               String jobUrl,
+               LocalDate expirationDate,
+               LocalDate postedDate,
+               String careerLevel,
+               int experienceLevel,
+               String jobType,
+               Company company,
+               String jobDescription,
+               String jobTitle) {
+        this.salaryCurrency = salaryCurrency;
+        this.salary = salary;
         this.jobUrl = jobUrl;
-        this.minSalary = minSalary;
-        this.maxSalary = maxSalary;
+        this.expirationDate = expirationDate;
+        this.postedDate = postedDate;
+        this.careerLevel = careerLevel;
+        this.experienceLevel = experienceLevel;
+        this.jobType = jobType;
+        this.company = company;
+        this.jobDescription = jobDescription;
+        this.jobTitle = jobTitle;
     }
 
     public int getJobId() {
@@ -123,14 +124,6 @@ public class Job {
         this.jobDescription = jobDescription;
     }
 
-    public String getSalaryRange() {
-        return salaryRange;
-    }
-
-    public void setSalaryRange(String salaryRange) {
-        this.salaryRange = salaryRange;
-    }
-
     public Company getCompany() {
         return company;
     }
@@ -147,11 +140,11 @@ public class Job {
         this.jobType = jobType;
     }
 
-    public String getExperienceLevel() {
+    public int getExperienceLevel() {
         return experienceLevel;
     }
 
-    public void setExperienceLevel(String experienceLevel) {
+    public void setExperienceLevel(int experienceLevel) {
         this.experienceLevel = experienceLevel;
     }
 
@@ -203,20 +196,20 @@ public class Job {
         this.locations = locations;
     }
 
-    public int getMinSalary() {
-        return minSalary;
+    public double getSalary() {
+        return salary;
     }
 
-    public void setMinSalary(int minSalary) {
-        this.minSalary = minSalary;
+    public void setSalary(double salary) {
+        this.salary = salary;
     }
 
-    public int getMaxSalary() {
-        return maxSalary;
+    public String getSalaryCurrency() {
+        return salaryCurrency;
     }
 
-    public void setMaxSalary(int maxSalary) {
-        this.maxSalary = maxSalary;
+    public void setSalaryCurrency(String salaryCurrency) {
+        this.salaryCurrency =  salaryCurrency;
     }
 
     @Override
@@ -224,8 +217,6 @@ public class Job {
         return "Job{" +
                 "jobId=" + jobId +
                 ", jobTitle='" + jobTitle + '\'' +
-                ", jobDescription='" + jobDescription + '\'' +
-                ", salaryRange='" + salaryRange + '\'' +
                 ", company=" + company +
                 ", jobType='" + jobType + '\'' +
                 ", experienceLevel='" + experienceLevel + '\'' +
@@ -233,17 +224,20 @@ public class Job {
                 ", postDate=" + postedDate +
                 ", expirationDate=" + expirationDate +
                 ", jobUrl='" + jobUrl + '\'' +
-                '}';
+                ", jobSalary='" + salary + '\'' +
+                ", salaryCurrency='" + salaryCurrency + '\'' +
+                '}' + "\n";
     }
 
 
-    public void addIndustry(Industry industry){
-        if(industries==null){
-            industries=new ArrayList<>();
+    public void addIndustry(Industry industry) {
+        if (industries == null) {
+            industries = new ArrayList<>();
         }
-        industries.add(industry);
+        if (!industries.contains(industry)) {
+            industries.add(industry);
+        }
     }
-
     public void addLocation(Location location){
         if(locations==null){
             locations=new ArrayList<>();
