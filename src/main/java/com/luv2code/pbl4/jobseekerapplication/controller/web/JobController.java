@@ -69,7 +69,7 @@ public class JobController {
                                       @RequestParam(required = false) List<String> jobTypes,
                                       @RequestParam(required = false) String experienceLevel,
                                       @RequestParam(required = false) List<String> careerLevels,
-                                      @RequestParam(required = false) Double salary,
+                                      @RequestParam(defaultValue = "0.0", required = false) Double salary,
                                       Model model) {
         ListResult<Job> listResult = jobService.getAllJobsWithSortByColumnAndSearch(pageNo, pageSize, search, sortBy, industryId, locationId,jobTypes, experienceLevel, careerLevels, salary);
         List<Job> jobs = listResult.getItems();
@@ -275,7 +275,7 @@ public class JobController {
                                       @RequestParam(required = false) List<String> jobTypes,
                                       @RequestParam(required = false) String experienceLevel,
                                       @RequestParam(required = false) List<String> careerLevels,
-                                      @RequestParam(required = false) Double salary,
+                                      @RequestParam(defaultValue = "0.0", required = false) Double salary,
                                       Model model) {
         showJobListWithSort(1,10,search,sortBy,industryId,locationId,jobTypes,experienceLevel, careerLevels,salary,model);
         return "web/index";

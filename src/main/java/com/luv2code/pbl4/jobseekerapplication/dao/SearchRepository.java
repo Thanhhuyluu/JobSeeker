@@ -124,27 +124,26 @@ public class SearchRepository {
 
             selectQuery.setParameter(3, "%" + search + "%");
             selectQuery.setParameter(4, "%" + search + "%");
-            paramIndex += 5;
+            paramIndex += 2;
+
 
         }
 
 
 
         if (!jobTypes.isEmpty()) {
-            if(StringUtils.hasLength(search)) {
-                for (int i = 0; i < jobTypes.size(); i++) {
-                    selectQuery.setParameter(paramIndex, jobTypes.get(i));
-                    paramIndex++;
-                }
-            } else {
-                for (int i = 0; i < jobTypes.size(); i++) {
-                    selectQuery.setParameter(paramIndex, jobTypes.get(i));
-                    paramIndex++;
-                }
+
+            System.out.println("ozoioi");
+            for (int i = 0; i < jobTypes.size(); i++) {
+                selectQuery.setParameter(paramIndex, jobTypes.get(i));
+                paramIndex++;
             }
+
         }
 
         if (StringUtils.hasLength(experienceLevel)) {
+
+
             if (experienceLevel.matches("\\d+")) {
                 selectQuery.setParameter(paramIndex, Integer.parseInt(experienceLevel));
             } else if (experienceLevel.matches("\\d+ \\d+")) {
@@ -155,20 +154,15 @@ public class SearchRepository {
             } else if (experienceLevel.matches(">\\d+")) {
                 selectQuery.setParameter(paramIndex, Integer.parseInt(experienceLevel.substring(1)));
             }
+
             paramIndex++;
         }
 
         if (careerLevels != null && !careerLevels.isEmpty()) {
-            if (StringUtils.hasLength(experienceLevel)) {
-                for (int i = 0; i < careerLevels.size(); i++) {
-                    selectQuery.setParameter(paramIndex, careerLevels.get(i));
-                    paramIndex++;
-                }
-            } else {
-                for (int i = 0; i < careerLevels.size(); i++) {
-                    selectQuery.setParameter(paramIndex, careerLevels.get(i));
-                    paramIndex++;
-                }
+            for (int i = 0; i < careerLevels.size(); i++) {
+                selectQuery.setParameter(paramIndex, careerLevels.get(i));
+
+                paramIndex++;
             }
         }
         if (salary != null) {

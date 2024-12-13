@@ -40,6 +40,9 @@ $(document).ready(function () {
                     });
                     console.log('/viec-lam/page=1'+'?industryId=' + industryKey + '&locationId=' +locationKey + '&search=' + searchKey)
                     $('#search-bar--main-section-input').val($('#search-key-sendback').val().trim());
+                    $('#searchKey-for-filter').val($('#search-key-sendback').val().trim());
+                    $('#industryId-for-filter').val(industryKey);
+                    $('#locationId-for-filter').val(locationKey);
 
                 },
                 error: function (xhr, status, error) {

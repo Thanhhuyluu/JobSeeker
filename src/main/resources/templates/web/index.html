@@ -57,14 +57,14 @@
                     <div class="grid wide">
                         <nav class="header__navbar--main">
                             <div class="header__navbar--main-with-logo">
-                                <div class="header__navbar--main-logo" th:style="'background-image: url(' + @{/img/weblogo.png} + ');'"></div>
+                                <a href="tim-viec" class="header__navbar--main-logo" th:style="'background-image: url(' + @{/img/weblogo.png} + ');'"></a>
     
                                 <ul class="header__navbar--main-list">
                                     <li class="header__navbar--main-item">
-                                        <a href="#" class="header__navbar--main-item-link">Home</a>
+                                        <a href="tim-viec" class="header__navbar--main-item-link">Home</a>
                                         <ul class="header__navbar--main-item-list">
                                             <li class="header__navbar--main-item-item">
-                                                <a href="#" class="header__navbar--main-item-item-link">
+                                                <a href="tim-viec" class="header__navbar--main-item-item-link">
                                                     <i class="header__navbar--main-item-item-icon fa-solid fa-magnifying-glass"></i>
                                                     Tìm việc làm
                                                 </a>
@@ -376,6 +376,11 @@
                                     </li>
                                 </ul>
                             </div>
+
+
+                            <input id="searchKey-for-filter" type="text" name="search" th:value="${searchKey}" hidden>
+                            <input id="industryId-for-filter"  type="text" name="industryId" th:value="${industryId}" hidden>
+                            <input id="locationId-for-filter"  type="text" name="locationId" th:value="${locationId}" hidden>
                         </form>
                     </div>
                     <div class="col l-8">
@@ -570,8 +575,8 @@
         </footer>
     </div>
 </body>
-<script th:src="@{/js/home_page.js}"></script>
+<script th:src="@{/js/web/home_page.js}"></script>
 <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js}"></script>
-<script th:src="@{/ajax/home_page_ajax.js}"></script>
+<script th:src="@{/ajax/web/home_page_ajax.js}"></script>
 
 </html>
