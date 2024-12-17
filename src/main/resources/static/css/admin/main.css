@@ -456,6 +456,10 @@
     color: var(--active-color   );
 }
 
+.form-group textarea {
+    min-height: 100px;
+}
+
 .form-group label {
     display: block;
     margin-bottom: 5px;

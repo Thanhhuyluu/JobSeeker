@@ -63,23 +63,29 @@
                             <th>Công ty</th>
                             <th>Thao tác</th>
                         </tr>
-                        <tr th:each="job : ${jobs}" >
+                        <tr th:each="job : ${jobs}">
                             <td>
                                 <p class="main-content-table-text" th:text="${job.jobId}"></p>
                             </td>
-                            <td >
+                            <td>
                                 <p class="main-content-table-text" th:text="${job.jobTitle}"></p>
                             </td>
-                            <td >
+                            <td>
                                 <p class="main-content-table-text" th:text="${job.company.companyName}"></p>
                             </td>
                             <td class="table-action-button-wrapper">
-                                <div class="table-action-button table-action-button--show"><i class="fa-solid fa-circle-info"></i></div>
-                                <div class="table-action-button table-action-button--change"><i class="fa-solid fa-pen"></i></div>
-                                <div class="table-action-button table-action-button--delete"><i class="fa-solid fa-trash"></i></div>
+                                <div class="table-action-button table-action-button--show"
+                                     th:attr="data-job-id=${job.jobId}">
+                                    <i class="fa-solid fa-circle-info"></i>
+                                </div>
+                                <div class="table-action-button table-action-button--change">
+                                    <i class="fa-solid fa-pen"></i>
+                                </div>
+                                <div class="table-action-button table-action-button--delete">
+                                    <i class="fa-solid fa-trash"></i>
+                                </div>
                             </td>
                         </tr>
-
 
 
 
