@@ -12,10 +12,7 @@ import org.jsoup.nodes.Element;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -227,66 +224,6 @@ public class AdminJobController {
 
         result +=
                 "                </div>\n" +
-                        "\n" +
-                        "                <div class=\"col hide\">\n" +
-                        "                    <form action=\"\" class=\"main-form\">\n" +
-                        "                        <div class=\"form-group\">\n" +
-                        "                            <label for=\"jobTitle\">Tên công việc</label>\n" +
-                        "                            <input type=\"text\" id=\"jobTitle\" name=\"jobTitle\" class=\"form-control\">\n" +
-                        "                        </div>\n" +
-                        "                        <div class=\"form-group\">\n" +
-                        "                            <label for=\"jobDescription\">Mô tả</label>\n" +
-                        "                            <textarea id=\"jobDescription\" name=\"jobDescription\" class=\"form-control\"></textarea>\n" +
-                        "                        </div>\n" +
-                        "                        <div class=\"form-group\">\n" +
-                        "                            <label for=\"company\">Công ty</label>\n" +
-                        "                            <input type=\"text\" id=\"company\" name=\"company\" class=\"form-control\">\n" +
-                        "                        </div>\n" +
-                        "                        <div class=\"form-group\">\n" +
-                        "                            <label for=\"jobType\">Loại công việc</label>\n" +
-                        "                            <input type=\"text\" id=\"jobType\" name=\"jobType\" class=\"form-control\">\n" +
-                        "                        </div>\n" +
-                        "                        <div class=\"form-group\">\n" +
-                        "                            <label for=\"experienceLevel\">Năm kinh nghiệm</label>\n" +
-                        "                            <input type=\"number\" id=\"experienceLevel\" name=\"experienceLevel\" class=\"form-control\">\n" +
-                        "                        </div>\n" +
-                        "                        <div class=\"form-group\">\n" +
-                        "                            <label for=\"careerLevel\">Vị trí công việc</label>\n" +
-                        "                            <select id=\"careerLevel\" name=\"careerLevel\" class=\"form-control\">\n" +
-                        "                                <option value=\"Intern\">Intern</option>\n" +
-                        "                                <option value=\"Junior\">Junior</option>\n" +
-                        "                                <option value=\"Mid\">Mid</option>\n" +
-                        "                                <option value=\"Senior\">Senior</option>\n" +
-                        "                                <option value=\"Lead\">Lead</option>\n" +
-                        "                                <option value=\"Manager\">Manager</option>\n" +
-                        "                            </select>\n" +
-                        "                        </div>\n" +
-                        "                        <div class=\"form-group\">\n" +
-                        "                            <label for=\"postedDate\">Ngày đăng</label>\n" +
-                        "                            <input type=\"date\" id=\"postedDate\" name=\"postedDate\" class=\"form-control\">\n" +
-                        "                        </div>\n" +
-                        "                        <div class=\"form-group\">\n" +
-                        "                            <label for=\"expirationDate\">Ngày hết hạn</label>\n" +
-                        "                            <input type=\"date\" id=\"expirationDate\" name=\"expirationDate\" class=\"form-control\">\n" +
-                        "                        </div>\n" +
-                        "                        <div class=\"form-group\">\n" +
-                        "                            <label for=\"jobUrl\">Nguồn</label>\n" +
-                        "                            <input type=\"url\" id=\"jobUrl\" name=\"jobUrl\" class=\"form-control\">\n" +
-                        "                        </div>\n" +
-                        "                        <div class=\"form-group\">\n" +
-                        "                            <label for=\"salary\">Mức Lương</label>\n" +
-                        "                            <input type=\"number\" id=\"salary\" name=\"salary\" class=\"form-control\">\n" +
-                        "                        </div>\n" +
-                        "                        <div class=\"form-group\">\n" +
-                        "                            <label for=\"salaryCurrency\">Đơn vị tiền tệ</label>\n" +
-                        "                            <input type=\"text\" id=\"salaryCurrency\" name=\"salaryCurrency\" class=\"form-control\">\n" +
-                        "                        </div>\n" +
-                        "                        <button type=\"submit\" class=\"btn btn-primary\">Thêm</button>\n" +
-                        "                    </form>" +
-                        "                </div>\n" +
-                        "\n" +
-                        "\n" +
-                        "\n" +
                         "            </div>";
 
 
@@ -379,4 +316,17 @@ public class AdminJobController {
         return result;
 
     }
+
+    @GetMapping("/them-cong-viec")
+    public String sendAddJobForm(Model model) {
+        List<Company> companies = companyService.findAll();
+
+        model.addAttribute("mode", "MODE_JOBS");
+        model.addAttribute("companies", companies);
+        return "admin/AddJobForm";
+    }
+
+
+
+
 }

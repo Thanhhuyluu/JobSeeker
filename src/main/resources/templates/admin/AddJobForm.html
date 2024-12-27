@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/template.html}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Form</title>
+    <link rel="stylesheet" th:href="@{/css/web/base.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/AddJobForm.css}">
+    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css.map}">
+
+    <link rel="stylesheet" th:href="@{/css/web/grid.css}">
+
+    <link rel="preconnect" th:href="@{https://fonts.googleapis.com}">
+    <link rel="preconnect" th:href="@{https://fonts.gstatic.com}" crossorigin>
+    <link th:href="@{https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap}" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/fonts/fontawesome-free-6.6.0-web/css/all.min.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Document</title>
+</head>
+<body>
+
+<div layout:fragment="content" class="main-content">
+    <div class="row">
+        <div class="col l-8">
+            <div class="main-content-header-with-search">
+                <i class="main-content-header-menu-open-icon fa-solid fa-bars"></i>
+
+            </div>
+        </div>
+        <div class="col l-4">
+            <div class="main-content-header-nav">
+                <ul class="main-content-header-nav-list">
+                    <li class="main-content-header-nav-item active">
+                        <i class="main-content-header-nav-icon fa-regular fa-bell "></i>
+                    </li>
+                    <li class="main-content-header-nav-item">
+                        <div class="main-content-header-user-avartar" style="background-image: url(/assets/img/user.jpg);"></div>
+                        <i class="main-content-header-nav-icon fa-solid fa-chevron-down"></i>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="col l-12">
+            <form class="add-job-form" action="">
+                <div class="form-group">
+                    <label for="job-name">Tên công việc</label>
+                    <input type="text" id="job-name" name="jobTitle">
+                </div>
+                <div class="form-group">
+                    <label for="company">Công ty</label>
+                    <label for="search-bar--main-section-category-trigger" class="search-bar--main-section">
+
+                        <input hidden type="checkbox" id="search-bar--main-section-category-trigger" name="search-bar--main-section-category-trigger">
+
+                        <div class="search-bar--main-section-wrapper">
+                            <i class="search-bar--main-section-icon fa-solid fa-briefcase"></i>
+                            <div class="search-bar--main-section-text" th:text="${companies.get(0).getCompanyName()}">
+                            </div>
+                        </div>
+
+                        <i class="search-bar--main-section-icon--down fa-solid fa-chevron-down"></i>
+                        <i class="search-bar--main-section-icon--up fa-solid fa-chevron-up"></i>
+
+
+                        <ul class="search-bar--main-section-list scrollable-element">
+                            <li class="search-bar--main-section-item">
+                                <input type="text" class="search-bar--main-section-item-input" >
+                            </li>
+                            <li class="search-bar--main-section-item active" >
+                                <p class="search-bar--main-section-item-text" th:text="${companies.get(0).getCompanyName()}">
+
+                                    <input class="search-bar--main-section-item-key" type="text" hidden th:value="${companies.get(0).getCompanyId()}">
+                                </p>
+                                <i class="search-bar--main-section-item-check fa-solid fa-check"></i>
+
+                            </li>
+                            <li th:each="company : ${companies}" class="search-bar--main-section-item" >
+                                <p th:text="${company.getCompanyName()}" class="search-bar--main-section-item-text">
+
+                                </p>
+                                <i class="search-bar--main-section-item-check fa-solid fa-check"></i>
+                                <input class="search-bar--main-section-item-key" type="text" hidden th:value="${company.companyId}">
+                            </li>
+                            <input name="companyId" hidden id="search-bar--main-section-item-input-sender--industry" th:value="${companies.get(0).getCompanyId()}" type="text" class="search-bar--main-section-item-input-sender">
+
+                        </ul>
+
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label for="job-type">Loại công việc</label>
+                    <select id="job-type" name="jobType">
+                        <option th:value="|Toàn thời gian|">Toàn thời gian</option>
+                        <option th:value="|Bán thời gian|">Bán thời gian</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="experience">Năm kinh nghiệm</label>
+                    <input type="number" id="experience" name="experienceLevel">
+                </div>
+
+                <div class="form-group">
+                    <label for="position">Vị trí công việc</label>
+                    <select id="position" name="careerLevel">
+                        <option th:value="|Nhân viên|">Nhân viên</option>
+                        <option th:value="|Trưởng nhóm|">Trưởng nhóm</option>
+                        <option th:value="|Trưởng/Phó phòng|">Trưởng/Phó phòng</option>
+                        <option th:value="|Quản lý / Giám sát|">Quản lý / Giám sát</option>
+                        <option th:value="|Trưởng chi nhánh|">Trưởng chi nhánh</option>
+                        <option th:value="|Phó giám đốc|">Phó giám đốc</option>
+                        <option th:value="|Giám đốc|">Giám đốc</option>
+                        <option th:value="|Thực tập sinh|">Thực tập sinh</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="posting-date">Ngày đăng</label>
+                    <input type="date" id="posting-date" name="posting-date">
+                </div>
+
+                <div class="form-group">
+                    <label for="expiry-date">Ngày hết hạn</label>
+                    <input type="date" id="expiry-date" name="expiry-date">
+                </div>
+
+                <div class="form-group">
+                    <label for="source">Nguồn</label>
+                    <input type="text" id="source" name="source">
+                </div>
+
+                <div class="form-group">
+                    <label for="salary">Mức lương</label>
+                    <input type="number" id="salary" name="salary">
+                </div>
+
+                <div class="form-group">
+                    <label for="currency">Đơn vị tiền tệ</label>
+                    <input type="text" id="currency" name="currency">
+                </div>
+
+                <div id="job-topics">
+                    <label class="form-group-label">Mô tả</label>
+                    <div class="job-topic">
+                        <button type="button" class="remove-job-topic" onclick="removeJobTopic(this)">Xóa</button>
+                        <div class="form-group">
+                            <label for="job-topic-name">Tên Chuyên Mục</label>
+                            <input type="text" name="job-topic-name[]">
+                        </div>
+                        <div class="form-group">
+                            <label for="job-topic-description">Mô tả Chuyên Mục</label>
+                            <textarea name="job-topic-description[]"></textarea>
+                        </div>
+
+                    </div>
+
+                </div>
+                <button type="button" class="add-job-topic" onclick="addJobTopic()">Thêm Chuyên Mục</button>
+
+
+                <button type="submit">Lưu công việc</button>
+            </form>
+
+            <script>
+                function addJobTopic() {
+                    const jobTopicsDiv = document.getElementById('job-topics');
+                    const jobTopicDiv = document.createElement('div');
+                    jobTopicDiv.classList.add('job-topic');
+
+                    jobTopicDiv.innerHTML = `
+                <button type="button" class="remove-job-topic" onclick="removeJobTopic(this)">Xóa</button>
+                <div class="form-group">
+                    <label for="job-topic-name">Tên Chuyên Mục</label>
+                    <input type="text" name="job-topic-name[]">
+                </div>
+                <div class="form-group">
+                    <label for="job-topic-description">Mô tả Chuyên Mục</label>
+                    <textarea name="job-topic-description[]"></textarea>
+                </div>
+            `;
+
+                    jobTopicsDiv.appendChild(jobTopicDiv);
+                }
+
+                function removeJobTopic(button) {
+                    const jobTopicDiv = button.parentElement;
+                    jobTopicDiv.remove();
+                }
+
+
+
+                document.querySelectorAll('label.search-bar--main-section').forEach(section => {
+
+                    var searchBarMainList = section.querySelector('.search-bar--main-section-list');
+                    var searchBarMainInput = section.querySelector('.search-bar--main-section-item-input');
+                    var searchBarMainItems = section.querySelectorAll('.search-bar--main-section-item');
+                    var sectionText = section.querySelector('.search-bar--main-section-text');
+                    var inputSender = section.querySelector('.search-bar--main-section-item-input-sender');
+                    searchBarMainInput.addEventListener('input', () => {
+                        const searchValue = searchBarMainInput.value.toLowerCase();
+                        searchBarMainItems.forEach(item => {
+                            const text = item.querySelector('.search-bar--main-section-item-text');
+                            if (text) {
+                                if (text.textContent.toLowerCase().includes(searchValue)) {
+                                    item.style.display = '';
+                                } else {
+                                    item.style.display = 'none';
+                                }
+                            }
+                        });
+                    });
+                    searchBarMainItems.forEach(item => {
+                        item.addEventListener('click', () => {
+                            searchBarMainItems.forEach(i => i.classList.remove('active'));
+
+                            item.classList.add('active');
+
+                            const activeText = item.querySelector('.search-bar--main-section-item-text').textContent;
+                            sectionText.textContent = activeText;
+
+                            searchBarMainList.classList.remove('active');
+                            inputSender.value = item.querySelector('.search-bar--main-section-item-key').value;
+
+                        });
+                    });
+
+
+                })
+
+
+            </script>
+        </div>
+
+    </div>
+
+
+</div>
+
+</body>
+</html>

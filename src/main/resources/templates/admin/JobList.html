@@ -45,9 +45,9 @@
         <div class="app-content-loaded">
             <div class="row">
                 <div class="add-new-record-button-wrapper col l-12">
-                    <div class="add-new-record-button">
+                    <a th:href="@{them-cong-viec}" class="add-new-record-button">
                         <i class="add-new-record-button-icon fa-solid fa-plus"></i>
-                    </div>
+                    </a>
                 </div>
 
             </div>
@@ -123,101 +123,7 @@
                     </div>
                 </div>
 
-                <div class="col hide">
-                    <form action="/admin/viec-lam/them" class="main-form">
-                        <div class="form-group">
-                            <label for="jobTitle">Tên công việc</label>
-                            <input type="text" id="jobTitle" name="jobTitle" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="jobDescription">Mô tả</label>
-                            <textarea id="jobDescription" name="jobDescription" class="form-control" placeholder="Hãy viết tiêu đề IN HOA"></textarea>
-                        </div>
 
-
-                        <label for="search-bar--main-section-category-trigger" class="search-bar--main-section">
-                            <input hidden type="checkbox" id="search-bar--main-section-category-trigger" name="search-bar--main-section-category-trigger">
-                            <i class="search-bar--main-section-icon fa-solid fa-briefcase"></i>
-                            <div class="search-bar--main-section-text" th:text="|Company|">
-
-                            </div>
-                            <i class="search-bar--main-section-icon--down fa-solid fa-chevron-down"></i>
-                            <i class="search-bar--main-section-icon--up fa-solid fa-chevron-up"></i>
-
-
-                            <ul class="search-bar--main-section-list scrollable-element">
-                                <li class="search-bar--main-section-item">
-                                    <input type="text" class="search-bar--main-section-item-input" >
-                                </li>
-                                <li class="search-bar--main-section-item active" >
-                                    <p class="search-bar--main-section-item-text" th:value="${companyName}">
-                                        All categories
-                                        <input class="search-bar--main-section-item-key" type="text" hidden th:value="-1">
-                                    </p>
-                                    <i class="search-bar--main-section-item-check fa-solid fa-check"></i>
-
-                                </li>
-                                <li th:each="company : ${companies}" class="search-bar--main-section-item" >
-                                    <p th:text="${company.companyName}" class="search-bar--main-section-item-text">
-
-                                    </p>
-                                    <i class="search-bar--main-section-item-check fa-solid fa-check"></i>
-                                    <input class="search-bar--main-section-item-key" type="text" hidden th:value="${company.companyId}">
-                                </li>
-                                <input name="companyId" hidden id="search-bar--main-section-item-input-sender--company" th:value="${companyId != null ? companyId : -1}" type="text" class="search-bar--main-section-item-input-sender">
-
-                            </ul>
-
-                        </label>
-
-                        <div class="form-group">
-
-                            <label for="jobType">Loại công việc</label>
-                            <select id="jobType" name="jobType" class="form-control">
-                                <option value="Toàn thời gian">Toàn thời gian</option>
-                                <option value="Bán thời gian">Bán thời gian</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="experienceLevel">Năm kinh nghiệm</label>
-                            <input type="number" id="experienceLevel" name="experienceLevel" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="careerLevel">Vị trí công việc</label>
-                            <select id="careerLevel" name="careerLevel" class="form-control">
-                                <option value="Nhân viên">Nhân viên</option>
-                                <option value="Trưởng nhóm">Trưởng nhóm</option>
-                                <option value="Trưởng/Phó phòng">Trưởng/Phó phòng</option>
-                                <option value="Quản lý / Giám sát">Quản lý / Giám sát</option>
-                                <option value="Trưởng chi nhánh">Trưởng chi nhánh</option>
-                                <option value="Phó giám đốc">Phó giám đốc</option>
-                                <option value="Giám đốc">Giám đốc</option>
-                                <option value="Thực tập sinh">Thực tập sinh</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="postedDate">Ngày đăng</label>
-                            <input type="date" id="postedDate" name="postedDate" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="expirationDate">Ngày hết hạn</label>
-                            <input type="date" id="expirationDate" name="expirationDate" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="jobUrl">Nguồn</label>
-                            <input type="url" id="jobUrl" name="jobUrl" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="salary">Mức Lương</label>
-                            <input type="number" id="salary" name="salary" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="salaryCurrency">Đơn vị tiền tệ</label>
-                            <input type="text" id="salaryCurrency" name="salaryCurrency" class="form-control">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Thêm</button>
-                    </form>
-                </div>
 
 
 
@@ -237,3 +143,34 @@
 
 <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js}"></script>
 <script th:src="@{/ajax/admin/home_page_ajax.js}"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        let sectionCount = 1;
+
+        // Thêm chuyên mục
+        document.getElementById('add-section').addEventListener('click', function () {
+            sectionCount++;
+            const sectionContainer = document.createElement('div');
+            sectionContainer.className = 'description-section';
+            sectionContainer.innerHTML = `
+                <div class="form-group">
+                    <label for="sectionTitle${sectionCount}">Tiêu đề chuyên mục</label>
+                    <input type="text" id="sectionTitle${sectionCount}" name="sectionTitles[]" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="sectionDescription${sectionCount}">Mô tả chuyên mục</label>
+                    <textarea id="sectionDescription${sectionCount}" name="sectionDescriptions[]" class="form-control"></textarea>
+                </div>
+                <button type="button" class="btn btn-danger remove-section">Xóa chuyên mục</button>
+            `;
+            document.getElementById('description-sections').appendChild(sectionContainer);
+        });
+
+        // Xóa chuyên mục
+        document.getElementById('description-sections').addEventListener('click', function (e) {
+            if (e.target.classList.contains('remove-section')) {
+                e.target.parentElement.remove();
+            }
+        });
+    });
+</script>

@@ -16,7 +16,7 @@
 
 
     <div th:fragment="left-bar" class="left-bar active">
-        <div class="left-bar-logo" style="background-image: url(/assets/img/jobseekerwhite.png);"></div>
+        <div class="left-bar-logo" style="background-image: url('/img/jobseekerwhite.png');"></div>
 
         <ul class="left-bar-list">
             <li class="left-bar-item">
@@ -26,7 +26,7 @@
                 </a>
             </li>
             <li th:class="'left-bar-item ' +  ${mode=='MODE_JOBS' ? 'active' : ''}" >
-                <a href="admin/viec-lam" class="left-bar-item-link">
+                <a href="viec-lam" class="left-bar-item-link">
                     <i class="left-bar-item-link-icon fa-solid fa-newspaper"></i>
                     <p class="left-bar-item-link-text">Jobs</p>
                 </a>
