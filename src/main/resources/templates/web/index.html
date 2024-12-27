@@ -6,13 +6,14 @@
     <title>Job Search</title>
     <link rel="icon" type="image/x-icon" th:href="@{/img/logo.ico}">
     <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css.map}">
-    <link rel="stylesheet" th:href="@{/css/base.css}">
-    <link rel="stylesheet" th:href="@{/css/grid.css}">
-    <link rel="stylesheet" th:href="@{/css/home_page.css}">
+    <link rel="stylesheet" th:href="@{/css/web/base.css}">
+    <link rel="stylesheet" th:href="@{/css/web/grid.css}">
+    <link rel="stylesheet" th:href="@{/css/web/home_page.css}">
     <link rel="preconnect" th:href="@{https://fonts.googleapis.com}">
     <link rel="preconnect" th:href="@{https://fonts.gstatic.com}" crossorigin>
     <link th:href="@{https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap}" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/fonts/fontawesome-free-6.6.0-web/css/all.min.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
     <div class="app">
@@ -56,14 +57,14 @@
                     <div class="grid wide">
                         <nav class="header__navbar--main">
                             <div class="header__navbar--main-with-logo">
-                                <div class="header__navbar--main-logo" th:style="'background-image: url(' + @{/img/logo.jpg} + ');'"></div>
+                                <a href="tim-viec" class="header__navbar--main-logo" th:style="'background-image: url(' + @{/img/weblogo.png} + ');'"></a>
     
                                 <ul class="header__navbar--main-list">
                                     <li class="header__navbar--main-item">
-                                        <a href="#" class="header__navbar--main-item-link">Home</a>
+                                        <a href="tim-viec" class="header__navbar--main-item-link">Home</a>
                                         <ul class="header__navbar--main-item-list">
                                             <li class="header__navbar--main-item-item">
-                                                <a href="#" class="header__navbar--main-item-item-link">
+                                                <a href="tim-viec" class="header__navbar--main-item-item-link">
                                                     <i class="header__navbar--main-item-item-icon fa-solid fa-magnifying-glass"></i>
                                                     Tìm việc làm
                                                 </a>
@@ -156,21 +157,21 @@
 
                 <div class="row">
                     <div class="col l-12">
-                        <form th:action="@{/viec-lam/search/page=1}" class="search-bar--main">
+                        <form th:action="@{/viec-lam/tim-viec}" class="search-bar--main">
                             <div class="search-bar--main-section">
                                 <i class="search-bar--main-section-icon fa-solid fa-magnifying-glass"></i>
-                                <input id="search-bar--main-section-input" name="searchKey" class="search-bar--main-section-input" placeholder="Jobs title or keywords" th:value="${searchKey}">
+                                <input id="search-bar--main-section-input" name="search" class="search-bar--main-section-input" placeholder="Jobs title or keywords" th:value="${searchKey}">
                             </div>
                             <label for="search-bar--main-section-location-trigger" class="search-bar--main-section">
-                                <input hidden type="checkbox" id="search-bar--main-section-location-trigger" name="search-bar--main-section-location-trigger">   
+                                <input hidden type="checkbox" id="search-bar--main-section-location-trigger" name="search-bar--main-section-location-trigger">
                                 <i class="search-bar--main-section-icon fa-solid fa-location-dot"></i>
                                 <div class="search-bar--main-section-text" th:text="${locationName == '' ? 'All locations' : locationName }">
 
                                 </div>
                                 <i class="search-bar--main-section-icon--down fa-solid fa-chevron-down"></i>
                                 <i class="search-bar--main-section-icon--up fa-solid fa-chevron-up"></i>
-                                 
-                                
+
+
                                 <ul class="search-bar--main-section-list scrollable-element">
                                     <li class="search-bar--main-section-item">
                                         <input type="text" class="search-bar--main-section-item-input" >
@@ -193,17 +194,17 @@
                                     <input name="locationId" hidden id="search-bar--main-section-item-input-sender--location" th:value="${locationId != null ? locationId : -1}" type="text" class="search-bar--main-section-item-input-sender">
                                 </ul>
 
-                            </label>                            
+                            </label>
                             <label for="search-bar--main-section-category-trigger" class="search-bar--main-section">
-                                <input hidden type="checkbox" id="search-bar--main-section-category-trigger" name="search-bar--main-section-category-trigger">   
+                                <input hidden type="checkbox" id="search-bar--main-section-category-trigger" name="search-bar--main-section-category-trigger">
                                 <i class="search-bar--main-section-icon fa-solid fa-briefcase"></i>
                                 <div class="search-bar--main-section-text" th:text="${industryName == '' ? 'All categories' : industryName}">
 
                                 </div>
                                 <i class="search-bar--main-section-icon--down fa-solid fa-chevron-down"></i>
                                 <i class="search-bar--main-section-icon--up fa-solid fa-chevron-up"></i>
-                                 
-                                
+
+
                                 <ul class="search-bar--main-section-list scrollable-element">
                                     <li class="search-bar--main-section-item">
                                         <input type="text" class="search-bar--main-section-item-input" >
@@ -223,16 +224,18 @@
                                         <i class="search-bar--main-section-item-check fa-solid fa-check"></i>
                                         <input class="search-bar--main-section-item-key" type="text" hidden th:value="${industry.industryId}">
                                     </li>
-                                    <input name="industryId" id="search-bar--main-section-item-input-sender--industry" th:value="${industryId != null ? industryId : -1}" type="text" class="search-bar--main-section-item-input-sender">
+                                    <input name="industryId" hidden id="search-bar--main-section-item-input-sender--industry" th:value="${industryId != null ? industryId : -1}" type="text" class="search-bar--main-section-item-input-sender">
 
                                 </ul>
 
-                            </label> 
+                            </label>
                             <div class="search-bar--main-section-action">
                                 <p class="search-bar--main-section-action-clear"></p>
                                 <button type="submit" class="app-button">Search</button>
                             </div>
                         </form>
+
+
                     </div>
                 </div>
 
@@ -255,24 +258,31 @@
                                 <i class="filter-icon fa-solid fa-filter"></i>
                             </div>
                         </h1>
-                        <form th:action="@{/viec-lam/search/page=1}" class="app-main-filter" id="app-main-filter">
+                        <form th:action="@{/viec-lam/tim-viec}" class="app-main-filter" id="app-main-filter">
                             <div class="app-main-filter-section">
                                 <h3 class="app-main-filter-section__heading">JOB TYPE</h3>
                                 <ul class="app-main-filter-section-list">
                                     <li class="app-main-filter-section-item">
-                                        <input class="app-main-filter-section-checkbox" type="checkbox" id="app-main-filter-section-item-full-time" th:name="jobTypes" th:value="fulltime">
-                                        <label class="app-main-filter-section-item-text" for="app-main-filter-section-item-full-time">Full time</label>
+                                        <input class="app-main-filter-section-checkbox" type="checkbox" id="app-main-filter-section-item-1" th:name="jobTypes" th:value="|Toàn thời gian|" th:checked="${jobTypes.contains('Toàn thời gian')}">
+                                        <label class="app-main-filter-section-item-text" for="app-main-filter-section-item-1">Toàn thời gian</label>
                                     </li>
                                     <li class="app-main-filter-section-item">
-                                        <input class="app-main-filter-section-checkbox" type="checkbox" id="app-main-filter-section-item-part-time" th:name="jobTypes" th:value="parttime">
-                                        <label class="app-main-filter-section-item-text" for="app-main-filter-section-item-part-time">Part time</label>
+                                        <input class="app-main-filter-section-checkbox" type="checkbox" id="app-main-filter-section-item-2" th:name="jobTypes" th:value="|Bán thời gian|" th:checked="${jobTypes.contains('Bán thời gian')}">
+                                        <label class="app-main-filter-section-item-text" for="app-main-filter-section-item-2">Bán thời gian</label>
                                     </li>
                                     <li class="app-main-filter-section-item">
-                                        <input class="app-main-filter-section-checkbox" type="checkbox" id="app-main-filter-section-item-intern" th:name="jobTypes" th:value="intern">
-                                        <label class="app-main-filter-section-item-text" for="app-main-filter-section-item-intern">Intern</label>
+                                        <input class="app-main-filter-section-checkbox" type="checkbox" id="app-main-filter-section-item-3" th:name="jobTypes" th:value="|Thực tập|" th:checked="${jobTypes.contains('Thực tập')}">
+                                        <label class="app-main-filter-section-item-text" for="app-main-filter-section-item-3">Thực tập</label>
                                     </li>
-                                
-                                   
+                                    <li class="app-main-filter-section-item">
+                                        <input class="app-main-filter-section-checkbox" type="checkbox" id="app-main-filter-section-item-4" th:name="jobTypes" th:value="|Làm tại nhà|" th:checked="${jobTypes.contains('Làm tại nhà')}">
+                                        <label class="app-main-filter-section-item-text" for="app-main-filter-section-item-4">Làm tại nhà</label>
+                                    </li>
+                                    <li class="app-main-filter-section-item">
+                                        <input class="app-main-filter-section-checkbox" type="checkbox" id="app-main-filter-section-item-5" th:name="jobTypes" th:value="|Thời vụ|" th:checked="${jobTypes.contains('Thời vụ')}">
+                                        <label class="app-main-filter-section-item-text" for="app-main-filter-section-item-5">Thời vụ</label>
+                                    </li>
+
                                 </ul>
                             </div>
 
@@ -281,12 +291,12 @@
                                 <h3 class="app-main-filter-section__heading">salary</h3>
                                     <div class="app-main-filter-section-custom-select">
                                         <div class="app-main-filter-section-select">
-                                            <p>Salary Range</p>
+                                            <p th:text="${salary == 0 ? 'Salary Range' : 'From ' + #numbers.formatDecimal(salary, 0, 0) + '.000.000'}"></p>
                                             <i class="app-main-filter-section-select-icon--down fa-solid fa-chevron-down"></i>
                                             <i class="app-main-filter-section-select-icon--up hide fa-solid fa-chevron-up"></i>
                                         </div>
                                         <ul class="app-main-filter-section-options-container hide">
-                                            <li class="app-main-filter-section-option" data-value="-1">Salary</li>
+                                            <li class="app-main-filter-section-option" data-value="0">Salary</li>
                                             <li class="app-main-filter-section-option" data-value="3">From 3.000.000 đ</li>
                                             <li class="app-main-filter-section-option" data-value="5">From 5.000.000 đ</li>
                                             <li class="app-main-filter-section-option" data-value="7">From 7.000.000 đ</li>
@@ -299,31 +309,31 @@
                                             <li class="app-main-filter-section-option" data-value="60">From 60.000.000 đ</li>
                                             <li class="app-main-filter-section-option" data-value="70">From 70.000.000 đ</li>
                                         </ul>
-                                        <input hidden type="text" id="app-main-filter-section-salary-input" name="salary">
+                                        <input hidden type="text" id="app-main-filter-section-salary-input" th:value="0" name="salary">
                                     </div>
                             </div>
                             <div class="app-main-filter-section">
                                 <h3 class="app-main-filter-section__heading">Experimence level</h3>
                                 <ul id="app-main-filter-section-list" class="app-main-filter-section-list">
                                     <li class="app-main-filter-section-item">
-                                        <input class="app-main-filter-section-checkbox" type="radio" id="app-main-filter-section-item-fresh" th:name="experienceLevels" th:value="fresh">
-                                        <label class="app-main-filter-section-item-text" for="app-main-filter-section-item-fresh">Fresh</label>
+                                        <input class="app-main-filter-section-checkbox" type="radio" id="app-main-filter-section-item-6" name="experienceLevel" th:value="'0'" th:checked="${experienceLevel == '0'}">
+                                        <label class="app-main-filter-section-item-text" for="app-main-filter-section-item-6">Chưa có kinh nghiệm</label>
                                     </li>
                                     <li class="app-main-filter-section-item">
-                                        <input class="app-main-filter-section-checkbox" type="radio" id="app-main-filter-section-item-1" th:name="experienceLevels" th:value="1">
-                                        <label class="app-main-filter-section-item-text" for="app-main-filter-section-item-1">1 Years</label>
+                                        <input class="app-main-filter-section-checkbox" type="radio" id="app-main-filter-section-item-7" name="experienceLevel" th:value="'1 2'" th:checked="${experienceLevel == '1 2'}">
+                                        <label class="app-main-filter-section-item-text" for="app-main-filter-section-item-7">1 - 2 Năm</label>
                                     </li>
                                     <li class="app-main-filter-section-item">
-                                        <input class="app-main-filter-section-checkbox" type="radio" id="app-main-filter-section-item-2" th:name="experienceLevels" th:value="2">
-                                        <label class="app-main-filter-section-item-text" for="app-main-filter-section-item-2">2 Years</label>
+                                        <input class="app-main-filter-section-checkbox" type="radio" id="app-main-filter-section-item-8" name="experienceLevel" th:value="'3 5'" th:checked="${experienceLevel == '3 5'}">
+                                        <label class="app-main-filter-section-item-text" for="app-main-filter-section-item-8">3 - 5 Năm</label>
                                     </li>
                                     <li class="app-main-filter-section-item">
-                                        <input class="app-main-filter-section-checkbox" type="radio" id="app-main-filter-section-item-3" th:name="experienceLevels" th:value="3">
-                                        <label class="app-main-filter-section-item-text" for="app-main-filter-section-item-3">3 Years</label>
+                                        <input class="app-main-filter-section-checkbox" type="radio" id="app-main-filter-section-item-9" name="experienceLevel" th:value="'6 8'" th:checked="${experienceLevel == '6 8'}">
+                                        <label class="app-main-filter-section-item-text" for="app-main-filter-section-item-9">6 - 8 Năm</label>
                                     </li>
                                     <li class="app-main-filter-section-item">
-                                        <input class="app-main-filter-section-checkbox" type="radio" id="app-main-filter-section-item-4plus" th:name="experienceLevels" th:value="4_plus">
-                                        <label class="app-main-filter-section-item-text" for="app-main-filter-section-item-4plus">4+ Years</label>
+                                        <input class="app-main-filter-section-checkbox" type="radio" id="app-main-filter-section-item-10" name="experienceLevel" th:value="'>9'" th:checked="${experienceLevel == '>9'}">
+                                        <label class="app-main-filter-section-item-text" for="app-main-filter-section-item-10">9+ Năm</label>
                                     </li>
                                 
                                    
@@ -333,25 +343,51 @@
                                 <h3 class="app-main-filter-section__heading">Career level</h3>
                                 <ul class="app-main-filter-section-list">
                                     <li class="app-main-filter-section-item">
-                                        <input class="app-main-filter-section-checkbox" type="checkbox" id="app-main-filter-section-item-staff" >
-                                        <label class="app-main-filter-section-item-text" for="app-main-filter-section-item-staff">Staff</label>
+                                        <input class="app-main-filter-section-checkbox" type="checkbox" id="app-main-filter-section-item-11" th:value="|Nhân viên|" th:name="careerLevels" th:checked="${careerLevels.contains('Nhân viên')}">
+                                        <label class="app-main-filter-section-item-text" for="app-main-filter-section-item-11">Nhân viên</label>
                                     </li>
                                     <li class="app-main-filter-section-item">
-                                        <input class="app-main-filter-section-checkbox" type="checkbox" id="app-main-filter-section-item-manager">
-                                        <label class="app-main-filter-section-item-text" for="app-main-filter-section-item-manager">Manager</label>
+                                        <input class="app-main-filter-section-checkbox" type="checkbox" id="app-main-filter-section-item-12" th:value="|Trưởng nhóm|" th:name="careerLevels" th:checked="${careerLevels.contains('Trưởng nhóm')}">
+                                        <label class="app-main-filter-section-item-text" for="app-main-filter-section-item-12">Trưởng nhóm</label>
                                     </li>
                                     <li class="app-main-filter-section-item">
-                                        <input class="app-main-filter-section-checkbox" type="checkbox" id="app-main-filter-section-item-senior" >
-                                        <label class="app-main-filter-section-item-text" for="app-main-filter-section-item-senior">Senier</label>
+                                        <input class="app-main-filter-section-checkbox" type="checkbox" id="app-main-filter-section-item-13" th:value="|Trưởng/Phó phòng|" th:name="careerLevels" th:checked="${careerLevels.contains('Trưởng/Phó phòng')}">
+                                        <label class="app-main-filter-section-item-text" for="app-main-filter-section-item-13">Trưởng/Phó phòng</label>
                                     </li>
-                                   
+                                    <li class="app-main-filter-section-item">
+                                        <input class="app-main-filter-section-checkbox" type="checkbox" id="app-main-filter-section-item-14" th:value="|Quản lý / Giám sát|" th:name="careerLevels" th:checked="${careerLevels.contains('Quản lý / Giám sát')}">
+                                        <label class="app-main-filter-section-item-text" for="app-main-filter-section-item-14">Quản lý / Giám sát</label>
+                                    </li>
+                                    <li class="app-main-filter-section-item">
+                                        <input class="app-main-filter-section-checkbox" type="checkbox" id="app-main-filter-section-item-15" th:value="|Trưởng chi nhánh|" th:name="careerLevels" th:checked="${careerLevels.contains('Trưởng chi nhánh')}">
+                                        <label class="app-main-filter-section-item-text" for="app-main-filter-section-item-15">Trưởng chi nhánh</label>
+                                    </li>
+                                    <li class="app-main-filter-section-item">
+                                        <input class="app-main-filter-section-checkbox" type="checkbox" id="app-main-filter-section-item-16" th:value="|Phó giám đốc|" th:name="careerLevels" th:checked="${careerLevels.contains('Phó giám đốc')}">
+                                        <label class="app-main-filter-section-item-text" for="app-main-filter-section-item-16">Phó giám đốc</label>
+                                    </li>
+                                    <li class="app-main-filter-section-item">
+                                        <input class="app-main-filter-section-checkbox" type="checkbox" id="app-main-filter-section-item-17" th:value="|Giám đốc|" th:name="careerLevels" th:checked="${careerLevels.contains('Giám đốc')}">
+                                        <label class="app-main-filter-section-item-text" for="app-main-filter-section-item-17">Giám đốc</label>
+                                    </li>
+                                    <li class="app-main-filter-section-item">
+                                        <input class="app-main-filter-section-checkbox" type="checkbox" id="app-main-filter-section-item-18" th:value="|Thực tập sinh|" th:name="careerLevels" th:checked="${careerLevels.contains('Thực tập sinh')}">
+                                        <label class="app-main-filter-section-item-text" for="app-main-filter-section-item-18">Thực tập sinh</label>
+                                    </li>
                                 </ul>
                             </div>
+
+
+                            <input id="searchKey-for-filter" type="text" name="search" th:value="${searchKey}" hidden>
+                            <input id="industryId-for-filter"  type="text" name="industryId" th:value="${industryId}" hidden>
+                            <input id="locationId-for-filter"  type="text" name="locationId" th:value="${locationId}" hidden>
                         </form>
                     </div>
                     <div class="col l-8">
                         <div class="app-content-loaded">
-                            <div class="result-overview">
+
+                            <div class="no-result-img" th:if="${jobs.size() == 0}" th:style="|background-image: url(/img/no-result.png)|"></div>
+                            <div class="result-overview" th:if="${jobs.size() > 0}">
                                 <h1 class="result-overview-records-count" th:text="|${totalItems} Jobs|"></h1>
                                 <input hidden type="checkbox" class="result-overview-sort-input" id="result-overview-sort-input">
                                 <div class="result-overview-sort">
@@ -378,9 +414,11 @@
                                 </div>
                             </div>
                             <div class="app-main-job-list-container">
-                                <ul id="app-main-job-list" class="app-main-job-list">
+
+
+                                <ul id="app-main-job-list" class="app-main-job-list" th:if="${jobs.size() > 0}">
                                     <li th:each="job : ${jobs}" class="app-main-job-item">
-                                        <a href="#" th:title="${job.jobTitle}" class="app-main-job-item-link">
+                                        <a th:href="'/viec-lam/' + ${job.jobId}" th:title="${job.jobTitle}" class="app-main-job-item-link">
                                             <div class="app-main-job-item-description">
                                                 <div class="app-main-job-item-infor">
                                                     <div class="app-main-job-item-company-img" th:style="|background-image: url(/img${job.company.companyLogo})|"></div>
@@ -405,7 +443,10 @@
                                                         <span class="app-main-job-item-main-infor-tag-text" th:text="${#strings.listJoin(job.locations, ', ')}"></span>
                                                     </div>
                                                     <div class="app-main-job-item-main-infor-tag">
-                                                        <span class="app-main-job-item-main-infor-tag-text" th:text="${job.salaryRange}"></span>
+                                                        <span class="app-main-job-item-main-infor-tag-text" th:if="${job.salary == 0}">Thỏa thuận</span>
+                                                        <span class="app-main-job-item-main-infor-tag-text" th:if="${job.salary != 0 and job.salaryCurrency.equalsIgnoreCase('VND')}">[[${#numbers.formatDecimal(job.salary, 0, 1)}]] triệu</span>
+                                                         <span class="app-main-job-item-main-infor-tag-text" th:if="${job.salary != 0 and !job.salaryCurrency.equalsIgnoreCase('VND')}">[[${#numbers.formatDecimal(job.salary, 0, 1)} + ' ' +  ${job.salaryCurrency}]] </span>
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -425,11 +466,13 @@
                                 </ul>
 
                             </div>
-                            <div class="app-main-navigate">
+                            <div class="app-main-navigate" th:if="${jobs.size() > 0}">
                                 <ul  class="app-main-navigate-list">
                                     <li th:if="${currentPage > 1}" class="app-main-navigate-item">
 
-                                        <button  class="app-main-navigate-item-btn" th:value="@{'/viec-lam/page=' + ${currentPage -1}+'?industryId='+${industryId} +'&locationId='+${locationId}}">
+                                        <button  class="app-main-navigate-item-btn"
+                                        th:value="@{'/viec-lam/tim-viec-lam?pageNo=' + ${currentPage -1}+'&industryId='+${industryId} +'&locationId='+${locationId}}">
+                                            <!--th:value="@{'/viec-lam/page=' + ${currentPage -1}+'?industryId='+${industryId} +'&locationId='+${locationId}}"-->
                                             <i class="fa-solid fa-chevron-left"></i>
                                         </button>
                                     </li>
@@ -437,11 +480,18 @@
 
                                     <li th:classappend="${currentPage} == ${i} ? 'active' : ' '"
                                         th:each="i : ${#numbers.sequence(1,pageNum)}" class="app-main-navigate-item">
-                                        <button class="app-main-navigate-item-btn" th:value="@{'/viec-lam/page=' + ${i}+'?industryId='+${industryId} +'&locationId='+${locationId}}">[[${i}]]</button>
+                                        <button class="app-main-navigate-item-btn"
+                                                th:value="@{'/viec-lam/tim-viec-lam?pageNo=' + ${i}+'&industryId='+${industryId} +'&locationId='+${locationId}}"
+                                        >[[${i}]]</button>
+                                        <!--th:value="@{'/viec-lam/page=' + ${i}+'?industryId='+${industryId} +'&locationId='+${locationId}}"-->
+
                                     </li>
 
                                     <li th:if="${currentPage <  pageNum} " class="app-main-navigate-item">
-                                        <button class="app-main-navigate-item-btn" th:value="@{'/viec-lam/page=' + ${currentPage +1}+'?industryId='+${industryId} +'&locationId='+${locationId}}">
+                                        <button class="app-main-navigate-item-btn"
+                                                th:value="@{'/viec-lam/tim-viec-lam?pageNo=' + ${currentPage +1}+'&industryId='+${industryId} +'&locationId='+${locationId}}">
+                                            <!--th:value="@{'/viec-lam/page=' + ${currentPage +1}+'?industryId='+${industryId} +'&locationId='+${locationId}}"-->
+
                                             <i class="fa-solid fa-chevron-right"></i>
                                         </button>
                                     </li>
@@ -525,8 +575,8 @@
         </footer>
     </div>
 </body>
-<script th:src="@{/js/home_page.js}"></script>
+<script th:src="@{/js/web/home_page.js}"></script>
 <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js}"></script>
-<script th:src="@{/ajax/home_page_ajax.js}"></script>
+<script th:src="@{/ajax/web/home_page_ajax.js}"></script>
 
 </html>

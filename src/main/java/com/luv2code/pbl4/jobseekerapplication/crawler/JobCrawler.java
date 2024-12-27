@@ -83,34 +83,36 @@ public class JobCrawler {
             String jobSalaryRange = null;
             int minSalary = 0, maxSalary = 0;
 
+            String currency = "";
+            Double salary = null;
 
             if(doc.selectFirst(".job-detail__info--section-content-value")!= null){
                 jobSalaryRange = doc.selectFirst(".job-detail__info--section-content-value").text();
 
 
-                Pattern pattern = Pattern.compile("\\d+");
-                Matcher matcher = pattern.matcher(jobSalaryRange.replace(",", ""));
 
-                List<Integer> numbers = new ArrayList<>();
-                while (matcher.find()) {
-                    numbers.add(Integer.parseInt(matcher.group()));
+
+                Pattern rangePattern = Pattern.compile("(\\d+(\\.\\d+)?)\\s*-\\s*(\\d+(\\.\\d+)?)\\s*([\\p{L}]+)?");
+                Pattern abovePattern = Pattern.compile("Trên\\s*(\\d+(\\.\\d+)?)\\s*([\\p{L}]+)?");
+                Pattern belowPattern = Pattern.compile("Dưới\\s*(\\d+(\\.\\d+)?)\\s*([\\p{L}]+)?");
+
+                Matcher rangeMatcher = rangePattern.matcher(jobSalaryRange);
+                Matcher aboveMatcher = abovePattern.matcher(jobSalaryRange);
+                Matcher belowMatcher = belowPattern.matcher(jobSalaryRange);
+
+                if (rangeMatcher.find()) {
+                    salary = Double.parseDouble(rangeMatcher.group(1).replace(",", ""));
+                    currency = (rangeMatcher.group(5) != null && !rangeMatcher.group(5).equalsIgnoreCase("triệu")) ? rangeMatcher.group(5) : "VND";
+                } else if (aboveMatcher.find()) {
+                    salary = Double.parseDouble(aboveMatcher.group(1).replace(",", ""));
+                    currency = (aboveMatcher.group(3) != null && !aboveMatcher.group(3).equalsIgnoreCase("triệu")) ? aboveMatcher.group(3) : "VND";
+                } else if (belowMatcher.find()) {
+                    salary = Double.parseDouble(belowMatcher.group(1).replace(",", ""));
+                    currency =  (belowMatcher.group(3) != null && !belowMatcher.group(3).equalsIgnoreCase("triệu"))? belowMatcher.group(3) : "VND";
+                }else {
+                    salary = 0.0;
+                    currency = null;
                 }
-
-
-                if (numbers.size() >= 2) {
-
-                    minSalary = Math.min(numbers.get(0), numbers.get(1));
-                    maxSalary = Math.max(numbers.get(0), numbers.get(1));
-                } else if (numbers.size() == 1) {
-
-                    minSalary = maxSalary = numbers.get(0);
-                } else {
-
-                    minSalary = maxSalary = 0;
-                }
-
-
-
             }
 
 
@@ -118,10 +120,20 @@ public class JobCrawler {
 
             Elements jobDetailSession = doc.select(".job-detail__info--section-content-value");
 
-            String experienceLevel = null;
+            int experienceLevel = 0;
 
             try {
-                experienceLevel = jobDetailSession.get(2).text();
+                Pattern pattern = Pattern.compile("\\d+");
+                Matcher matcher = pattern.matcher(jobDetailSession.get(2).text());
+
+                if (matcher.find()) {
+                    experienceLevel =  Integer.parseInt(matcher.group());
+                }else {
+                    experienceLevel = 0;
+                }
+
+
+
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("No experience level found" + " url" + url);
                 return;
@@ -196,7 +208,7 @@ public class JobCrawler {
                 }
 
             }
-            Job job = new Job(jobTitle,jobDescription,jobSalaryRange,company,jobType,experienceLevel,careerLevel,postedDate,expirationDate,url,minSalary,maxSalary);
+            Job job = new Job(currency,salary,url,expirationDate,postedDate,careerLevel,experienceLevel,jobType,company,jobDescription,jobTitle);
             System.out.println(job);
 
 
@@ -206,12 +218,12 @@ public class JobCrawler {
             Element industryTagWrapper = boxCategoryTags.first();
 
             Elements industryTags = industryTagWrapper.select(".box-category-tag");
-
+            int ANOTHER_INDUSTRY_ID = 899;
             List<String> industryList = new ArrayList<>();
             for (Element industryTag : industryTags) {
 
 
-                Pattern pattern = Pattern.compile("c(\\d+)$");
+                Pattern pattern = Pattern.compile("cr(\\d+)$");
                 Matcher matcher = pattern.matcher(industryTag.attr("href"));
 
                 if (matcher.find()) {
@@ -221,6 +233,9 @@ public class JobCrawler {
                     siteIndustryCode = industryService.findBySiteIndustryCodeAndSourceId(tempIndustryCode,1);
                     if(siteIndustryCode != null) {
                         Industry industry = industryService.findById(siteIndustryCode.getIndustryId());
+                        job.addIndustry(industry);
+                    }else {
+                        Industry industry = industryService.findById(ANOTHER_INDUSTRY_ID);
                         job.addIndustry(industry);
                     }
                 }
@@ -295,7 +310,7 @@ public class JobCrawler {
                             jobUrl = job.selectFirst(".title").selectFirst("a").attr("href");
                             jobUrl = getUrlUpToHtml(jobUrl);
                             crawl(jobUrl);
-                            TimeUnit.SECONDS.sleep(10);
+                            TimeUnit.SECONDS.sleep(20);
 
                         }
 

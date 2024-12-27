@@ -39,9 +39,7 @@ public interface JobRepository extends JpaRepository<Job, Integer> {
             "WHERE (i.industryId = :industryId) ")
     public List<Job> findByIndustryId(Integer industryId);
 
-    @Query("select j from Job j " +
-            "where j.minSalary <= :salary and j.maxSalary >= :salary")
-    public List<Job> findBySalary(Double salary);
+
 
     // Search
 

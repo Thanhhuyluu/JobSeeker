@@ -1,0 +1,61 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+                     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+
+
+
+
+
+    <div th:fragment="left-bar" class="left-bar active">
+        <div class="left-bar-logo" style="background-image: url('/img/jobseekerwhite.png');"></div>
+
+        <ul class="left-bar-list">
+            <li class="left-bar-item">
+                <a href="#" class="left-bar-item-link">
+                    <i class="left-bar-item-link-icon fa-solid fa-house"></i>
+                    <p class="left-bar-item-link-text">Dashboard</p>
+                </a>
+            </li>
+            <li th:class="'left-bar-item ' +  ${mode=='MODE_JOBS' ? 'active' : ''}" >
+                <a href="viec-lam" class="left-bar-item-link">
+                    <i class="left-bar-item-link-icon fa-solid fa-newspaper"></i>
+                    <p class="left-bar-item-link-text">Jobs</p>
+                </a>
+            </li>
+            <li class="left-bar-item">
+                <a href="#" class="left-bar-item-link">
+                    <i class="left-bar-item-link-icon fa-solid fa-user"></i>
+                    <p class="left-bar-item-link-text">Users</p>
+                </a>
+            </li>
+            <li class="left-bar-item">
+                <a href="#" class="left-bar-item-link">
+                    <i class="left-bar-item-link-icon fa-solid fa-building"></i>
+                    <p class="left-bar-item-link-text">Companies</p>
+                </a>
+            </li>
+            <li class="left-bar-item">
+                <a href="#" class="left-bar-item-link">
+                    <i class="left-bar-item-link-icon fa-solid fa-right-from-bracket"></i>
+                    <p class="left-bar-item-link-text">Logout</p>
+                </a>
+            </li>
+        </ul>
+
+
+    </div>
+
+
+
+
+</body>
+</html>

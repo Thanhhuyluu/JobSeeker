@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/template.html}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css.map}">
+    <link rel="stylesheet" th:href="@{/css/web/base.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/main.css}">
+
+    <link rel="stylesheet" th:href="@{/css/web/grid.css}">
+
+    <link rel="preconnect" th:href="@{https://fonts.googleapis.com}">
+    <link rel="preconnect" th:href="@{https://fonts.gstatic.com}" crossorigin>
+    <link th:href="@{https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap}" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/fonts/fontawesome-free-6.6.0-web/css/all.min.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Document</title>
+</head>
+<body>
+
+    <div layout:fragment="content" class="main-content">
+        <div class="row">
+            <div class="col l-8">
+                <div class="main-content-header-with-search">
+                    <i class="main-content-header-menu-open-icon fa-solid fa-bars"></i>
+                    <input class="main-content-header-search-input" placeholder="Search here..." type="text">
+                </div>
+            </div>
+            <div class="col l-4">
+                <div class="main-content-header-nav">
+                    <ul class="main-content-header-nav-list">
+                        <li class="main-content-header-nav-item active">
+                            <i class="main-content-header-nav-icon fa-regular fa-bell "></i>
+                        </li>
+                        <li class="main-content-header-nav-item">
+                            <div class="main-content-header-user-avartar" style="background-image: url(/assets/img/user.jpg);"></div>
+                            <i class="main-content-header-nav-icon fa-solid fa-chevron-down"></i>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="app-content-loaded">
+            <div class="row">
+                <div class="add-new-record-button-wrapper col l-12">
+                    <a th:href="@{them-cong-viec}" class="add-new-record-button">
+                        <i class="add-new-record-button-icon fa-solid fa-plus"></i>
+                    </a>
+                </div>
+
+            </div>
+
+
+            <div class="row">
+
+                <div class="main-content-table-wrapper">
+                    <table class="main-content-table">
+                        <tr>
+                            <th>Mã </th>
+                            <th>Tên công việc</th>
+                            <th>Công ty</th>
+                            <th>Thao tác</th>
+                        </tr>
+                        <tr th:each="job : ${jobs}">
+                            <td>
+                                <p class="main-content-table-text" th:text="${job.jobId}"></p>
+                            </td>
+                            <td>
+                                <p class="main-content-table-text" th:text="${job.jobTitle}"></p>
+                            </td>
+                            <td>
+                                <p class="main-content-table-text" th:text="${job.company.companyName}"></p>
+                            </td>
+                            <td class="table-action-button-wrapper">
+                                <div class="table-action-button table-action-button--show"
+                                     th:attr="data-job-id=${job.jobId}">
+                                    <i class="fa-solid fa-circle-info"></i>
+                                </div>
+                                <div class="table-action-button table-action-button--change">
+                                    <i class="fa-solid fa-pen"></i>
+                                </div>
+                                <div class="table-action-button table-action-button--delete">
+                                    <i class="fa-solid fa-trash"></i>
+                                </div>
+                            </td>
+                        </tr>
+
+
+
+                    </table>
+                    <div class="app-main-navigate" th:if="${jobs.size() > 0}">
+                        <ul  class="app-main-navigate-list">
+                            <li th:if="${currentPage > 1}" class="app-main-navigate-item">
+
+                                <button  class="app-main-navigate-item-btn"
+                                         th:value="@{'/admin/load-viec-lam?pageNo=' + ${currentPage -1}+'&industryId='+${industryId} +'&locationId='+${locationId}}">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </button>
+                            </li>
+
+
+                            <li th:classappend="${currentPage} == ${i} ? 'active' : ' '"
+                                th:each="i : ${#numbers.sequence(1,pageNum)}" class="app-main-navigate-item">
+                                <button class="app-main-navigate-item-btn"
+                                        th:value="@{'/admin/load-viec-lam?pageNo=' + ${i}+'&industryId='+${industryId} +'&locationId='+${locationId}}"
+                                >[[${i}]]</button>
+
+                            </li>
+
+                            <li th:if="${currentPage <  pageNum} " class="app-main-navigate-item">
+                                <button class="app-main-navigate-item-btn"
+                                        th:value="@{'/admin/load-viec-lam?pageNo=' + ${currentPage +1}+'&industryId='+${industryId} +'&locationId='+${locationId}}">
+
+
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </button>
+                            </li>
+
+
+                        </ul>
+                    </div>
+                </div>
+
+
+
+
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+
+</body>
+</html>
+<script th:src="@{/js/admin/home.js}"></script>
+
+
+<script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js}"></script>
+<script th:src="@{/ajax/admin/home_page_ajax.js}"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        let sectionCount = 1;
+
+        // Thêm chuyên mục
+        document.getElementById('add-section').addEventListener('click', function () {
+            sectionCount++;
+            const sectionContainer = document.createElement('div');
+            sectionContainer.className = 'description-section';
+            sectionContainer.innerHTML = `
+                <div class="form-group">
+                    <label for="sectionTitle${sectionCount}">Tiêu đề chuyên mục</label>
+                    <input type="text" id="sectionTitle${sectionCount}" name="sectionTitles[]" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="sectionDescription${sectionCount}">Mô tả chuyên mục</label>
+                    <textarea id="sectionDescription${sectionCount}" name="sectionDescriptions[]" class="form-control"></textarea>
+                </div>
+                <button type="button" class="btn btn-danger remove-section">Xóa chuyên mục</button>
+            `;
+            document.getElementById('description-sections').appendChild(sectionContainer);
+        });
+
+        // Xóa chuyên mục
+        document.getElementById('description-sections').addEventListener('click', function (e) {
+            if (e.target.classList.contains('remove-section')) {
+                e.target.parentElement.remove();
+            }
+        });
+    });
+</script>

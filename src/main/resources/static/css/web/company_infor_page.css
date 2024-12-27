@@ -1,0 +1,183 @@
+
+
+:root {
+    --company-logo-width: 150px;
+    --company-logo-height: 150px;
+    --company-logo-left-margin: 100px;
+
+    --company-main-name-left-margin: calc(var(--company-logo-left-margin) + var(--company-logo-width) + 20px);
+}
+
+.company-infor-header-banner {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover ;
+    background-color: white;
+    height: 300px;
+
+}
+
+
+.company-infor-header-information {
+    position: relative;
+    background-color: rgba(0, 0, 0, 0.8);
+    height: 100px;
+    width: 100%;;
+}
+
+.company-infor-header-information-img {
+    height: var(--company-logo-height);
+    width: var(--company-logo-width);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    position: absolute;
+    bottom: 100%;
+    left: var(--company-logo-left-margin);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    transform: translateY(50%);
+    background-color: #222222;
+}
+
+.company-infor-header-information-text {
+    position: absolute;
+    left: var(--company-main-name-left-margin);
+    margin-top: 15px;
+    color: rgb(212, 212, 212);
+
+}
+
+.company-infor-header-information-heading {
+    font-size: 2.4rem;
+}
+
+
+
+.company-infor-header-information-heading-link {
+    text-decoration: none;
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: var(--bright-text-color);
+}
+
+.company-infor-header-information-heading-icon {
+    margin-right: 4px;
+}
+
+
+
+
+.company-infor-body{
+    padding-bottom: 60px;
+}
+
+.company-infor-body-section {
+    margin-top: 20px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.company-infor-body-section-heading {
+    background-color: rgb(49, 49, 49);
+    color: var(--white-color);
+    margin: 0;
+    padding: 20px 15px;
+}
+
+
+.company-infor-body-section-body{
+    padding: 20px 15px;
+}
+
+.company-infor-body-section-body p{
+    font-size: 1.6rem;
+    color: var(--text-color);
+    line-height: 2.2rem;
+}
+
+
+
+.company-infor-body-section-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+
+.company-infor-body-section
+.company-infor-body-section-body {
+    max-height: auto;
+}
+
+
+
+.company-infor-body-section.active
+.company-infor-body-section-body{
+    max-height: 150px;
+    overflow: hidden;
+}
+
+
+
+.company-infor-body-section-body{
+    transition: all linear 0.3s;
+}
+
+
+.company-infor-body-section.active .showmore {
+    display: block;
+}
+
+.company-infor-body-section .showmore {
+    display: none;
+}
+
+
+.company-infor-body-section.active .seeless {
+    display: none;
+}
+
+.company-infor-body-section .seeless {
+    display: block;
+}
+
+.seeless,
+.showmore {
+    padding: 0 15px;
+    font-size: 1.6rem;
+    font-weight: 500;
+    color: rgb(158, 85, 85);
+    margin: 0;
+    user-select: none;
+    padding: 20px 15px;
+
+}
+
+
+.seeless:hover,
+.showmore:hover {
+    cursor: pointer;
+}
+
+.showmore-blur {
+    display: none;
+}
+
+.company-infor-body-section.active .showmore-blur {
+    display: block;
+}
+
+.show-more-action {
+    position: relative;
+}
+
+.show-more-action .showmore-blur {
+    position: absolute;
+    top:-70%;
+    background-image: linear-gradient(rgba(255, 255, 255, 0),#f0f0f0);
+    height: 40px;
+    width: 100%;
+}
+

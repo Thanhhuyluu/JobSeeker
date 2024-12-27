@@ -3,16 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css.map">
-    <link rel="stylesheet" href="../../../../../../../WebDev/jobseeker-application-frontend/assets/css/base.css">
-    <link rel="stylesheet" href="../../../../../../../WebDev/jobseeker-application-frontend/assets/css/grid.css">
-    <link rel="stylesheet" href="../../../../../../../WebDev/jobseeker-application-frontend/assets/css/home_page.css">
-    <link rel="stylesheet" href="./assets/css/job_infor_page.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../../../../../../../WebDev/jobseeker-application-frontend/assets/fonts/fontawesome-free-6.6.0-web/css/all.min.css">
+    <title th:text="${job.jobTitle}"></title>
+
+    <link rel="icon" type="image/x-icon" th:href="@{/img/logo.ico}">
+    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css.map}">
+    <link rel="stylesheet" th:href="@{/css/web/base.css}">
+    <link rel="stylesheet" th:href="@{/css/web/grid.css}">
+    <link rel="stylesheet" th:href="@{/css/web/home_page.css}">
+    <link rel="stylesheet" th:href="@{/css/web/job-infor-page.css}">
+    <link rel="preconnect" th:href="@{https://fonts.googleapis.com}">
+    <link rel="preconnect" th:href="@{https://fonts.gstatic.com}" crossorigin>
+    <link th:href="@{https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap}" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/fonts/fontawesome-free-6.6.0-web/css/all.min.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
     <div class="app">
@@ -56,7 +59,7 @@
                 <div class="grid wide">
                     <nav class="header__navbar--main">
                         <div class="header__navbar--main-with-logo">
-                            <div class="header__navbar--main-logo" style="background-image: url(../../../../../../../WebDev/jobseeker-application-frontend/assets/img/logo.jpg);"></div>
+                            <div class="header__navbar--main-logo" th:style="'background-image: url(' + @{/img/weblogo.png} + ');'"></div>
 
                             <ul class="header__navbar--main-list">
                                 <li class="header__navbar--main-item">
@@ -153,15 +156,15 @@
                         <i class="job-infor-slider-btn job-infor-slider-btn-left fa-solid fa-angle-left"></i>
                         <div class="job-infor-img-slider">
                             <div class="job-infor-img-slider-wrap">
-                                <img src="/assets/img/slide1.jpg"
+                                <img th:src="@{/img/slide1.jpg}"
                                     alt="" class="job-infor-img-slider__item">
                             </div>
                             <div class="job-infor-img-slider-wrap">
-                                <img src="/assets/img/slide2.jpeg"
+                                <img th:src="@{/img/slide2.jpeg}"
                                     alt="" class="job-infor-img-slider__item">
                             </div>
                             <div class="job-infor-img-slider-wrap">
-                                <img src="/assets/img/slide3.jpg"
+                                <img th:src="@{/img/slide3.jpg}"
                                     alt="" class="job-infor-img-slider__item">
                             </div>
                         </div>
@@ -171,8 +174,8 @@
                     
                     <div class="job-infor-overview">
                         <div class="job-infor-company-logo" style="background-image: url(/assets/img/image.png);"></div>
-                        <h1 class="job-infor-overview-title">Product Security Foundations</h1>
-                        <a href="#" class="job-infor-overview-company-name">Microsoft inc</a>
+                        <h1 class="job-infor-overview-title" th:title="${job.jobTitle}" th:text="${job.jobTitle}"></h1>
+                        <a th:href="'/cong-ty/' +${job.company.companyId}" class="job-infor-overview-company-name" th:text="${job.company.companyName}"></a>
                     </div>
 
 
@@ -188,7 +191,9 @@
                                             <p class="job-infor-detail--section-infor-name">
                                                 Mức lương
                                             </p>
-                                            <h4 class="job-infor-detail--section-infor-text">Trên 25 triệu</h4>
+                                            <h4 class="job-infor-detail--section-infor-text" th:if="${job.salary == 0}">Thỏa thuận</h4>
+                                            <h4 class="job-infor-detail--section-infor-text" th:unless="${job.salary == 0}">Lương: [[${#numbers.formatDecimal(job.salary, 0, 1)}]] triệu</h4>
+
                                         </div>
                                     </div>
                                     <div class="job-infor-detail--section">
@@ -199,7 +204,9 @@
                                             <p class="job-infor-detail--section-infor-name">
                                                 Địa điểm
                                             </p>
-                                            <h4 class="job-infor-detail--section-infor-text">Hà Nội, Hồ Chí Minh</h4>
+                                            <h4 class="job-infor-detail--section-infor-text" th:if="${job.locations.size() != 0}" th:text="${#strings.listJoin(job.locations, ', ')}"></h4>
+                                            <h4 class="job-infor-detail--section-infor-text" th:if="${job.locations.size() == 0}" >Chưa cập nhật</h4>
+
                                         </div>
                                     </div>
                                     <div class="job-infor-detail--section">
@@ -210,18 +217,19 @@
                                             <p class="job-infor-detail--section-infor-name">
                                                 Kinh nghiệm
                                             </p>
-                                            <h4 class="job-infor-detail--section-infor-text">3 năm</h4>
+                                            <h4 class="job-infor-detail--section-infor-text" th:if="${job.experienceLevel} == 0" >Không yêu cầu</h4>
+                                            <h4 class="job-infor-detail--section-infor-text" th:unless="${job.experienceLevel} == 0" th:text="${job.experienceLevel} + ' năm'"></h4>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="job-infor-detail-expiration-date">
                                     <i class="job-infor-detail-expiration-date-icon fa-solid fa-clock"></i>
-                                    <p class="job-infor-detail-expiration-date-text">Hạn nộp hồ sơ: 20/11/2024</p>
+                                    <p class="job-infor-detail-expiration-date-text" th:text="'Hạn nộp hồ sơ:  ' + ${job.expirationDate}"></p>
                                 </div>
 
                                 <div class="job-infor-detail-box--left-action">
-                                    <a  href="#" class="job-infor-detail-button">Xem bài đăng của nhà tuyển dụng</a>
+                                    <a  th:href="${job.jobUrl}" class="job-infor-detail-button">Xem bài đăng của nhà tuyển dụng</a>
                                     <div class="job-infor-detail-like-button liked">
                                         <i class="job-infor-detail-like-button-icon-empty job-infor-detail-like-button-icon fa-regular fa-heart"></i>
                                         <i class="job-infor-detail-like-button-icon-filled job-infor-detail-like-button-icon fa-solid fa-heart"></i>
@@ -235,75 +243,13 @@
                             <div class="job-infor-detail-information-detail">
 
                                 <h1 class="job-infor-detail-information-detail-heading">Chi tiết công việc</h1>
-                                <div>
-                                    <h3>Mô tả công việc</h3>
-                                    <div>
-                                     <ul>
-                                      <li>Lập kế hoạch thực hiện công tác đảm bảo an toàn, an ninh, vệ sinh môi trường theo đúng quy chế ban chỉ huy công trường của Công ty.</li>
-                                      <li>Kiểm soát và thực hiện hệ thống hồ sơ An toàn, hồ sơ pháp lý liên quan tại công trường.</li>
-                                      <li>Cùng với bộ phận thi công liệt kê tất cả các hoạt động thi công, tiến hành phân tích rủi ro và đề ra biện pháp phòng ngừa.</li>
-                                      <li>Lập kế hoạch cung cấp trang thiết bị bảo hộ lao động.</li>
-                                      <li>Huấn luyện bắt buộc cho toàn công trường các nội dung: sơ cấp cứu, phòng cháy chữa cháy, quy định sử dụng trang bị BHLĐ, quy định sử dụng thiết bị điện, trường hợp khẩn cấp.</li>
-                                      <li>Tổ chức thực hiện công tác PCCC, kiểm định thiết bị, máy móc và an toàn điện.</li>
-                                      <li>Điều hành, quản lý nhân công thực hiện công tác đảm bảo HSE, phối hợp nhóm giám sát TC để điều chỉnh lựa chọn nhân công phù hợp.</li>
-                                     </ul>
-                                    </div>
-                                   </div>
-                                   <div>
-                                    <h3>Yêu cầu ứng viên</h3>
-                                    <div>
-                                     <ul>
-                                      <li>Tốt nghiệp chuyên ngành Xây dựng, Bảo hộ lao động, Môi trường và các ngành có liên quan</li>
-                                      <li>Ít nhất 01 năm kinh nghiệm làm việc</li>
-                                      <li>Hiểu biết về các quy định pháp luật liên quan</li>
-                                      <li>Hiểu biết yêu cầu ATLĐ cho các công tác thi công trên công trường</li>
-                                      <li>Hiểu về quy trình thi công</li>
-                                     </ul>
-                                    </div>
-                                   </div>
-                                   <div>
-                                    <h3>Quyền lợi</h3>
-                                    <div>
-                                     <ul>
-                                      <li>Chế độ bảo hiểm</li>
-                                      <li>Du Lịch</li>
-                                      <li>Phụ cấp</li>
-                                      <li>Đồng phục</li>
-                                      <li>Chế độ thưởng</li>
-                                      <li>Chăm sóc sức khỏe</li>
-                                      <li>Đào tạo</li>
-                                      <li>Tăng lương</li>
-                                      <li>Công tác phí</li>
-                                      <li>Nghỉ phép năm</li>
-                                     </ul>
-                                    </div>
-                                   </div>
-                                   <div>
-                                    <h3>Địa điểm làm việc</h3>
-                                    <div>
-                                     <div>
-                                      - Miền Nam
-                                     </div>
-                                    </div>
-                                   </div>
-                                   <div>
-                                    <h3>Thời gian làm việc</h3>
-                                    <div>
-                                     <div>
-                                      Thứ 2 - Thứ 7 (từ 07:00 đến 17:00)
-                                     </div>
-                                    </div>
-                                   </div>
-                                   <div>
-                                    <h3>Cách thức ứng tuyển</h3>
-                                    <div>
-                                     Ứng viên nộp hồ sơ trực tuyến bằng cách bấm <strong>Ứng tuyển</strong> ngay dưới đây.
-                                    </div>
-                                   </div>
-                                   <div class="job-infor-detail-information-detail-actions">
-                                        <a  href="#" class="job-infor-detail-button">Xem bài đăng của nhà tuyển dụng</a>
-                                       
-                                   </div>
+                                <div th:utext="${job.jobDescription}">
+
+                                </div>
+                                <div class="job-infor-detail-information-detail-actions">
+                                    <a  th:href="${job.jobUrl}" class="job-infor-detail-button">Xem bài đăng của nhà tuyển dụng</a>
+
+                                </div>
                             </div>
                         </div>
                         <div class="col l-4">
@@ -317,7 +263,7 @@
                                                 <p class="job-infor-detail--section-infor-name">
                                                     Cấp bậc
                                                 </p>
-                                                <h4 class="job-infor-detail--section-infor-text">Nhân viên</h4>
+                                                <h4 class="job-infor-detail--section-infor-text" th:text="${job.careerLevel}"></h4>
                                             </div>
                                         </div>
                                         <div class="job-infor-detail--section">
@@ -328,7 +274,8 @@
                                                 <p class="job-infor-detail--section-infor-name">
                                                     Kinh nghiệm
                                                 </p>
-                                                <h4 class="job-infor-detail--section-infor-text">3 năm</h4>
+                                                <h4 class="job-infor-detail--section-infor-text" th:if="${job.experienceLevel} == 0">Không yêu cầu</h4>
+                                                <h4 class="job-infor-detail--section-infor-text" th:unless="${job.experienceLevel} == 0" th:text="${job.experienceLevel} + ' năm'"></h4>
                                             </div>
                                         </div>
                                         <div class="job-infor-detail--section">
@@ -339,7 +286,7 @@
                                                 <p class="job-infor-detail--section-infor-name">
                                                     Hình thức làm việc
                                                 </p>
-                                                <h4 class="job-infor-detail--section-infor-text">Toàn thời gian</h4>
+                                                <h4 class="job-infor-detail--section-infor-text" th:text="${job.jobType}"></h4>
                                             </div>
                                         </div>
                                        
@@ -348,8 +295,8 @@
 
                                 <div class="job-infor-detail-box--right">
                                     <div class="job-infor-detail-box--right-company-img-and-name">
-                                        <a href="#" class="job-infor-detail-box--right-company-img" style="background-image: url(/assets/img/image.png);"></a>
-                                        <a href="#" class="job-infor-detail-box--right-company-name">Công ty TNHH Dược phẩm E&S Việt Nam</a>
+                                        <a href="#" class="job-infor-detail-box--right-company-img" th:style="'background-image: url(/img/' + ${job.company.companyLogo} +');'"></a>
+                                        <a href="#" class="job-infor-detail-box--right-company-name" th:text="${job.company.companyName}"></a>
                                     </div>
 
                                     <div class="job-infor-detail-box--right-company-sections">
@@ -359,11 +306,11 @@
 
                                                 <p class="job-infor-detail-box--right-company-section-heading-text">Địa điểm:</p>
                                             </div>
-                                            <p class="job-infor-detail-box--right-company-section-infor">B14, Lê Văn Tám, Vạn Phúc, Hà Đông, Hà Nội</p>
+                                            <p class="job-infor-detail-box--right-company-section-infor" th:text="${job.company.companyLocation}"></p>
                                         </div>
                                     </div>
 
-                                    <a href="#" class="job-infor-detail-box--right-company-link">Xem trang công ty</a>
+                                    <a th:href="${job.company.companyWebsite}" class="job-infor-detail-box--right-company-link">Xem trang công ty</a>
                                 </div>
                         </div>
                     </div>
@@ -439,5 +386,5 @@
         </footer>
     </div>
 </body>
-<script src="/assets/js/job_infor_page.js"></script>
+<script th:src="@{/js/web/job_infor_page.js}"></script>
 </html>
