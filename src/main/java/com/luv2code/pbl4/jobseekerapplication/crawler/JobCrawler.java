@@ -111,7 +111,7 @@ public class JobCrawler {
                     currency =  (belowMatcher.group(3) != null && !belowMatcher.group(3).equalsIgnoreCase("triệu"))? belowMatcher.group(3) : "VND";
                 }else {
                     salary = 0.0;
-                    currency = null;
+                    currency = "VND";
                 }
             }
 
