@@ -4,19 +4,25 @@ package com.luv2code.pbl4.jobseekerapplication.controller.admin;
 import com.luv2code.pbl4.jobseekerapplication.crawler.JobCrawler;
 import com.luv2code.pbl4.jobseekerapplication.dto.ListResult;
 import com.luv2code.pbl4.jobseekerapplication.entity.Company;
+import com.luv2code.pbl4.jobseekerapplication.entity.Industry;
 import com.luv2code.pbl4.jobseekerapplication.entity.Job;
+import com.luv2code.pbl4.jobseekerapplication.entity.Location;
 import com.luv2code.pbl4.jobseekerapplication.service.*;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-
+import java.util.stream.Collectors;
+import org.apache.commons.text.StringEscapeUtils;
 @Controller
 @RequestMapping("/admin")
 public class AdminJobController {
@@ -53,42 +59,6 @@ public class AdminJobController {
 
     }
 
-    @GetMapping("/viec-lam/them")
-    public String addJob(@RequestParam(defaultValue = "1", required = false) String jobTitle,
-                         @RequestParam(defaultValue = "1", required = false) String jobDescription,
-                         @RequestParam(required = false) int companyId,
-                         @RequestParam(defaultValue = "1", required = false) String jobType,
-                         @RequestParam(defaultValue = "0", required = false) int experienceLevel,
-                         @RequestParam(defaultValue = "1", required = false) String careerLevel,
-                         @RequestParam(required = false) LocalDate postedDate,
-                         @RequestParam(required = false) LocalDate expirationDate,
-                         @RequestParam(defaultValue = "1", required = false) String jobUrl,
-                         @RequestParam(defaultValue = "0", required = false) Double salary,
-                         @RequestParam(defaultValue = "VND", required = false) String salaryCurrency,
-                         Model model) {
-
-        Job job = new Job();
-        job.setJobTitle(jobTitle);
-        job.setJobDescription(convertToHtml(jobDescription));
-        job.setCompany(companyService.findById(companyId));
-        job.setJobType(jobType);
-        job.setExperienceLevel(experienceLevel);
-        job.setCareerLevel(careerLevel);
-        job.setPostedDate(postedDate);
-        job.setExpirationDate(expirationDate);
-        job.setJobUrl(jobUrl);
-        job.setSalary(salary);
-        job.setSalaryCurrency(salaryCurrency);
-        jobService.save(job);
-
-
-        List<Company> companies = companyService.findAll();
-        model.addAttribute("companies", companies);
-        model.addAttribute("companyName", "alo");
-        model.addAttribute("companyId", 10);
-        getJobs(1, 10, "", "", -1, -1, null, "", null, 0.0, model);
-        return "admin/JobList";
-    }
 
     public static String convertToHtml(String inputText) {
 
@@ -130,6 +100,8 @@ public class AdminJobController {
         Long totalItems = listResult.getTotalItems();
         int pageNum = listResult.getTotalPages(pageSize);
         List<Company> companies = companyService.findAll();
+
+        model.addAttribute("search", search);
         model.addAttribute("companies", companies);
         model.addAttribute("currentPage", pageNo);
         model.addAttribute("totalItems", totalItems);
@@ -140,11 +112,11 @@ public class AdminJobController {
         model.addAttribute("mode", "MODE_JOBS");
         String result = "";
         result += "<div class=\"row\">\n" +
-                "                <div class=\"add-new-record-button-wrapper col l-12\">\n" +
-                "                    <div class=\"add-new-record-button\">\n" +
+                " <div class=\"add-new-record-button-wrapper col l-12\">\n" +
+                "                    <a href=\"them-cong-viec\" class=\"add-new-record-button\">\n" +
                 "                        <i class=\"add-new-record-button-icon fa-solid fa-plus\"></i>\n" +
-                "                    </div>\n" +
-                "                </div>\n" +
+                "                    </a>\n" +
+                "                </div>" +
                 "    \n" +
                 "            </div>" +
                 "<div class=\"row\">\n" +
@@ -171,12 +143,20 @@ public class AdminJobController {
                     "                                <p class=\"main-content-table-text\"> " + job.getCompany().getCompanyName() + " </p>\n" +
                     "                            </td>\n" +
                     "                            <td class=\"table-action-button-wrapper\">\n" +
-                    "                                <div class=\"table-action-button table-action-button--show\"\n" +
-                    "                                     data-job-id=\""+ job.getJobId()+ "\">\n" +
+                    "                                <a class=\"table-action-button table-action-button--show\" href=\"xem-chi-tiet?jobId="+job.getJobId()+"\">\n" +
                     "                                    <i class=\"fa-solid fa-circle-info\"></i>\n" +
+                    "                                </a>" +
+                    "                               <a class=\"table-action-button table-action-button--change\"\n" +
+                    "                                     href=\"sua-viec-lam?jobId=" + job.getJobId() + "\">\n" +
+                    "                                    <i class=\"fa-solid fa-pen\"></i>\n" +
+                    "                                </a>\n" +
+                    "                                <div\n" +
+                    "                                        class=\"table-action-button table-action-button--delete\"\n" +
+                    "                                        data-url=\"xoa-viec-lam?jobId=" + job.getJobId() + "&currentPage=" + pageNo+"\"\n" +
+                    "                                        data-message=\"Bạn có muốn xóa công việc này không?\"\n" +
+                    "                                        onclick=\"handleDelete(this)\">\n" +
+                    "                                    <i class=\"fa-solid fa-trash\"></i>\n" +
                     "                                </div>" +
-                    "                                <div class=\"table-action-button table-action-button--change\"><i class=\"fa-solid fa-pen\"></i></div>\n" +
-                    "                                <div class=\"table-action-button table-action-button--delete\"><i class=\"fa-solid fa-trash\"></i></div>\n" +
                     "                            </td>\n" +
                     "                        </tr>\n";
         }
@@ -230,103 +210,280 @@ public class AdminJobController {
         return result;
     }
 
-    @GetMapping("/xem-thong-tin")
-    @ResponseBody
-    public String getJob(@RequestParam( required = true) int jobId) {
-        Job job = jobService.findById(jobId);
-        String result = "";
-        Document document = Jsoup.parse(job.getJobDescription());
-
-        // Extract and format the content
-        StringBuilder formattedText = new StringBuilder();
-        for (Element section : document.select(".job-description__item, .job-description__item--content")) {
-            // Process <h3> (Section Title)
-            Element title = section.selectFirst("h3");
-            if (title != null) {
-                formattedText.append(title.text().toUpperCase()).append("\n");
-            }
-
-            // Process the content
-            for (Element content : section.select("p, div")) {
-                String text = content.text().trim();
-                if (!text.isEmpty()) {
-                    formattedText.append(text).append("\n");
-                }
-            }
-            formattedText.append("\n");
-        }
-
-        result += "                     <div class=\"form-group\">\n" +
-                "                            <label for=\"jobTitle\">Tên công việc</label>\n" +
-                "                            <input type=\"text\" id=\"jobTitle\" name=\"jobTitle\" class=\"form-control\" value=\"" + job.getJobTitle()+ "\">\n" +
-                "                        </div>\n" +
-                "                        <div class=\"form-group\">\n" +
-                "                            <label for=\"jobDescription\">Mô tả</label>\n" +
-                "                            <textarea id=\"jobDescription\" name=\"jobDescription\" class=\"form-control\" placeholder=\"Hãy viết tiêu đề IN HOA\" value=\"oizzoi\">"+formattedText.toString().trim()+"</textarea>\n" +
-                "                        </div>\n" +
-                "\n" +
-                "\n" +
-                "                        <label for=\"search-bar--main-section-category-trigger\" class=\"search-bar--main-section\">\n" +
-                "                            <input hidden type=\"checkbox\" id=\"search-bar--main-section-category-trigger\" name=\"search-bar--main-section-category-trigger\">\n" +
-                "                            <i class=\"search-bar--main-section-icon fa-solid fa-briefcase\"></i>\n" +
-                "                            <div class=\"search-bar--main-section-text\">\n" +
-                "\n" +                          job.getCompany().getCompanyName()+
-                "                            </div>\n" +
-                "                            <i class=\"search-bar--main-section-icon--down fa-solid fa-chevron-down\"></i>\n" +
-                "                            <i class=\"search-bar--main-section-icon--up fa-solid fa-chevron-up\"></i>\n" +
-                "\n" +
-                "\n" +
-                "                        </label>\n" +
-                "\n" +
-                "                        <div class=\"form-group\">\n" +
-                "\n" +
-                "                            <label for=\"jobType\">Loại công việc</label>\n" +
-                "                            <input type=\"text\" id=\"jobType\" name=\"jobType\" class=\"form-control\" value=\""+job.getJobType()+"\">\n" +
-
-                "                        </div>\n" +
-                "                        <div class=\"form-group\">\n" +
-                "                            <label for=\"experienceLevel\">Năm kinh nghiệm</label>\n" +
-                "                            <input type=\"number\" id=\"experienceLevel\" name=\"experienceLevel\" class=\"form-control\" value=\""+job.getExperienceLevel()+"\">\n" +
-                "                        </div>\n" +
-                "                        <div class=\"form-group\">\n" +
-                "                            <label for=\"careerLevel\">Vị trí công việc</label>\n" +
-
-                "                            <input type=\"text\" id=\"careerLevel\" name=\"careerLevel\" class=\"form-control\" value=\""+job.getCareerLevel()+"\">\n" +
-                "                        </div>\n" +
-                "                        <div class=\"form-group\">\n" +
-                "                            <label for=\"postedDate\">Ngày đăng</label>\n" +
-                "                            <input type=\"date\" id=\"postedDate\" name=\"postedDate\" class=\"form-control\" value=\""+job.getPostedDate()+"\">\n" +
-                "                        </div>\n" +
-                "                        <div class=\"form-group\">\n" +
-                "                            <label for=\"expirationDate\">Ngày hết hạn</label>\n" +
-                "                            <input type=\"date\" id=\"expirationDate\" name=\"expirationDate\" class=\"form-control\" value=\""+job.getExpirationDate()+"\">\n" +
-                "                        </div>\n" +
-                "                        <div class=\"form-group\">\n" +
-                "                            <label for=\"jobUrl\">Nguồn</label>\n" +
-                "                            <input type=\"url\" id=\"jobUrl\" name=\"jobUrl\" class=\"form-control\" value=\""+job.getJobUrl()+"\">\n" +
-                "                        </div>\n" +
-                "                        <div class=\"form-group\">\n" +
-                "                            <label for=\"salary\">Mức Lương</label>\n" +
-                "                            <input type=\"number\" id=\"salary\" name=\"salary\" class=\"form-control\" value=\""+job.getSalary()+"\">\n" +
-                "                        </div>\n" +
-                "                        <div class=\"form-group\">\n" +
-                "                            <label for=\"salaryCurrency\">Đơn vị tiền tệ</label>\n" +
-                "                            <input type=\"text\" id=\"salaryCurrency\" name=\"salaryCurrency\" class=\"form-control\" value=\""+job.getSalaryCurrency()+"\">\n" +
-                "                        </div>\n";
-        return result;
-
-    }
-
     @GetMapping("/them-cong-viec")
     public String sendAddJobForm(Model model) {
         List<Company> companies = companyService.findAll();
+        List<Industry> industries = industryService.findAll();
+        List<Location> locations = locationService.findAll();
 
+
+
+        model.addAttribute("locations", locations);
+        model.addAttribute("industries", industries);
         model.addAttribute("mode", "MODE_JOBS");
         model.addAttribute("companies", companies);
         return "admin/AddJobForm";
     }
 
 
+    @PostMapping("/them-cong-viec")
+    public String addJob(@RequestParam(required = true) String selectedIndustryIds,
+                         @RequestParam(required = true) String selectedLocationIds,
+                         @RequestParam(required = true) String jobTitle,
+                         @RequestParam(required = true) String jobType,
+                         @RequestParam(required = true) String experienceLevel,
+                         @RequestParam(required = true) String careerLevel,
+                         @RequestParam(required = true) LocalDate expirationDate,
+                         @RequestParam(required = true) int companyId,
+                         @RequestParam(required = true) String jobUrl,
+                         @RequestParam(required = true) Double salary,
+                         @RequestParam(required = true) String salaryCurrency,
+                         @RequestParam("job-topic-name[]") List<String> jobTopicNames,
+                         @RequestParam("job-topic-description[]") List<String> jobTopicDescs,
+                         Model model) {
 
+
+        Job job = new Job();
+
+        List<String> locationIdList = Arrays.asList(selectedLocationIds.split(","));
+        for(String s : locationIdList) {
+            int locationId = Integer.parseInt(s);
+            Location location = locationService.findById(locationId);
+            job.addLocation(location);
+        }
+
+
+
+        List<String> industryIdList = Arrays.asList(selectedIndustryIds.split(","));
+        for(String s : industryIdList) {
+            int industryId = Integer.parseInt(s);
+            Industry industry = industryService.findById(industryId);
+            job.addIndustry(industry);
+        }
+
+
+        StringBuilder htmlOutput = new StringBuilder();
+
+        for (int i = 0; i < jobTopicNames.size(); i++) {
+            htmlOutput.append("<div class='job-description__item'>\n")
+                    .append("<h3>").append(jobTopicNames.get(i)).append("</h3>\n")
+                    .append("<div class='job-description__item-content'>\n")
+                    .append("<ul>\n");
+
+            String[] lines = jobTopicDescs.get(i).split("\n");
+
+
+            for (String line : lines) {
+                line = line.trim();
+                if (line.isEmpty()) {
+                    continue;
+                }
+
+                htmlOutput.append("<li>").append(line).append("</li>\n");
+            }
+
+
+
+
+            htmlOutput.append("</ul>\n").append("</div>\n").append("</div>\n");
+        }
+
+
+
+        job.setJobTitle(jobTitle);
+        job.setJobType(jobType);
+        job.setCareerLevel(careerLevel);
+        job.setExperienceLevel(Integer.parseInt(experienceLevel));
+        job.setCompany(companyService.findById(companyId));
+        job.setExpirationDate(expirationDate);
+        job.setSalary(salary);
+        job.setSalaryCurrency(salaryCurrency);
+        job.setJobUrl(jobUrl);
+        job.setJobDescription(htmlOutput.toString());
+
+        jobService.save(job);
+
+        System.out.println(job);
+
+        return showJobs(1, 10, "", "", -1, -1, null, "", null, 0.0, model);
+    }
+
+    @GetMapping ("/xoa-viec-lam")
+    public String deleteJob(@RequestParam(required = true) int jobId,
+                            @RequestParam(required = false, defaultValue = "1") int currentPage,
+                            Model model) {
+        jobService.deleteById(jobId);
+        model.addAttribute("currentPage", currentPage);
+        return showJobs(currentPage, 10, "", "", -1, -1, null, "", null, 0.0, model);
+    }
+    @GetMapping("/xem-chi-tiet")
+    public String showJobDetail(@RequestParam(required = true) int jobId, Model model) {
+        Job job = jobService.findById(jobId);
+
+
+
+
+        List<String> topicNames = new ArrayList<>();
+        List<String> topicDescs = new ArrayList<>();
+
+        getRawJobDescription(job, topicNames, topicDescs);
+
+        model.addAttribute("job", job);
+        model.addAttribute("topicNames", topicNames);
+        model.addAttribute("topicDescs", topicDescs);
+        return "admin/ViewJob";
+    }
+
+    @GetMapping("/sua-viec-lam")
+    public String sendEditJobForm(@RequestParam(required = true) int jobId, Model model) {
+        Job job = jobService.findById(jobId);
+        List<Company> companies = companyService.findAll();
+        List<Industry> industries = industryService.findAll();
+        List<Location> locations = locationService.findAll();
+        String selectedLocationIds = job.getLocations().stream()
+                .map(location -> String.valueOf( location.getLocationId()))
+                .collect(Collectors.joining(","));
+
+        String selectedIndustryIds = job.getIndustries().stream()
+                .map(industry -> String.valueOf( industry.getIndustryId()))
+                .collect(Collectors.joining(","));
+
+
+        List<String> topicNames = new ArrayList<>();
+        List<String> topicDescs = new ArrayList<>();
+        getRawJobDescription(job, topicNames, topicDescs);
+
+
+        model.addAttribute("topicNames", topicNames);
+        model.addAttribute("topicDescs", topicDescs);
+        model.addAttribute("selectedIndustryIds", selectedIndustryIds);
+        model.addAttribute("selectedLocationIds", selectedLocationIds);
+        model.addAttribute("locations", locations);
+        model.addAttribute("industries", industries);
+        model.addAttribute("mode", "MODE_JOBS");
+        model.addAttribute("companies", companies);
+        model.addAttribute("job", job);
+        return "admin/EditJobForm";
+    }
+
+    @PostMapping("/sua-viec-lam")
+    public String updateJob(@RequestParam(required = true) int jobId,
+                        @RequestParam(required = true) String selectedIndustryIds,
+                         @RequestParam(required = true) String selectedLocationIds,
+                         @RequestParam(required = true) String jobTitle,
+                         @RequestParam(required = true) String jobType,
+                         @RequestParam(required = true) String experienceLevel,
+                         @RequestParam(required = true) String careerLevel,
+                         @RequestParam(required = true) LocalDate expirationDate,
+                         @RequestParam(required = true) int companyId,
+                         @RequestParam(required = true) String jobUrl,
+                         @RequestParam(required = true) Double salary,
+                         @RequestParam(required = true) String salaryCurrency,
+                         @RequestParam("job-topic-name[]") List<String> jobTopicNames,
+                         @RequestParam("job-topic-description[]") List<String> jobTopicDescs,
+                         Model model) {
+
+
+        Job job = jobService.findById(jobId);
+        job.setLocations(new ArrayList<>());
+        job.setIndustries(new ArrayList<>());
+
+        List<String> locationIdList = Arrays.asList(selectedLocationIds.split(","));
+        for(String s : locationIdList) {
+            int locationId = Integer.parseInt(s);
+            Location location = locationService.findById(locationId);
+            job.addLocation(location);
+        }
+
+
+
+        List<String> industryIdList = Arrays.asList(selectedIndustryIds.split(","));
+        for(String s : industryIdList) {
+            int industryId = Integer.parseInt(s);
+            Industry industry = industryService.findById(industryId);
+            job.addIndustry(industry);
+        }
+
+
+        StringBuilder htmlOutput = new StringBuilder();
+
+        for (int i = 0; i < jobTopicNames.size(); i++) {
+            htmlOutput.append("<div class='job-description__item'>\n")
+                    .append("<h3>").append(jobTopicNames.get(i)).append("</h3>\n")
+                    .append("<div class='job-description__item-content'>\n")
+                    .append("<ul>\n");
+
+            String[] lines = jobTopicDescs.get(i).split("\n");
+
+
+            for (String line : lines) {
+                line = line.trim();
+                if (line.isEmpty()) {
+                    continue;
+                }
+
+                line = line.replaceAll("^[^a-zA-Z]+", "");
+                htmlOutput.append("<li>").append(line).append("</li>\n");
+            }
+
+
+
+
+            htmlOutput.append("</ul>\n").append("</div>\n").append("</div>\n");
+        }
+
+
+        job.setJobDescription(htmlOutput.toString());
+
+
+
+        job.setJobTitle(jobTitle);
+        job.setJobType(jobType);
+        job.setCareerLevel(careerLevel);
+        job.setExperienceLevel(Integer.parseInt(experienceLevel));
+        job.setCompany(companyService.findById(companyId));
+        job.setExpirationDate(expirationDate);
+        job.setSalary(salary);
+        job.setSalaryCurrency(salaryCurrency);
+        job.setJobUrl(jobUrl);
+        jobService.save(job);
+
+        System.out.println(job);
+
+        return showJobs(1, 10, "", "", -1, -1, null, "", null, 0.0, model);
+    }
+
+    public void getRawJobDescription(Job job,List<String> topicNames, List<String> topicDescs) {
+        Document document = Jsoup.parse(job.getJobDescription());
+
+
+        Elements items = document.select(".job-description__item");
+
+        for (Element item : items) {
+            String topicName = item.select("h3").text();
+            topicNames.add(topicName);
+
+            Elements itemDesc = item.select(".job-description__item--content");
+            StringBuilder descriptions = new StringBuilder();
+            if(!(itemDesc.select("ul li").isEmpty())) {
+                Elements itemDescs = itemDesc.select("ul li");
+                for(Element itemDesc1 : itemDescs) {
+                    descriptions.append(itemDesc1.text()).append("\n");
+                }
+            }else if(!(itemDesc.select("p").isEmpty())){
+                Elements itemDescs = itemDesc.select("p");
+                for(Element itemDesc1 : itemDescs) {
+                    descriptions.append(itemDesc1.text()).append("\n");
+                }
+
+            }else {
+                descriptions.append(itemDesc.text()).append("\n");
+            }
+
+
+            topicDescs.add(descriptions.toString());
+        }
+
+    }
 
 }

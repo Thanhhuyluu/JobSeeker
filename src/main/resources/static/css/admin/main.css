@@ -109,6 +109,34 @@
 }
 
 
+.main-content-header-search-button{
+    padding: 12px;
+    margin-left: 10px;
+    background-color: #22222e;
+    color: var(--dark-text-color);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.6rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.main-content-header-search-button:hover {
+    background-color: var(--active-color);
+
+}
+.main-content-header-search-button:hover .main-content-header-search-icon {
+    color: var(--dark-text-color);
+}
+
+.main-content-header-search-icon {
+    color: var(--active-color);
+    font-size: 24px;
+    transition: 0.3s all linear;
+
+}
+
 .main-content-header-nav {
 
 }
@@ -334,6 +362,7 @@
     font-size: 2.4rem;
     font-weight: 500;
     transition: all linear 0.2s;
+    text-decoration: none;
 
 
 }
@@ -351,9 +380,27 @@
 }
 
 
+.back-button {
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 10px 10px;
+    margin-top: 10px;
+    font-weight: 500;
+    font-size: 1.6rem;
+    background-color: #b64b4b;
+    position: fixed;
+    top: 80px;
+    right: 10px;
+    text-decoration: none;
+    transition: 0.2s all linear;
+}
+.back-button:hover {
 
+    background-color: #714444;
+}
 
-/*navigate*/
+    /*navigate*/
 
 
 .app-main-navigate{
@@ -494,17 +541,20 @@
 
 
 #search-bar--main-section-location-trigger:checked ~ .search-bar--main-section-list ,
-#search-bar--main-section-category-trigger:checked ~ .search-bar--main-section-list {
+#search-bar--main-section-company-trigger:checked ~ .search-bar--main-section-list,
+#search-bar--main-section-industry-trigger:checked ~ .search-bar--main-section-list {
     display: block !important;
 }
 
 #search-bar--main-section-location-trigger:checked ~ .search-bar--main-section-icon--up,
-#search-bar--main-section-category-trigger:checked ~ .search-bar--main-section-icon--up {
+#search-bar--main-section-company-trigger:checked ~ .search-bar--main-section-icon--up ,
+#search-bar--main-section-industry-trigger:checked ~ .search-bar--main-section-icon--up{
     display: block !important;
 }
 
 #search-bar--main-section-location-trigger:checked ~ .search-bar--main-section-icon--down ,
-#search-bar--main-section-category-trigger:checked ~ .search-bar--main-section-icon--down {
+#search-bar--main-section-industry-trigger:checked ~ .search-bar--main-section-icon--down ,
+#search-bar--main-section-company-trigger:checked ~ .search-bar--main-section-icon--down {
     display: none !important;
 }
 

@@ -23,10 +23,13 @@
     <div layout:fragment="content" class="main-content">
         <div class="row">
             <div class="col l-8">
-                <div class="main-content-header-with-search">
+                <form action="viec-lam" class="main-content-header-with-search" method="get">
                     <i class="main-content-header-menu-open-icon fa-solid fa-bars"></i>
-                    <input class="main-content-header-search-input" placeholder="Search here..." type="text">
-                </div>
+                    <input class="main-content-header-search-input" placeholder="Search here..." type="text" name="search" th:value="${search}">
+                    <button class="main-content-header-search-button" type="submit">
+                        <i class="main-content-header-search-icon fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </form>
             </div>
             <div class="col l-4">
                 <div class="main-content-header-nav">
@@ -74,16 +77,23 @@
                                 <p class="main-content-table-text" th:text="${job.company.companyName}"></p>
                             </td>
                             <td class="table-action-button-wrapper">
-                                <div class="table-action-button table-action-button--show"
-                                     th:attr="data-job-id=${job.jobId}">
+                                <a class="table-action-button table-action-button--show"
+                                     th:href="'xem-chi-tiet?jobId=' + ${job.jobId}">
                                     <i class="fa-solid fa-circle-info"></i>
-                                </div>
-                                <div class="table-action-button table-action-button--change">
+                                </a>
+                                <a class="table-action-button table-action-button--change"
+                                    th:href="'sua-viec-lam?jobId=' + ${job.jobId}">
                                     <i class="fa-solid fa-pen"></i>
-                                </div>
-                                <div class="table-action-button table-action-button--delete">
+                                </a>
+                                <div
+                                        class="table-action-button table-action-button--delete"
+                                        th:data-url="'xoa-viec-lam?currentPage=' + ${currentPage} + '&jobId=' + ${job.getJobId()}"
+                                        th:data-message="'Bạn có muốn xóa công việc này không?'"
+                                        onclick="handleDelete(this)">
                                     <i class="fa-solid fa-trash"></i>
                                 </div>
+
+
                             </td>
                         </tr>
 
@@ -144,6 +154,14 @@
 <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js}"></script>
 <script th:src="@{/ajax/admin/home_page_ajax.js}"></script>
 <script>
+
+    function handleDelete(element) {
+        const url = element.getAttribute('data-url');
+        const message = element.getAttribute('data-message');
+        if (confirm(message)) {
+            window.location.href = url;
+        }
+    }
     document.addEventListener('DOMContentLoaded', function () {
         let sectionCount = 1;
 

@@ -121,4 +121,14 @@ public class Company {
         jobs.add(job);
         job.setCompany(this);
     }
+
+    @Override
+    public String toString() {
+        return "Company{" +
+                "companyName='" + companyName + '\'' +
+                ", companyUrl='" + companyUrl + '\'' +
+                ", companyWebsite='" + companyWebsite + '\'' +
+                ", companyLocation='" + companyLocation + '\'' +
+                '}';
+    }
 }

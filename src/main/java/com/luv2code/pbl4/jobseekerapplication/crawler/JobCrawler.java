@@ -66,7 +66,7 @@ public class JobCrawler {
             return;
         }
 
-
+        System.out.println("Crawling job: " + url);
         try {
 
             Document doc = Jsoup.connect(url)
@@ -124,7 +124,7 @@ public class JobCrawler {
 
             try {
                 Pattern pattern = Pattern.compile("\\d+");
-                Matcher matcher = pattern.matcher(jobDetailSession.get(2).text());
+                Matcher matcher = pattern.matcher(jobDetailSession.get(3).text());
 
                 if (matcher.find()) {
                     experienceLevel =  Integer.parseInt(matcher.group());
@@ -140,7 +140,7 @@ public class JobCrawler {
             }
             Elements boxGeneralGroupInfo = doc.select(".box-general-group-info-value");
 
-            String jobType = boxGeneralGroupInfo.get(3).text();
+            String jobType = boxGeneralGroupInfo.get(2).text();
 
             String careerLevel = boxGeneralGroupInfo.get(0).text();
 

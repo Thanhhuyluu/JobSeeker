@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name="jobs")
@@ -243,5 +244,17 @@ public class Job {
             locations=new ArrayList<>();
         }
         locations.add(location);
+    }
+
+    public String getLocationNames() {
+        return locations.stream()
+                .map(Location::getName)
+                .collect(Collectors.joining(", "));
+    }
+
+    public String getIndustryNames() {
+        return industries.stream()
+                .map(Industry::getIndustryName)
+                .collect(Collectors.joining(", "));
     }
 }

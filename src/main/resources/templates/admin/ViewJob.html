@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/template.html}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Form</title>
+    <link rel="stylesheet" th:href="@{/css/web/base.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/AddJobForm.css}">
+    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css.map}">
+
+    <link rel="stylesheet" th:href="@{/css/web/grid.css}">
+
+    <link rel="preconnect" th:href="@{https://fonts.googleapis.com}">
+    <link rel="preconnect" th:href="@{https://fonts.gstatic.com}" crossorigin>
+    <link th:href="@{https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap}" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/fonts/fontawesome-free-6.6.0-web/css/all.min.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Document</title>
+</head>
+<body>
+
+<div layout:fragment="content" class="main-content">
+    <div class="row">
+        <div class="col l-8">
+            <div class="main-content-header-with-search">
+                <i class="main-content-header-menu-open-icon fa-solid fa-bars"></i>
+
+            </div>
+        </div>
+        <div class="col l-4">
+            <div class="main-content-header-nav">
+                <ul class="main-content-header-nav-list">
+                    <li class="main-content-header-nav-item active">
+                        <i class="main-content-header-nav-icon fa-regular fa-bell "></i>
+                    </li>
+                    <li class="main-content-header-nav-item">
+                        <div class="main-content-header-user-avartar" style="background-image: url(/assets/img/user.jpg);"></div>
+                        <i class="main-content-header-nav-icon fa-solid fa-chevron-down"></i>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="col l-12">
+            <div class="add-job-form" >
+                <div class="form-group">
+                    <label for="job-name">Tên công việc</label>
+                    <input type="text" id="job-name" name="jobTitle" th:value="${job.jobTitle}" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="company">Địa điểm</label>
+                    <label for="search-bar--main-section-location-trigger" class="search-bar--main-section" data-name="location">
+
+
+
+                        <div class="search-bar--main-section-wrapper">
+                            <i class="search-bar--main-section-icon fa-solid fa-location-dot"></i>
+                            <div class="search-bar--main-section-text" th:text="${job.getLocationNames()}"></div>
+                        </div>
+
+
+
+                    </label>
+
+
+
+                </div>
+
+                <div class="form-group">
+                    <label for="company">Ngành Nghề</label>
+                    <label for="search-bar--main-section-industry-trigger" class="search-bar--main-section" data-name="industry">
+
+                        <div class="search-bar--main-section-wrapper">
+                            <i class="search-bar--main-section-icon fa-solid fa-briefcase"></i>
+                            <div class="search-bar--main-section-text" th:text="${job.getIndustryNames()}"></div>
+                        </div>
+
+
+
+                    </label>
+
+
+                </div>
+
+                <div class="form-group">
+                    <label for="company">Công ty</label>
+                    <label for="search-bar--main-section-company-trigger" class="search-bar--main-section-select">
+
+                        <div class="search-bar--main-section-wrapper">
+                            <i class="search-bar--main-section-icon fa-solid fa-building"></i>
+                            <div class="search-bar--main-section-text" th:text="${job.company.companyName}">
+                            </div>
+                        </div>
+
+                    </label>
+                </div>
+
+
+
+
+
+                <div class="form-group">
+                    <label for="job-type">Loại công việc</label>
+                    <select id="job-type" name="jobType" disabled th:value="${job.jobType}">
+                        <option th:value="|Toàn thời gian|">Toàn thời gian</option>
+                        <option th:value="|Bán thời gian|">Bán thời gian</option>
+                    </select>
+
+                </div>
+
+                <div class="form-group">
+                    <label for="experience">Năm kinh nghiệm</label>
+                    <input type="number" id="experience" name="experienceLevel" th:value="${job.experienceLevel}" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label for="position">Vị trí công việc</label>
+                    <select id="position" name="careerLevel" disabled th:value="${job.careerLevel}">
+                        <option th:value="|Nhân viên|">Nhân viên</option>
+                        <option th:value="|Trưởng nhóm|">Trưởng nhóm</option>
+                        <option th:value="|Trưởng/Phó phòng|">Trưởng/Phó phòng</option>
+                        <option th:value="|Quản lý / Giám sát|">Quản lý / Giám sát</option>
+                        <option th:value="|Trưởng chi nhánh|">Trưởng chi nhánh</option>
+                        <option th:value="|Phó giám đốc|">Phó giám đốc</option>
+                        <option th:value="|Giám đốc|">Giám đốc</option>
+                        <option th:value="|Thực tập sinh|">Thực tập sinh</option>
+                    </select>
+                </div>
+
+
+
+                <div class="form-group">
+                    <label for="expiry-date">Ngày hết hạn</label>
+                    <input type="date" id="expiry-date" name="expirationDate" th:value="${job.expirationDate}" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label for="source">Nguồn</label>
+                    <input type="text" id="source" name="jobUrl" readonly th:value="${job.jobUrl}">
+                </div>
+
+                <div class="form-group">
+                    <label for="salary">Mức lương</label>
+                    <input type="number" id="salary" name="salary" readonly th:value="${job.salary}">
+                </div>
+
+                <div class="form-group">
+                    <label for="currency">Đơn vị tiền tệ</label>
+                    <input type="text" id="currency" name="salaryCurrency" readonly th:value="${job.salaryCurrency}">
+                </div>
+
+                <div id="job-topics">
+                    <label class="form-group-label">Mô tả</label>
+                    <div th:each="topic, iterStat : ${topicNames}" class="job-topic">
+                        <div class="form-group">
+                            <label for="job-topic-name" th:for="'job-topic-name-' + ${iterStat.index}">Tên Chuyên Mục</label>
+                            <input type="text" name="job-topic-name[]" th:id="'job-topic-name-' + ${iterStat.index}" th:value="${topic}">
+                        </div>
+                        <div class="form-group">
+                            <label for="job-topic-description" th:for="'job-topic-description-' + ${iterStat.index}">Mô tả Chuyên Mục</label>
+                            <textarea name="job-topic-description[]" th:id="'job-topic-description-' + ${iterStat.index}" th:text="${topicDescs[iterStat.index]}"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <a th:href="@{viec-lam}" class="back-button" >Về trang công việc</a>
+            </div>
+
+            <script>
+
+
+
+
+
+
+            </script>
+        </div>
+
+    </div>
+
+
+</div>
+
+</body>
+</html>

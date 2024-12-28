@@ -46,10 +46,12 @@
     <div class="row">
 
         <div class="col l-12">
-            <form class="add-job-form" action="/admin/them-cong-viec" method="post">
+            <form class="add-job-form" action="/admin/sua-viec-lam" method="post">
+
+                <input type="text" hidden th:value="${job.jobId}" name="jobId">
                 <div class="form-group">
                     <label for="job-name">Tên công việc</label>
-                    <input type="text" id="job-name" name="jobTitle">
+                    <input type="text" id="job-name" name="jobTitle" th:value="${job.jobTitle}">
                 </div>
                 <div class="form-group">
                     <label for="company">Địa điểm</label>
@@ -79,13 +81,27 @@
 
                     <div id="selected-locations" class="selected-items">
                         <!-- Các location được chọn sẽ hiển thị tại đây -->
+                        <div class="selected-item" th:each="location :${job.locations}">
+                            <span th:text="${location.getName()}"></span>
+                            <span class="remove-item"> ✕</span>
+                            <span hidden class="selected-item-id" th:text="${location.getLocationId()}"></span>
+                        </div>
+                        <ul class="selected-item-id-list" hidden>
+                            <li class="selected-item-id-item-key" th:each="location :${job.locations}"hidden>
+                                <input type="text" class="selected-item-id-item-key-id" th:value="${location.locationId}" hidden>
+                                <input type="text" class="selected-item-id-item-text" th:value="${location.name}" hidden>
+                            </li>
+                        </ul>
+
                     </div>
-                    <input name="selectedLocationIds" id="selectedLocationIds" type="hidden" value="" class="selected-items-id">
+                    <input name="selectedLocationIds" id="selectedLocationIds" type="hidden"
+                                 th:value="${selectedLocationIds}"
+                                 class="selected-items-id">
+
 
                 </div>
-
                 <div class="form-group">
-                    <label for="company">Ngành Nghề</label>
+                    <label for="company">Ngành nghề</label>
                     <label for="search-bar--main-section-industry-trigger" class="search-bar--main-section" data-name="industry">
 
                         <input hidden type="checkbox" id="search-bar--main-section-industry-trigger" name="search-bar--main-section-industry-trigger">
@@ -104,18 +120,33 @@
                             </li>
                             <li th:each="industry : ${industries}" class="search-bar--main-section-item">
                                 <p th:text="${industry.getIndustryName()}" class="search-bar--main-section-item-text"></p>
-                                <input class="search-bar--main-section-item-key" type="text" hidden th:value="${industry.getIndustryId()}">
+                                <input class="search-bar--main-section-item-key" type="text" hidden th:value="${industry.industryId}">
                             </li>
                         </ul>
 
                     </label>
-                    <div id="selected-industries" class="selected-items">
-                        <!-- Các industry được chọn sẽ hiển thị tại đây -->
+
+                    <div id="selected-locations" class="selected-items">
+                        <!-- Các location được chọn sẽ hiển thị tại đây -->
+                        <div class="selected-item" th:each="industry :${job.industries}">
+                            <span th:text="${industry.getIndustryName()}"></span>
+                            <span class="remove-item"> ✕</span>
+                            <span hidden class="selected-item-id" th:text="${industry.getIndustryId()}"></span>
+                        </div>
+                        <ul class="selected-item-id-list" hidden>
+                            <li class="selected-item-id-item-key" th:each="industry :${job.industries}"hidden>
+                                <input type="text" class="selected-item-id-item-key-id" th:value="${industry.industryId}" hidden>
+                                <input type="text" class="selected-item-id-item-text" th:value="${industry.industryName}" hidden>
+                            </li>
+                        </ul>
+
                     </div>
-                    <input name="selectedIndustryIds" id="selectedIndustryIds" type="hidden" value="" class="selected-items-id">
+                    <input name="selectedIndustryIds" id="selectedIndustryIds" type="hidden"
+                           th:value="${selectedIndustryIds}"
+                           class="selected-items-id">
+
 
                 </div>
-
                 <div class="form-group">
                     <label for="company">Công ty</label>
                     <label for="search-bar--main-section-company-trigger" class="search-bar--main-section-select">
@@ -164,7 +195,7 @@
 
                 <div class="form-group">
                     <label for="job-type">Loại công việc</label>
-                    <select id="job-type" name="jobType">
+                    <select id="job-type" name="jobType" th:value="${job.jobType}">
                         <option th:value="|Toàn thời gian|">Toàn thời gian</option>
                         <option th:value="|Bán thời gian|">Bán thời gian</option>
                     </select>
@@ -172,12 +203,12 @@
 
                 <div class="form-group">
                     <label for="experience">Năm kinh nghiệm</label>
-                    <input type="number" id="experience" name="experienceLevel">
+                    <input type="number" id="experience" name="experienceLevel" th:value="${job.experienceLevel}">
                 </div>
 
                 <div class="form-group">
                     <label for="position">Vị trí công việc</label>
-                    <select id="position" name="careerLevel">
+                    <select id="position" name="careerLevel" th:value="${job.careerLevel}">
                         <option th:value="|Nhân viên|">Nhân viên</option>
                         <option th:value="|Trưởng nhóm|">Trưởng nhóm</option>
                         <option th:value="|Trưởng/Phó phòng|">Trưởng/Phó phòng</option>
@@ -193,35 +224,35 @@
 
                 <div class="form-group">
                     <label for="expiry-date">Ngày hết hạn</label>
-                    <input type="date" id="expiry-date" name="expirationDate">
+                    <input type="date" id="expiry-date" name="expirationDate" th:value="${job.expirationDate}">
                 </div>
 
                 <div class="form-group">
                     <label for="source">Nguồn</label>
-                    <input type="text" id="source" name="jobUrl">
+                    <input type="text" id="source" name="jobUrl" th:value="${job.jobUrl}">
                 </div>
 
                 <div class="form-group">
                     <label for="salary">Mức lương</label>
-                    <input type="number" id="salary" name="salary">
+                    <input type="number" id="salary" name="salary" th:value="${job.salary}">
                 </div>
 
                 <div class="form-group">
                     <label for="currency">Đơn vị tiền tệ</label>
-                    <input type="text" id="currency" name="salaryCurrency">
+                    <input type="text" id="currency" name="salaryCurrency" th:value="${job.salaryCurrency}">
                 </div>
 
                 <div id="job-topics">
                     <label class="form-group-label">Mô tả</label>
-                    <div class="job-topic">
-                        <button type="button" class="remove-job-topic" onclick="removeJobTopic(this)">Xóa</button>
+                    <div class="job-topic"  th:each="topic, iterStat : ${topicNames}">
+                        <button type="button"  class="remove-job-topic" onclick="removeJobTopic(this)">Xóa</button>
                         <div class="form-group">
-                            <label for="job-topic-name">Tên Chuyên Mục</label>
-                            <input type="text" name="job-topic-name[]">
+                            <label for="job-topic-name" th:for="'job-topic-name-' + ${iterStat.index}">Tên Chuyên Mục</label>
+                            <input type="text" name="job-topic-name[]" th:id="'job-topic-name-' + ${iterStat.index}" th:value="${topic}">
                         </div>
                         <div class="form-group">
-                            <label for="job-topic-description">Mô tả Chuyên Mục</label>
-                            <textarea name="job-topic-description[]"></textarea>
+                            <label for="job-topic-description" th:for="'job-topic-description-' + ${iterStat.index}">Mô tả Chuyên Mục</label>
+                            <textarea name="job-topic-description[]" th:id="'job-topic-description-' + ${iterStat.index}" th:text="${topicDescs[iterStat.index]}" ></textarea>
                         </div>
 
                     </div>
@@ -232,6 +263,7 @@
                 <a th:href="@{viec-lam}" class="back-button" >Về trang công việc</a>
                 <button type="submit">Lưu công việc</button>
             </form>
+
 
             <script>
                 function addJobTopic() {
@@ -306,8 +338,16 @@
                     const searchBarMainItems = section.querySelectorAll('.search-bar--main-section-item:not(:first-child)');
                     const selectedItemsDiv = section.parentElement.querySelector('.selected-items'); // Sửa đoạn này
                     const selectedItemsIdInput = section.parentElement.querySelector('.selected-items-id'); // Sửa đoạn này
+                    const selectedItemsIdItemKeys = section.parentElement.querySelectorAll('.selected-item-id-item-key'); // Sửa đoạn này
 
                     let selectedItems = [];
+                    if(selectedItemsIdItemKeys.length > 0) {
+                        selectedItems = Array.from(selectedItemsIdItemKeys).map(item => ({
+                            id: item.querySelector('.selected-item-id-item-key-id').value,
+                            name: item.querySelector('.selected-item-id-item-text').value
+                        }));
+                    }
+                    console.log(selectedItems);
 
                     // Lọc danh sách khi tìm kiếm
                     searchBarMainInput.addEventListener('input', () => {
@@ -316,6 +356,32 @@
                             const text = item.querySelector('.search-bar--main-section-item-text')?.textContent || '';
                             item.style.display = text.toLowerCase().includes(searchValue) ? '' : 'none';
                         });
+                    });
+                    // Xử lý khi click vào remove item khi mới load
+                    const removeBtns = selectedItemsDiv.querySelectorAll('.remove-item');
+                    removeBtns.forEach(btn => {
+                        btn.addEventListener('click', () => {
+                            const itemId = btn.parentElement.querySelector('.selected-item-id').textContent.trim();
+                            console.log('Item ID to remove:', itemId);
+
+                            console.log('Before removal:', selectedItems);
+
+                            const newSelectedItems = [];
+                            for (let i = 0; i < selectedItems.length; i++) {
+                                if (String(selectedItems[i].id) !== String(itemId)) {
+                                    newSelectedItems.push(selectedItems[i]);
+                                }
+                            }
+                            selectedItems = newSelectedItems;
+
+
+                            console.log('After removal:', selectedItems);
+
+                            selectedItemsDiv.removeChild(btn.parentElement);
+
+                            updateHiddenInput();
+                        });
+
                     });
 
                     // Xử lý khi click chọn mục
