@@ -1,0 +1,158 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<header class="header" th:fragment="header">
+    <div class="header-navbar-container">
+        <div class="grid wide">
+            <nav class="header__navbar">
+
+                <ul class="header__navbar-list">
+                    <li class="header__navbar-item">
+
+                        <p class="header__navbar-item-text">
+                            <i class="header__navbar-item-icon fa-solid fa-circle-info"></i>
+                            Become researchable by top companies in your domain
+                        </p>
+                        <a href="#" class="header__navbar-item-link">Learn more</a>
+                    </li>
+                </ul>
+
+                <ul class="header__navbar-list">
+                    <li class="header__navbar-item">
+                        <p class="header__navbar-item-text separator">
+                            <i class="header__navbar-item-icon fa-solid fa-phone"></i>
+                            84.388074177
+                        </p>
+
+                    </li>
+                    <li class="header__navbar-item">
+                        <p class="header__navbar-item-text">
+                            <i class="header__navbar-item-icon fa-solid fa-envelope"></i>
+                            jobsearch@gmail.com
+                        </p>
+                    </li>
+                </ul>
+            </nav>
+
+
+        </div>
+    </div>
+    <div class="header__navbar--main-container">
+        <div class="grid wide">
+            <nav class="header__navbar--main">
+                <div class="header__navbar--main-with-logo">
+                    <a th:href="@{/viec-lam}" class="header__navbar--main-logo" th:style="'background-image: url(' + @{/img/jobseeker.png} + ');'"></a>
+
+<!--                    <ul class="header__navbar&#45;&#45;main-list">-->
+<!--                        <li class="header__navbar&#45;&#45;main-item">-->
+<!--                            <a href="tim-viec" class="header__navbar&#45;&#45;main-item-link">Home</a>-->
+<!--                            <ul class="header__navbar&#45;&#45;main-item-list">-->
+<!--                                <li class="header__navbar&#45;&#45;main-item-item">-->
+<!--                                    <a href="tim-viec" class="header__navbar&#45;&#45;main-item-item-link">-->
+<!--                                        <i class="header__navbar&#45;&#45;main-item-item-icon fa-solid fa-magnifying-glass"></i>-->
+<!--                                        Tìm việc làm-->
+<!--                                    </a>-->
+<!--                                </li>-->
+<!--                                <li class="header__navbar&#45;&#45;main-item-item">-->
+<!--                                    <a href="#" class="header__navbar&#45;&#45;main-item-item-link">-->
+<!--                                        <i class="header__navbar&#45;&#45;main-item-item-icon fa-regular fa-heart"></i>-->
+<!--                                        Việc làm đã lưu-->
+<!--                                    </a>-->
+<!--                                </li>-->
+<!--                            </ul>-->
+
+
+<!--                        </li>-->
+<!--                        <li class="header__navbar&#45;&#45;main-item">-->
+<!--                            <a href="#" class="header__navbar&#45;&#45;main-item-link">Jobs</a>-->
+<!--                            <ul class="header__navbar&#45;&#45;main-item-list">-->
+<!--                                <li class="header__navbar&#45;&#45;main-item-item">-->
+<!--                                    <a href="#" class="header__navbar&#45;&#45;main-item-item-link">-->
+<!--                                        <i class="header__navbar&#45;&#45;main-item-item-icon fa-solid fa-magnifying-glass"></i>-->
+<!--                                        Tìm việc làm-->
+<!--                                    </a>-->
+<!--                                </li>-->
+<!--                                <li class="header__navbar&#45;&#45;main-item-item">-->
+<!--                                    <a href="#" class="header__navbar&#45;&#45;main-item-item-link">-->
+<!--                                        <i class="header__navbar&#45;&#45;main-item-item-icon fa-regular fa-heart"></i>-->
+<!--                                        Việc làm đã lưu-->
+<!--                                    </a>-->
+<!--                                </li>-->
+<!--                            </ul>-->
+
+
+<!--                        </li>-->
+<!--                        <li class="header__navbar&#45;&#45;main-item">-->
+<!--                            <a href="#" class="header__navbar&#45;&#45;main-item-link">Companies</a>-->
+<!--                            <ul class="header__navbar&#45;&#45;main-item-list">-->
+<!--                                <li class="header__navbar&#45;&#45;main-item-item">-->
+<!--                                    <a href="#" class="header__navbar&#45;&#45;main-item-item-link">-->
+<!--                                        <i class="header__navbar&#45;&#45;main-item-item-icon fa-solid fa-magnifying-glass"></i>-->
+<!--                                        Tìm việc làm-->
+<!--                                    </a>-->
+<!--                                </li>-->
+<!--                                <li class="header__navbar&#45;&#45;main-item-item">-->
+<!--                                    <a href="#" class="header__navbar&#45;&#45;main-item-item-link">-->
+<!--                                        <i class="header__navbar&#45;&#45;main-item-item-icon fa-regular fa-heart"></i>-->
+<!--                                        Việc làm đã lưu-->
+<!--                                    </a>-->
+<!--                                </li>-->
+<!--                            </ul>-->
+
+
+<!--                        </li>-->
+<!--                    </ul>-->
+                </div>
+
+                <ul class="header__navbar--main-list">
+
+
+
+                    <li class="header__navbar--main-item" sec:authorize="isAnonymous()">
+                        <a th:href="@{/dang-nhap}" class="header__navbar--main-item-link">Đăng nhập</a>
+                    </li>
+                    <li class="header__navbar--main-item" sec:authorize="isAnonymous()">
+                        <a th:href="@{/dang-ki}" class="header__navbar--main-item-link">Đăng Ký</a>
+                    </li>
+
+                    <li class="header__navbar--main-item" sec:authorize="isAuthenticated()">
+                        <span>Xin chào, <span sec:authentication="name"></span>!</span>
+
+                        <ul class="header__navbar--main-item-list">
+                            <li class="header__navbar--main-item-item">
+                                <form th:action="@{/logout}" method="post">
+                                    <button type="submit" class="header__navbar--main-item-item-link" style="background: none; border: none; color: inherit; cursor: pointer;">
+                                        <i class="header__navbar--main-item-item-icon fa-solid fa-right-from-bracket"></i>
+                                        Đăng xuất
+                                    </button>
+                                </form>
+                            </li>
+
+                            <li class="header__navbar--main-item-item" sec:authorize="hasRole('ADMIN')">
+                                <a th:href="@{/admin/viec-lam}" class="header__navbar--main-item-item-link">
+                                    <i class="header__navbar--main-item-item-icon fa-solid fa-bars-progress"></i>
+                                    Đến trang quản lý
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+
+
+
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+</header>
+</body>
+</html>

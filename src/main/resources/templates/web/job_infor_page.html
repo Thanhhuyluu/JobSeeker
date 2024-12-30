@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{web/template.html}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,137 +21,10 @@
 </head>
 <body>
     <div class="app">
-        <header class="header">
-            <div class="header-navbar-container">
-                <div class="grid wide">
-                    <nav class="header__navbar">
-                    
-                        <ul class="header__navbar-list">
-                            <li class="header__navbar-item">
-                                
-                                <p class="header__navbar-item-text">
-                                    <i class="header__navbar-item-icon fa-solid fa-circle-info"></i>
-                                    Become researchable by top companies in your domain
-                                </p>
-                                <a href="#" class="header__navbar-item-link">Learn more</a>
-                            </li>
-                        </ul>
-    
-                        <ul class="header__navbar-list">
-                            <li class="header__navbar-item">
-                                <p class="header__navbar-item-text separator">
-                                    <i class="header__navbar-item-icon fa-solid fa-phone"></i>
-                                    84.388074177
-                                </p>
-                                
-                            </li>
-                            <li class="header__navbar-item">
-                                <p class="header__navbar-item-text">
-                                    <i class="header__navbar-item-icon fa-solid fa-envelope"></i>
-                                    jobsearch@gmail.com
-                                </p>
-                            </li>
-                        </ul>
-                    </nav>
-
-                    
-                </div>
-            </div>
-            <div class="header__navbar--main-container">
-                <div class="grid wide">
-                    <nav class="header__navbar--main">
-                        <div class="header__navbar--main-with-logo">
-                            <div class="header__navbar--main-logo" th:style="'background-image: url(' + @{/img/weblogo.png} + ');'"></div>
-
-                            <ul class="header__navbar--main-list">
-                                <li class="header__navbar--main-item">
-                                    <a href="#" class="header__navbar--main-item-link">Home</a>
-                                    <ul class="header__navbar--main-item-list">
-                                        <li class="header__navbar--main-item-item">
-                                            <a href="#" class="header__navbar--main-item-item-link">
-                                                <i class="header__navbar--main-item-item-icon fa-solid fa-magnifying-glass"></i>
-                                                Tìm việc làm
-                                            </a>
-                                        </li>
-                                        <li class="header__navbar--main-item-item">
-                                            <a href="#" class="header__navbar--main-item-item-link">
-                                                <i class="header__navbar--main-item-item-icon fa-regular fa-heart"></i>
-                                                Việc làm đã lưu
-                                            </a>
-                                        </li>
-                                    </ul>
 
 
-                                </li>
-                                <li class="header__navbar--main-item">
-                                    <a href="#" class="header__navbar--main-item-link">Jobs</a>
-                                    <ul class="header__navbar--main-item-list">
-                                        <li class="header__navbar--main-item-item">
-                                            <a href="#" class="header__navbar--main-item-item-link">
-                                                <i class="header__navbar--main-item-item-icon fa-solid fa-magnifying-glass"></i>
-                                                Tìm việc làm
-                                            </a>
-                                        </li>
-                                        <li class="header__navbar--main-item-item">
-                                            <a href="#" class="header__navbar--main-item-item-link">
-                                                <i class="header__navbar--main-item-item-icon fa-regular fa-heart"></i>
-                                                Việc làm đã lưu
-                                            </a>
-                                        </li>
-                                    </ul>
 
-
-                                </li>
-                                <li class="header__navbar--main-item">
-                                    <a href="#" class="header__navbar--main-item-link">Companies</a>
-                                    <ul class="header__navbar--main-item-list">
-                                        <li class="header__navbar--main-item-item">
-                                            <a href="#" class="header__navbar--main-item-item-link">
-                                                <i class="header__navbar--main-item-item-icon fa-solid fa-magnifying-glass"></i>
-                                                Tìm việc làm
-                                            </a>
-                                        </li>
-                                        <li class="header__navbar--main-item-item">
-                                            <a href="#" class="header__navbar--main-item-item-link">
-                                                <i class="header__navbar--main-item-item-icon fa-regular fa-heart"></i>
-                                                Việc làm đã lưu
-                                            </a>
-                                        </li>
-                                    </ul>
-
-
-                                </li>
-                            </ul>
-                        </div>
-
-                        <ul class="header__navbar--main-list">
-                            <li class="header__navbar--main-item">
-                                <div class="header__navbar--main-user-img" style="background-image: url(../../../../../../../WebDev/jobseeker-application-frontend/assets/img/user.jpg);"></div>
-                                <p class="header__navbar--main-user-name">Thanh Huy</p>
-                                <ul class="header__navbar--main-item-list">
-                                    <li class="header__navbar--main-item-item">
-                                        <a href="#" class="header__navbar--main-item-item-link">
-                                            <i class="header__navbar--main-item-item-icon fa-solid fa-magnifying-glass"></i>
-                                            Tìm việc làm
-                                        </a>
-                                    </li>
-                                    <li class="header__navbar--main-item-item">
-                                        <a href="#" class="header__navbar--main-item-item-link">
-                                            <i class="header__navbar--main-item-item-icon fa-regular fa-heart"></i>
-                                            Việc làm đã lưu
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                </nav>
-                </div>
-            </div>
-            
-        </header>
-
-
-        <div class="container">
+        <div class="container" layout:fragment="content">
             <div class="grid wide">
                
                     <div class="job-infor-slider-container">
@@ -316,75 +191,12 @@
                     </div>
                
             </div>
+
+            <script th:src="@{/js/web/job_infor_page.js}"></script>
         </div>
 
 
-        <footer class="footer">
-            <div class="grid wide">
-                <div class="row">
-                    <div class="col l-3">
-                        <div class="footer-section">
-                            <h2 class="footer-section__heading">Company</h2>
-                            <ul class="footer-section__list">
-                                <li class="footer-section__item">
-                                    <a href="#" class="footer-section__item-link">About us</a>
-                                </li>
-                                <li class="footer-section__item">
-                                    <a href="#" class="footer-section__item-link">Blogs</a>
-                                </li>
-                                <li class="footer-section__item">
-                                    <a href="#" class="footer-section__item-link">Contact</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col l-3">
-                        <div class="footer-section">
-                            <h2 class="footer-section__heading">Services</h2>
-                            <ul class="footer-section__list">
-                                <li class="footer-section__item">
-                                    <a href="#" class="footer-section__item-link">Home</a>
-                                </li>
-                                <li class="footer-section__item">
-                                    <a href="#" class="footer-section__item-link">Jobs</a>
-                                </li>
-                                <li class="footer-section__item">
-                                    <a href="#" class="footer-section__item-link">Companies</a>
-                                </li>
-                                
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col l-3"></div>
-                    <div class="col l-3">
-                        <div class="footer-section">
-                            <h2 class="footer-section__heading">Connect</h2>
-                            <ul class="footer-section__list">
-                                <li class="footer-section__item">
-                                    <a href="#" class="footer-section__item-link">
-                                        <i class="footer-section__item-icon fa-brands fa-linkedin"></i>
-                                        Linkded In
-                                    </a>
-                                </li>
-                                <li class="footer-section__item">
-                                    <a href="#" class="footer-section__item-link">
-                                        <i class="footer-section__item-icon fa-brands fa-square-facebook"></i>
-                                        Facebook
-                                    </a>
-                                </li>
-                                <li class="footer-section__item">
-                                    <a href="#" class="footer-section__item-link">
-                                        <i class="footer-section__item-icon fa-brands fa-square-instagram"></i>
-                                        Instagram
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </footer>
+
     </div>
 </body>
-<script th:src="@{/js/web/job_infor_page.js}"></script>
 </html>

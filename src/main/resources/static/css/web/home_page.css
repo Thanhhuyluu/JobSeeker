@@ -181,7 +181,9 @@
 .header__navbar--main-item-item-link {
     text-decoration: none;
     color: var(--text-color);
-    font-size: 1.4rem
+    font-size: 1.4rem;
+    font-weight: 400;
+    padding: 0;
 }
 
 .header__navbar--main-item-item-icon {
