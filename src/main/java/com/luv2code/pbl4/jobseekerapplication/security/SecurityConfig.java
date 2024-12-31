@@ -35,14 +35,15 @@ public class SecurityConfig {
 
 
 
+
         return jdbcUserDetailsManager;
     }
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(authorizeRequests ->
                 authorizeRequests
-                        .requestMatchers("/admin/**").hasRole("ADMIN") // Chỉ cho phép ADMIN vào
-                        .requestMatchers("/user/profile").authenticated() // Bắt buộc đăng nhập
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/user/profile").authenticated()
                         .requestMatchers("/**").permitAll()
                 )
             .formLogin(form ->

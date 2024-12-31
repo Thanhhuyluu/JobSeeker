@@ -26,10 +26,10 @@ import java.util.stream.Collectors;
 @RequestMapping("/admin")
 public class AdminJobController {
     private final CompanyService companyService;
-    private JobService jobService;
-    private LocationService locationService;
-    private IndustryService industryService;
-    private JobCrawler jobCrawler;
+    private final JobService jobService;
+    private final LocationService locationService;
+    private final IndustryService industryService;
+    private final JobCrawler jobCrawler;
 
     @Autowired
     public AdminJobController(JobService jobService, LocationService locationService, IndustryService industryService, JobCrawler jobCrawler, CompanyService companyService) {

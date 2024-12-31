@@ -12,14 +12,7 @@ import java.util.List;
 public interface JobRepository extends JpaRepository<Job, Integer> {
     public Job findByJobUrl(String jobUrl);
 
-//    @Query("SELECT j FROM Job j " +
-//            "JOIN j.locations l " +
-//            "JOIN j.industries i " +
-//            "WHERE (l.locationId = :locationId) " +
-//            "AND (i.industryId = :industryId)")
-//    List<Job> findByLocationAndIndustry(@Param("locationId") Integer locationId,
-//                                        @Param("industryId") Integer industryId);
-//
+
     @Query("SELECT j FROM Job j " +
             "JOIN j.locations l " +
             "JOIN j.industries i " +

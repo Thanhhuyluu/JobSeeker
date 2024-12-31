@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/template.html}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Form</title>
+    <link rel="stylesheet" th:href="@{/css/web/base.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/AddJobForm.css}">
+    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css.map}">
+
+    <link rel="stylesheet" th:href="@{/css/web/grid.css}">
+
+    <link rel="preconnect" th:href="@{https://fonts.googleapis.com}">
+    <link rel="preconnect" th:href="@{https://fonts.gstatic.com}" crossorigin>
+    <link th:href="@{https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap}" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/fonts/fontawesome-free-6.6.0-web/css/all.min.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Document</title>
+</head>
+<body>
+
+<div layout:fragment="content" class="main-content">
+    <div class="row">
+        <div class="col l-8">
+            <div class="main-content-header-with-search">
+                <i class="main-content-header-menu-open-icon fa-solid fa-bars"></i>
+
+            </div>
+        </div>
+        <div class="col l-4">
+            <div class="main-content-header-nav">
+                <ul class="main-content-header-nav-list">
+                    <li class="main-content-header-nav-item active">
+                        <i class="main-content-header-nav-icon fa-regular fa-bell "></i>
+                    </li>
+                    <li class="main-content-header-nav-item">
+                        <div class="main-content-header-user-avartar" style="background-image: url(/assets/img/user.jpg);"></div>
+                        <i class="main-content-header-nav-icon fa-solid fa-chevron-down"></i>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="col l-12">
+            <div class="add-job-form" >
+                <div class="form-group">
+                    <label>Mã</label>
+                    <input type="text" th:value="${user.userId}" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Tên đầy đủ</label>
+                    <input type="text" th:value="${user.username}" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" th:value="${user.email}" readonly>
+                </div>
+
+
+
+
+                <a th:href="@{nguoi-dung}" class="back-button" >Về trang người dùng</a>
+            </div>
+
+            <script>
+
+
+
+
+
+
+            </script>
+        </div>
+
+    </div>
+
+
+</div>
+
+</body>
+</html>

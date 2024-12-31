@@ -31,8 +31,8 @@
                     <p class="left-bar-item-link-text">Jobs</p>
                 </a>
             </li>
-            <li class="left-bar-item">
-                <a href="#" class="left-bar-item-link">
+            <li th:class="'left-bar-item ' +  ${mode=='MODE_USERS' ? 'active' : ''}" >
+                <a href="nguoi-dung" class="left-bar-item-link">
                     <i class="left-bar-item-link-icon fa-solid fa-user"></i>
                     <p class="left-bar-item-link-text">Users</p>
                 </a>
@@ -44,10 +44,13 @@
                 </a>
             </li>
             <li class="left-bar-item">
-                <a href="#" class="left-bar-item-link">
-                    <i class="left-bar-item-link-icon fa-solid fa-right-from-bracket"></i>
-                    <p class="left-bar-item-link-text">Logout</p>
-                </a>
+
+                <form th:action="@{/logout}" method="post">
+                    <button type="submit" class="left-bar-item-link" style="background: none; border: none; cursor: pointer; color: var(--dark-bright-text-color)">
+                        <i class="left-bar-item-link-icon fa-solid fa-right-from-bracket"></i>
+                        <p class="left-bar-item-link-text">Logout</p>
+                    </button>
+                </form>
             </li>
         </ul>
 

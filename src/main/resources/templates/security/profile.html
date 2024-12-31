@@ -1,0 +1,186 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+
+
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        html {
+            color: #333;
+            font-size: 62.5%;
+            font-family: 'Open Sans', sans-serif;
+        }
+        .main {
+            background: #f1f1f1;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+        }
+        .form {
+            width: 360px;
+            min-height: 100px;
+            padding: 32px 24px;
+            text-align: center;
+            background: #fff;
+            border-radius: 2px;
+            margin: 24px;
+            align-self: center;
+            box-shadow: 0 2px 5px 0 rgba(51,62,73,.1);
+        }
+        .form .heading {
+            font-size: 2rem;
+        }
+        .form .desc {
+            text-align: center;
+            color: #636d77;
+            font-size: 1.6rem;
+            font-weight: lighter;
+            line-height: 2.4rem;
+            margin-top: 16px;
+            font-weight: 300;
+        }
+
+        .form-group {
+            display: flex;
+            margin-bottom: 16px;
+            flex-direction: column;
+        }
+
+        .form-label,
+        .form-message {
+            text-align: left;
+        }
+
+        .form-label {
+            font-weight: 700;
+            padding-bottom: 6px;
+            line-height: 1.8rem;
+            font-size: 1.4rem;
+        }
+
+        .form-control {
+            height: 40px;
+            padding: 8px 12px;
+            border: 1px solid #b3b3b3;
+            border-radius: 3px;
+            outline: none;
+            font-size: 1.4rem;
+        }
+
+        .form-control:hover {
+            border-color: #1dbfaf;
+        }
+
+        .form-group.invalid .form-control {
+            border-color: #f33a58;
+        }
+
+        .form-group.invalid .form-message {
+            color: #f33a58;
+        }
+
+        .form-message {
+            font-size: 1.2rem;
+            line-height: 1.6rem;
+            padding: 4px 0 0;
+        }
+
+        .form-submit {
+            outline: none;
+            background-color: #1dbfaf;
+            margin-top: 12px;
+            padding: 12px 16px;
+            font-weight: 600;
+            color: #fff;
+            border: none;
+            width: 100%;
+            font-size: 14px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .form-submit:hover {
+            background-color: #1ac7b6;
+        }
+
+        .spacer {
+            margin-top: 36px;
+        }
+    </style>
+    <title>Thay đổi thông tin cá nhân</title>
+</head>
+
+<body>
+<div class="main">
+
+
+    <form th:action="@{/thay-doi-thong-tin-ca-nhan}" method="POST" class="form" id="form-2">
+        <h3 class="heading">Thông tin cá nhân</h3>
+        <p class="desc">Tìm việc làm cùng jobseeker</p>
+
+        <div class="spacer"></div>
+
+
+
+        <div class="form-group">
+            <label for="email" class="form-label">Email</label>
+            <input id="email" name="email" type="text" placeholder="VD: email@domain.com" class="form-control" readonly th:value="${user.email}">
+            <span class="form-message"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="fullname" class="form-label">Tên đầy đủ</label>
+            <input id="fullname" name="fullname" type="text" placeholder="VD: Thanh Khiêm" class="form-control" th:value="${user.username}">
+            <span class="form-message"></span>
+        </div>
+
+        <div class="form-group" th:if="${param.error}">
+
+            <span class="form-message" style="color: red; font-size: 1.4rem;">Xin lỗi, xảy ra lỗi!</span>
+        </div>
+        <h3 th:if="${inforChangeSuccess!=null}" th:text="${inforChangeSuccess}" style="color: green; font-size: 1.4rem; margin-bottom: 10px;"></h3>
+        <a th:href="@{/thay-doi-mat-khau}" class="form-message" >Thay đổi mật khẩu?</a>
+
+
+        <button class="form-submit">Thay đổi</button>
+        <div class="form-group" >
+
+            <a th:href="@{viec-lam}" class="form-submit" style="text-decoration: none; background-color:#4b494e;">Trở lại</a>
+        </div>
+    </form>
+    <script th:src="@{/js/web/login_register.js}" onload="console.log('Validator script loaded');"></script>
+</div>
+
+
+
+<script>
+
+    document.addEventListener('DOMContentLoaded', function () {
+
+
+        Validator({
+            form: '#form-2',
+            formGroupSelector: '.form-group',
+            errorSelector: '.form-message',
+            rules: [
+                Validator.isEmail('#email'),
+                Validator.minLength('#fullname', 2),
+            ],
+            onSubmit: function (data) {
+                console.log("hoi");
+                document.querySelector('#form-2').submit();
+            }
+
+        });
+    });
+
+</script>
+</body>
+</html>

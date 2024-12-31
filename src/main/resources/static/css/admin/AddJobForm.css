@@ -247,3 +247,23 @@ button[type="submit"]:hover {
     color: red;
     cursor: pointer;
 }
+
+
+.form-message {
+    color: red;
+    line-height: 20px;
+    font-size: 1.4rem;
+}
+
+.form-control {
+    font-size: 1.6rem;
+    margin-bottom: 10px;
+}
+
+.form-submit{
+    padding: 10px 20px;
+    background-color: #c14747;
+    border-radius: none;
+    color: var(--active-color);
+    font-size: 1.6rem;
+}

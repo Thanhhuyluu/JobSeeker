@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/template.html}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css.map}">
+    <link rel="stylesheet" th:href="@{/css/web/base.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/main.css}">
+
+    <link rel="stylesheet" th:href="@{/css/web/grid.css}">
+
+    <link rel="preconnect" th:href="@{https://fonts.googleapis.com}">
+    <link rel="preconnect" th:href="@{https://fonts.gstatic.com}" crossorigin>
+    <link th:href="@{https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap}" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/fonts/fontawesome-free-6.6.0-web/css/all.min.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Document</title>
+</head>
+<body>
+
+    <div layout:fragment="content" class="main-content">
+        <div class="row">
+            <div class="col l-8">
+                <form action="nguoi-dung" class="main-content-header-with-search" method="get">
+                    <i class="main-content-header-menu-open-icon fa-solid fa-bars"></i>
+                    <input class="main-content-header-search-input" placeholder="Search here..." type="text" name="search" th:value="${search}">
+                    <button class="main-content-header-search-button" type="submit">
+                        <i class="main-content-header-search-icon fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </form>
+            </div>
+            <div class="col l-4">
+                <div class="main-content-header-nav">
+                    <ul class="main-content-header-nav-list">
+                        <li class="main-content-header-nav-item active">
+                            <i class="main-content-header-nav-icon fa-regular fa-bell "></i>
+                        </li>
+                        <li class="main-content-header-nav-item">
+                            <div class="main-content-header-user-avartar" style="background-image: url(/assets/img/user.jpg);"></div>
+                            <i class="main-content-header-nav-icon fa-solid fa-chevron-down"></i>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="app-content-loaded">
+            <div class="row">
+                <div class="add-new-record-button-wrapper col l-12">
+                    <a th:href="@{them-nguoi-dung}" class="add-new-record-button">
+                        <i class="add-new-record-button-icon fa-solid fa-plus"></i>
+                    </a>
+                </div>
+
+            </div>
+
+
+            <div class="row">
+
+                <div class="main-content-table-wrapper">
+                    <table class="main-content-table">
+                        <tr>
+                            <th>Mã </th>
+                            <th>Tên đầy đủ</th>
+                            <th>Email</th>
+                            <th>Tình trạng</th>
+                            <th>Thao tác</th>
+                        </tr>
+                        <tr th:each="user : ${users}">
+                            <td>
+                                <p class="main-content-table-text" th:text="${user.userId}"></p>
+                            </td>
+                            <td>
+                                <p class="main-content-table-text" th:text="${user.username}"></p>
+                            </td>
+                            <td>
+                                <p class="main-content-table-text" th:text="${user.email}"></p>
+                            </td>
+                            <td>
+                                <p class="main-content-table-text" th:text="${user.active == true ? 'Hoạt động' : 'Bị khóa'}"></p>
+                            </td>
+                            <td class="table-action-button-wrapper">
+                                <a class="table-action-button table-action-button--show"
+                                     th:href="'xem-chi-tiet-nguoi-dung?currentPage=' + ${currentPage} + '&userId=' + ${user.userId}">
+                                    <i class="fa-solid fa-circle-info"></i>
+                                </a>
+                                <a class="table-action-button table-action-button--change"
+                                    th:href="'sua-thong-tin-nguoi-dung?currentPage=' + ${currentPage} + '&userId=' + ${user.userId}">
+                                    <i class="fa-solid fa-pen"></i>
+                                </a>
+                                <div
+                                        class="table-action-button table-action-button--delete"
+                                        th:data-url="'khoa-tai-khoan-nguoi-dung?currentPage=' + ${currentPage} + '&userId=' + ${user.userId}"
+                                        th:data-message="${user.active == true ? 'Bạn có chắc chắn muốn khóa tài khoản này?' : 'Bạn có chắc chắn muốn mở khóa tài khoản này?'}"
+                                        onclick="handleDelete(this)">
+                                    <i class="fa-solid fa-lock" th:if="${user.active == true }"></i>
+                                    <i class="fa-solid fa-unlock" th:if="${user.active == false }"></i>
+                                </div>
+
+
+                            </td>
+                        </tr>
+
+
+
+                    </table>
+                    <div class="app-main-navigate" th:if="${users.size() > 0}">
+                        <ul  class="app-main-navigate-list">
+                            <li th:if="${currentPage > 1}" class="app-main-navigate-item">
+
+                                <button  class="app-main-navigate-item-btn"
+                                         th:value="@{'/admin/load-nguoi-dung?pageNo=' + ${currentPage -1}}">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </button>
+                            </li>
+
+
+                            <li th:classappend="${currentPage} == ${i} ? 'active' : ' '"
+                                th:each="i : ${#numbers.sequence(1,pageNum)}" class="app-main-navigate-item">
+                                <button class="app-main-navigate-item-btn"
+                                        th:value="@{'/admin/load-nguoi-dung?pageNo=' + ${i}}"
+                                >[[${i}]]</button>
+
+                            </li>
+
+                            <li th:if="${currentPage <  pageNum} " class="app-main-navigate-item">
+                                <button class="app-main-navigate-item-btn"
+                                        th:value="@{'/admin/load-nguoi-dung?pageNo=' + ${currentPage +1}}">
+
+
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </button>
+                            </li>
+
+
+                        </ul>
+                    </div>
+                </div>
+
+
+
+
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+
+</body>
+</html>
+
+<script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js}"></script>
+<script th:src="@{/ajax/admin/user_list.js}"></script>
+<script>
+
+    function handleDelete(element) {
+        const url = element.getAttribute('data-url');
+        const message = element.getAttribute('data-message');
+        if (confirm(message)) {
+            window.location.href = url;
+        }
+    }
+    document.addEventListener('DOMContentLoaded', function () {
+        let sectionCount = 1;
+
+        // Thêm chuyên mục
+        document.getElementById('add-section').addEventListener('click', function () {
+            sectionCount++;
+            const sectionContainer = document.createElement('div');
+            sectionContainer.className = 'description-section';
+            sectionContainer.innerHTML = `
+                <div class="form-group">
+                    <label for="sectionTitle${sectionCount}">Tiêu đề chuyên mục</label>
+                    <input type="text" id="sectionTitle${sectionCount}" name="sectionTitles[]" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="sectionDescription${sectionCount}">Mô tả chuyên mục</label>
+                    <textarea id="sectionDescription${sectionCount}" name="sectionDescriptions[]" class="form-control"></textarea>
+                </div>
+                <button type="button" class="btn btn-danger remove-section">Xóa chuyên mục</button>
+            `;
+            document.getElementById('description-sections').appendChild(sectionContainer);
+        });
+
+        // Xóa chuyên mục
+        document.getElementById('description-sections').addEventListener('click', function (e) {
+            if (e.target.classList.contains('remove-section')) {
+                e.target.parentElement.remove();
+            }
+        });
+    });
+</script>

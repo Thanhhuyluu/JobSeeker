@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/template.html}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Form</title>
+    <link rel="stylesheet" th:href="@{/css/web/base.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/AddJobForm.css}">
+    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css.map}">
+
+    <link rel="stylesheet" th:href="@{/css/web/grid.css}">
+
+    <link rel="preconnect" th:href="@{https://fonts.googleapis.com}">
+    <link rel="preconnect" th:href="@{https://fonts.gstatic.com}" crossorigin>
+    <link th:href="@{https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap}" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/fonts/fontawesome-free-6.6.0-web/css/all.min.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Document</title>
+</head>
+<body>
+
+<div layout:fragment="content" class="main-content">
+    <div class="row">
+        <div class="col l-8">
+            <div class="main-content-header-with-search">
+                <i class="main-content-header-menu-open-icon fa-solid fa-bars"></i>
+
+            </div>
+        </div>
+        <div class="col l-4">
+            <div class="main-content-header-nav">
+                <ul class="main-content-header-nav-list">
+                    <li class="main-content-header-nav-item active">
+                        <i class="main-content-header-nav-icon fa-regular fa-bell "></i>
+                    </li>
+                    <li class="main-content-header-nav-item">
+                        <div class="main-content-header-user-avartar" style="background-image: url(/assets/img/user.jpg);"></div>
+                        <i class="main-content-header-nav-icon fa-solid fa-chevron-down"></i>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="col l-12">
+            <form th:action="@{them-nguoi-dung}" method="POST" class="form" id="form-1">
+                <div class="spacer"></div>
+
+                <div class="form-group">
+                    <label for="fullname" class="form-label">Tên đầy đủ</label>
+                    <input id="fullname" name="fullname" type="text" placeholder="VD: Thanh Khiêm" class="form-control">
+                    <span class="form-message"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="email" class="form-label">Email</label>
+                    <input id="email" name="email" type="text" placeholder="VD: email@domain.com" class="form-control">
+                    <span class="form-message"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="password" class="form-label">Mật khẩu</label>
+                    <input id="password" name="password" type="password" placeholder="Nhập mật khẩu" class="form-control">
+                    <span class="form-message"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="password_confirmation" class="form-label">Nhập lại mật khẩu</label>
+                    <input id="password_confirmation" name="password_confirmation" placeholder="Nhập lại mật khẩu" type="password" class="form-control">
+                    <span class="form-message"></span>
+                </div>
+                <div class="form-group" th:if="${error != null}" >
+
+                    <span class="form-message" th:text="${error}" style="color: red; font-size: 1.4rem;"></span>
+                </div>
+                <button class="form-submit">Thêm</button>
+                <script th:src="@{/js/web/login_register.js}" onload="console.log('Validator script loaded');"></script>
+
+            </form>
+
+            <script th:src="@{/js/web/login_register.js}" onload="console.log('Validator script loaded');"></script>
+            <script>
+
+
+
+                document.addEventListener('DOMContentLoaded', function () {
+                    // Mong muốn của chúng ta
+                    Validator({
+                        form: '#form-1',
+                        formGroupSelector: '.form-group',
+                        errorSelector: '.form-message',
+                        rules: [
+                            Validator.isRequired('#fullname', 'Vui lòng nhập tên đầy đủ của bạn'),
+                            Validator.isEmail('#email'),
+                            Validator.minLength('#password', 6),
+                            Validator.isRequired('#password_confirmation'),
+                            Validator.isConfirmed('#password_confirmation', function () {
+                                return document.querySelector('#form-1 #password').value;
+                            }, 'Mật khẩu nhập lại không chính xác')
+                        ],
+                        onSubmit: function (data) {
+                            document.querySelector('#form-1').submit();
+                        }
+
+                    });
+
+
+
+                });
+
+
+
+            </script>
+        </div>
+
+    </div>
+
+
+</div>
+
+</body>
+</html>

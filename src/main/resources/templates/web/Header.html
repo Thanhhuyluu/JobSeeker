@@ -135,7 +135,14 @@
                                     </button>
                                 </form>
                             </li>
-
+                            <li class="header__navbar--main-item-item">
+                                <form th:action="@{/thong-tin-ca-nhan}" method="get">
+                                    <button type="submit" class="header__navbar--main-item-item-link" style="background: none; border: none; color: inherit; cursor: pointer;">
+                                        <i class="header__navbar--main-item-item-icon  fa-solid fa-user"></i>
+                                        Thông tin cá nhân
+                                    </button>
+                                </form>
+                            </li>
                             <li class="header__navbar--main-item-item" sec:authorize="hasRole('ADMIN')">
                                 <a th:href="@{/admin/viec-lam}" class="header__navbar--main-item-item-link">
                                     <i class="header__navbar--main-item-item-icon fa-solid fa-bars-progress"></i>
