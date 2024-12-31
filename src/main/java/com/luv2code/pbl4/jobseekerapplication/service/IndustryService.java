@@ -1,8 +1,10 @@
 package com.luv2code.pbl4.jobseekerapplication.service;
 
+import com.luv2code.pbl4.jobseekerapplication.dto.JobsOfIndustry;
 import com.luv2code.pbl4.jobseekerapplication.entity.Industry;
 import com.luv2code.pbl4.jobseekerapplication.entity.SiteIndustryCode;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface IndustryService {
@@ -18,4 +20,7 @@ public interface IndustryService {
     SiteIndustryCode getIndustryCodeByIndustryIdAndSourceId(int industryId, int sourceId);
 
     SiteIndustryCode findBySiteIndustryCodeAndSourceId(String industryCode, int sourceId);
+
+
+    List<JobsOfIndustry> countJobsOfIndustry(LocalDate dateLimit);
 }

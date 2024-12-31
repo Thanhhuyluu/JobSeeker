@@ -1,7 +1,9 @@
 package com.luv2code.pbl4.jobseekerapplication.controller.admin;
 
 
+import com.luv2code.pbl4.jobseekerapplication.dto.JobsOfIndustry;
 import com.luv2code.pbl4.jobseekerapplication.entity.User;
+import com.luv2code.pbl4.jobseekerapplication.service.IndustryService;
 import com.luv2code.pbl4.jobseekerapplication.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -9,16 +11,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
 public class AdminUserController {
     private final UserService userService;
+    private final IndustryService industryService;
 
     @Autowired
-    public AdminUserController(UserService userService) {
+    public AdminUserController(UserService userService, IndustryService industryService) {
         this.userService = userService;
+        this.industryService = industryService;
     }
 
     @GetMapping("/nguoi-dung")
@@ -213,5 +218,30 @@ public class AdminUserController {
 
 
         return "redirect:/admin/nguoi-dung";
+    }
+
+
+//    @GetMapping("/dashboard")
+//    public String dashboard() {
+//
+//        return "admin/Dashboard";
+//    }
+
+    @GetMapping("/dashboard")
+    public String getDashboard(Model model) {
+        // Dữ liệu cho đồ thị
+        LocalDate sixDaysAgo = LocalDate.now().minusDays(6);
+        List<JobsOfIndustry> jobCounts = industryService.countJobsOfIndustry(sixDaysAgo);
+
+        model.addAttribute("jobCounts", jobCounts);
+        model.addAttribute("mode", "MODE_DASHBOARD");
+
+        return "admin/Dashboard"; // Tên file template (resources/templates/admin/dashboard.html)
+    }
+
+
+    @GetMapping("/thu-thap-dulieu")
+    public String thuThapDuLieu() {
+        return "admin/CrawlPage";
     }
 }

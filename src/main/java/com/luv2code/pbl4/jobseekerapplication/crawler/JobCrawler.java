@@ -35,6 +35,7 @@ public class JobCrawler {
     CompanyService companyService;
     IndustryService industryService;
     LocationService locationService;
+
     @Autowired
     public JobCrawler(JobService jobService, CompanyService companyService, IndustryService industryService, LocationService locationService) {
         this.jobService = jobService;
@@ -44,6 +45,7 @@ public class JobCrawler {
     }
 
     private volatile boolean isPaused = false;
+    private volatile boolean isStopped = false;
 
     public synchronized void pauseCrawl() {
         isPaused = true;
@@ -54,11 +56,34 @@ public class JobCrawler {
         notify();
     }
 
+    public synchronized void stopCrawl() {
+        isStopped = true;
+    }
+
     public synchronized void checkIfPaused() throws InterruptedException {
         while (isPaused) {
             wait();
         }
+        if (isStopped) {
+            throw new InterruptedException("Crawl has been stopped.");
+        }
     }
+
+    public boolean isStopped() {
+        return isStopped;
+    }
+
+    public boolean isPaused() {
+        return isPaused;
+    }
+
+
+
+
+
+
+
+
 
     public void crawl(String url) {
         Job theJob = jobService.findByJobUrl(url);
@@ -136,13 +161,35 @@ public class JobCrawler {
 
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("No experience level found" + " url" + url);
-                return;
+
             }
             Elements boxGeneralGroupInfo = doc.select(".box-general-group-info-value");
 
-            String jobType = boxGeneralGroupInfo.get(2).text();
+            String jobType = "";
 
-            String careerLevel = boxGeneralGroupInfo.get(0).text();
+            try {
+                jobType = boxGeneralGroupInfo.get(2).text();
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("Lỗi: jobType Chỉ số vượt quá phạm vi của danh sách tại url:" + url);
+                jobType = "Chưa cập nhật";
+            } catch (Exception e) {
+
+                System.out.println("Lỗi không xác định: " + e.getMessage());
+                return;
+            }
+            String careerLevel = "";
+            try {
+                careerLevel = boxGeneralGroupInfo.get(0).text();
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("Lỗi: careerLevel Chỉ số vượt quá phạm vi của danh sách tại url:" + url);
+                careerLevel = "Chưa cập nhật";
+            } catch (Exception e) {
+
+                System.out.println("Lỗi không xác định: " + e.getMessage());
+                return;
+            }
+
+
 
             LocalDate postedDate = LocalDate.now();
 
@@ -272,8 +319,6 @@ public class JobCrawler {
 
 
              jobService.save(job);
-
-
 
 
         } catch (IOException ex1){

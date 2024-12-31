@@ -133,7 +133,6 @@ public class SearchRepository {
 
         if (!jobTypes.isEmpty()) {
 
-            System.out.println("ozoioi");
             for (int i = 0; i < jobTypes.size(); i++) {
                 selectQuery.setParameter(paramIndex, jobTypes.get(i));
                 paramIndex++;

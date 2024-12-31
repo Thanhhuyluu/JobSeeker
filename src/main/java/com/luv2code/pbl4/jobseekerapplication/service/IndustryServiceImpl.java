@@ -2,11 +2,13 @@ package com.luv2code.pbl4.jobseekerapplication.service;
 
 import com.luv2code.pbl4.jobseekerapplication.dao.IndustryRepository;
 import com.luv2code.pbl4.jobseekerapplication.dao.SiteIndustryCodeRepository;
+import com.luv2code.pbl4.jobseekerapplication.dto.JobsOfIndustry;
 import com.luv2code.pbl4.jobseekerapplication.entity.Industry;
 import com.luv2code.pbl4.jobseekerapplication.entity.SiteIndustryCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -61,5 +63,10 @@ public class IndustryServiceImpl implements IndustryService {
     @Override
     public SiteIndustryCode findBySiteIndustryCodeAndSourceId(String industryCode, int sourceId) {
         return industryCodeRepository.findBySiteIndustryCodeAndSourceId(industryCode,sourceId);
+    }
+
+    @Override
+    public List<JobsOfIndustry> countJobsOfIndustry(LocalDate dateLimit) {
+        return industryRepository.countJobsOfIndustry(dateLimit);
     }
 }

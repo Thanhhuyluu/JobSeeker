@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/template.html}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        button {
+            background-color: #4CAF50; /* Green */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 8px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        button:active {
+            background-color: #3e8e41;
+            box-shadow: 0 5px #666;
+            transform: translateY(4px);
+        }
+        .main-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+    </style>
+</head>
+<body>
+<div class="main-content" layout:fragment="content">
+
+    <div>
+        <button onclick="startCrawl()">Start Crawl</button>
+        <button onclick="pauseCrawl()">Pause Crawl</button>
+        <button onclick="stopCrawl()">Stop Crawl</button>
+    </div>
+    <script>
+        function startCrawl() {
+            fetch(@{/admin/crawl/start}, { method: 'POST' });
+        }
+
+        function pauseCrawl() {
+            fetch(@{/admin/crawl/pause}, { method: 'POST' });
+        }
+
+        function stopCrawl() {
+            fetch(@{/admin/crawl/stop}, { method: 'POST' });
+        }
+    </script>
+
+
+
+
+</div>
+</body>
+</html>

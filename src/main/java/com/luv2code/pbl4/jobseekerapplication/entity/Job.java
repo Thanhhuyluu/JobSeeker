@@ -53,7 +53,7 @@ public class Job {
 
     @ManyToMany(fetch = FetchType.LAZY,
                 cascade = {CascadeType.DETACH,CascadeType.MERGE,
-                        CascadeType.PERSIST,CascadeType.REFRESH})
+                        CascadeType.REFRESH})
     @JoinTable(
             name="job_industries",
             joinColumns = @JoinColumn(name="job_id"),
@@ -65,7 +65,7 @@ public class Job {
 
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {CascadeType.DETACH,CascadeType.MERGE,
-                    CascadeType.PERSIST,CascadeType.REFRESH})
+                    CascadeType.REFRESH})
     @JoinTable(
             name="job_locations",
             joinColumns = @JoinColumn(name="job_id"),

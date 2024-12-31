@@ -19,8 +19,8 @@
         <div class="left-bar-logo" style="background-image: url('/img/jobseekerwhite.png');"></div>
 
         <ul class="left-bar-list">
-            <li class="left-bar-item">
-                <a href="#" class="left-bar-item-link">
+            <li class="left-bar-item" th:class="'left-bar-item ' +  ${mode=='MODE_DASHBOARD' ? 'active' : ''}">
+                <a th:href="@{dashboard}" class="left-bar-item-link">
                     <i class="left-bar-item-link-icon fa-solid fa-house"></i>
                     <p class="left-bar-item-link-text">Dashboard</p>
                 </a>
@@ -38,9 +38,9 @@
                 </a>
             </li>
             <li class="left-bar-item">
-                <a href="#" class="left-bar-item-link">
+                <a th:href="@{thu-thap-dulieu}" class="left-bar-item-link">
                     <i class="left-bar-item-link-icon fa-solid fa-building"></i>
-                    <p class="left-bar-item-link-text">Companies</p>
+                    <p class="left-bar-item-link-text">Crawler</p>
                 </a>
             </li>
             <li class="left-bar-item">
